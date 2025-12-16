@@ -1,0 +1,35 @@
+{
+  "sorted_middleware": [],
+  "middleware": {
+    "/": {
+      "files": [
+        "server/edge/chunks/_gemini_antigravity_scratch_christmas_chef_event_a594cbd3._.js",
+        "server/edge/chunks/c7a5d_@supabase_realtime-js_dist_module_7a0587be._.js",
+        "server/edge/chunks/c7a5d_@supabase_storage-js_dist_module_92d4f21e._.js",
+        "server/edge/chunks/c7a5d_@supabase_auth-js_dist_module_9259bca3._.js",
+        "server/edge/chunks/c7a5d_ac5498b6._.js",
+        "server/edge/chunks/[root-of-the-server]__99956b36._.js",
+        "server/edge/chunks/7d37f_scratch_christmas_chef_event_Github repo reference_edge-wrapper_00be4f38.js"
+      ],
+      "name": "middleware",
+      "page": "/",
+      "matchers": [
+        {
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/admin/:path*{(\\\\.json)}?",
+          "originalSource": "/admin/:path*"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "oubdIWccB9Sh+KLUucQXKcg/JeGLr2s/kkJsSkmbiPQ=",
+        "__NEXT_PREVIEW_MODE_ID": "3b7c7b00b22d51c56e17c1038fa92d41",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "a57b5151fef24038bcee6161902f24b0cec2d0f304495576c1bcc935515c6996",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "266c649f52112962e40707d47d85916442ebc37541a4b7dea2467b4b6cd07065"
+      }
+    }
+  },
+  "instrumentation": null,
+  "functions": {}
+}
