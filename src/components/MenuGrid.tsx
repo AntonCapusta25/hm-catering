@@ -24,6 +24,9 @@ export default function MenuGrid() {
                         <p className="text-light max-w-md">
                             Discover our curated Christmas menus from top chefs. Click a card to view full details.
                         </p>
+                        <p className="mt-4 text-orange font-heading text-xl md:text-2xl font-bold tracking-wide">
+                            Customization
+                        </p>
                     </div>
                     <div className="flex gap-2">
                         <button className="menu-prev w-10 h-10 rounded-full border border-dark/20 flex items-center justify-center hover:bg-dark hover:text-white transition-colors">

@@ -7,7 +7,7 @@ const steps = [
     {
         number: "01",
         title: "Select Menu",
-        description: "Browse our curated Christmas menus.",
+        description: "Browse curated menus. Customization available.",
         image: "/images/step-select.png",
     },
     {

@@ -55,7 +55,7 @@ export const menus: Menu[] = [
         id: "christmas-box-moms-magic",
         title: "Mom's Magic Christmas Box",
         chef: "Mom's Magic",
-        price: "€20 - €30 p.p.",
+        price: "Price on Request",
         image: "/images/menu-south-indian.png",
         badge: "Authentic",
         description: "A heartwarming Christmas feast with authentic flavors. Choose from Veg, Non-Veg, or Premium options.",
