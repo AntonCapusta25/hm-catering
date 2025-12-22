@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import CtaOverlay from "@/components/CtaOverlay";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -60,6 +61,7 @@ export default function RootLayout({
         </noscript>
         {/* End Meta Pixel Code */}
         {children}
+        <CtaOverlay />
       </body>
     </html>
   );

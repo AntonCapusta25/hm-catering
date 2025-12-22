@@ -24,12 +24,13 @@ export default function CtaOverlay() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
           transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
-          className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 w-[90vw] md:w-[450px] max-w-lg"
+          className="fixed bottom-4 right-4 md:bottom-8 md:right-8 w-[90vw] md:w-[450px] max-w-lg"
+          style={{ zIndex: 999999 }} // Force highest z-index via inline style
         >
           <div className="relative group perspective-1000">
-             {/* Glassmorphism Card Container */}
+            {/* Glassmorphism Card Container */}
             <div className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl transition-all duration-300 hover:shadow-primary/20">
-              
+
               {/* Close Button */}
               <button
                 onClick={() => setIsVisible(false)}
@@ -46,7 +47,7 @@ export default function CtaOverlay() {
               <div className="relative flex flex-col">
                 {/* Image Section - Main visual hook */}
                 <div className="relative w-full aspect-[16/9] overflow-hidden">
-                   <Image
+                  <Image
                     src="/images/cta-overlay.png"
                     alt="Hire a Private Chef - Experience luxury dining"
                     fill
@@ -56,7 +57,7 @@ export default function CtaOverlay() {
                   />
                   {/* Overlay Gradient for text readability if needed, though image seems to have text */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
-                  
+
                   {/* Optional Text Overlay if image doesn't say it all, but image has text so keeping this minimal or hidden */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                     <p className="text-sm font-medium tracking-wider uppercase text-yellow-300 mb-1 drop-shadow-md">Limited Availability</p>
@@ -70,17 +71,14 @@ export default function CtaOverlay() {
                     <p className="text-gray-800 font-semibold text-sm">Book your private chef today.</p>
                     <p className="text-gray-500 text-xs mt-0.5">Unforgettable experiences at home.</p>
                   </div>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-5 py-2.5 bg-black text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all whitespace-nowrap"
-                    onClick={() => {
-                       // Scroll to booking form or handle navigation
-                       document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
+                  <a
+                    href="https://zol4dc90rf4.typeform.com/to/MUaBZhSV"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 bg-black text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all whitespace-nowrap inline-block transform hover:scale-105 active:scale-95"
                   >
                     Book Now
-                  </motion.button>
+                  </a>
                 </div>
               </div>
             </div>
