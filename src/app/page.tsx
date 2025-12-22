@@ -6,7 +6,7 @@ import ChefCarousel from "@/components/ChefCarousel";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HowItWorks from "@/components/HowItWorks";
-import CtaOverlay from "@/components/CtaOverlay";
+
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
       <HowItWorks />
       <BookingForm />
 
-      <CtaOverlay />
+
       <Footer />
     </main>
   );
