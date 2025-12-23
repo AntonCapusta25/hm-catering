@@ -76,14 +76,45 @@ function BookingFormContent() {
         }, 250);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
-        setTimeout(() => {
+
+        const formData = new FormData(e.currentTarget);
+        const bookingData = {
+            name: formData.get('name') as string,
+            email: formData.get('email') as string,
+            selectedMenu: selectedMenuId || null,
+            selectedChef: selectedChefName || null,
+            cuisine: selectedCuisine || null,
+            eventDate: formData.get('eventDate') as string || null,
+            guests: formData.get('guests') as string || null,
+            message: formData.get('message') as string || null,
+        };
+
+        try {
+            const response = await fetch('/api/booking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bookingData),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to submit booking');
+            }
+
             setIsSubmitting(false);
             setIsSuccess(true);
             triggerConfetti();
-        }, 1500);
+        } catch (error: any) {
+            console.error('Booking error:', error);
+            setIsSubmitting(false);
+            alert(error.message || 'Failed to submit booking. Please try again.');
+        }
     };
 
     if (isSuccess) {
@@ -220,6 +251,7 @@ function BookingFormContent() {
                                                 <select
                                                     value={selectedChefName}
                                                     onChange={(e) => setSelectedChefName(e.target.value)}
+                                                    required
                                                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-cream focus:outline-none focus:border-[#F27D42]/50 focus:bg-white/10 transition-all appearance-none cursor-pointer"
                                                 >
                                                     <option className="bg-[#2D2420]" value="">Any Chef</option>
@@ -254,13 +286,15 @@ function BookingFormContent() {
                                     <div className="relative group">
                                         <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#F27D42] transition-colors" size={18} />
                                         <input
+                                            name="eventDate"
                                             type="date"
+                                            required
                                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42]/50 focus:bg-white/10 transition-all font-sans"
                                         />
                                     </div>
                                     <div className="relative group">
                                         <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#F27D42] transition-colors" size={18} />
-                                        <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-cream focus:outline-none focus:border-[#F27D42]/50 focus:bg-white/10 transition-all appearance-none cursor-pointer">
+                                        <select name="guests" required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-cream focus:outline-none focus:border-[#F27D42]/50 focus:bg-white/10 transition-all appearance-none cursor-pointer">
                                             <option className="bg-[#2D2420]">2 Guests</option>
                                             <option className="bg-[#2D2420]">3-5 Guests</option>
                                             <option className="bg-[#2D2420]">6-10 Guests</option>
@@ -273,15 +307,19 @@ function BookingFormContent() {
                             <div className="space-y-4">
                                 <div className="relative group">
                                     <input
+                                        name="name"
                                         type="text"
                                         placeholder="Your Name"
+                                        required
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42]/50 focus:bg-white/10 transition-all"
                                     />
                                 </div>
                                 <div className="relative group">
                                     <input
+                                        name="email"
                                         type="email"
                                         placeholder="Email Address"
+                                        required
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42]/50 focus:bg-white/10 transition-all"
                                     />
                                 </div>
