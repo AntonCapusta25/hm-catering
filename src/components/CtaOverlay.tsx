@@ -72,10 +72,12 @@ export default function CtaOverlay() {
                     <p className="text-gray-500 text-xs mt-0.5">Unforgettable experiences at home.</p>
                   </div>
                   <a
-                    href="https://zol4dc90rf4.typeform.com/to/MUaBZhSV"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-5 py-2.5 bg-black text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all whitespace-nowrap inline-block transform hover:scale-105 active:scale-95"
+                    href="#booking"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="px-5 py-2.5 bg-black text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all whitespace-nowrap inline-block transform hover:scale-105 active:scale-95 cursor-pointer"
                   >
                     Book Now
                   </a>

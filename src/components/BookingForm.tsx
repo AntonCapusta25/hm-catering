@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams } from "next/navigation";
-import { Calendar, Users, Utensils, ArrowRight, Star, Sparkles, ChefHat, BookOpen } from "lucide-react";
+import { Calendar, Users, Utensils, ArrowRight, Star, Sparkles, ChefHat, BookOpen, CheckCircle2 } from "lucide-react";
 import { menus, chefs } from "@/lib/data";
+import confetti from "canvas-confetti";
 
 function BookingFormContent() {
-    const typeformUrl = 'https://zol4dc90rf4.typeform.com/to/MUaBZhSV';
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
     const searchParams = useSearchParams();
 
     // Form State
@@ -47,14 +48,80 @@ function BookingFormContent() {
         }
     };
 
+    const triggerConfetti = () => {
+        const duration = 3 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+
+        const interval: any = setInterval(function () {
+            const timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            const particleCount = 50 * (timeLeft / duration);
+            confetti({
+                ...defaults,
+                particleCount,
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+            });
+            confetti({
+                ...defaults,
+                particleCount,
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+            });
+        }, 250);
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
         setTimeout(() => {
-            window.open(typeformUrl, '_blank');
             setIsSubmitting(false);
+            setIsSuccess(true);
+            triggerConfetti();
         }, 1500);
     };
+
+    if (isSuccess) {
+        return (
+            <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="w-full max-w-md mx-auto text-center"
+            >
+                <div className="relative p-1 rounded-3xl bg-gradient-to-br from-white/20 to-white/0 shadow-2xl backdrop-blur-xl">
+                    <div className="bg-[#2D2420]/95 rounded-[22px] p-12 border border-white/10 flex flex-col items-center">
+                        <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                            className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mb-6 text-green-500"
+                        >
+                            <CheckCircle2 size={48} />
+                        </motion.div>
+
+                        <h3 className="text-3xl font-heading font-bold text-cream mb-4">You're Booked!</h3>
+                        <p className="text-gray-400 mb-8 max-w-xs mx-auto">
+                            Thank you for your request. Our chefs are sharpening their knives and will contact you shortly to finalize the menu!
+                        </p>
+
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => { setIsSuccess(false); setSelectedMenuId(""); setSelectedChefName(""); setSelectedCuisine(""); }}
+                            className="px-8 py-3 bg-[#F27D42] text-white rounded-xl font-bold hover:bg-[#d66a35] transition-colors"
+                        >
+                            Book Another
+                        </motion.button>
+                    </div>
+                </div>
+            </motion.div>
+        );
+    }
 
     return (
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
@@ -231,7 +298,7 @@ function BookingFormContent() {
                                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                     ) : (
                                         <>
-                                            <span>Check Availability</span>
+                                            <span>Book Now</span>
                                             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                         </>
                                     )}
@@ -241,7 +308,7 @@ function BookingFormContent() {
                             </motion.button>
 
                             <p className="text-center text-xs text-gray-500 mt-4">
-                                No payment required instantly. <br />You'll be redirected to finalize details.
+                                No payment required instantly. <br />You'll be contacted to finalize details.
                             </p>
                         </form>
                     </div>
