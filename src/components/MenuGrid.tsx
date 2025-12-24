@@ -19,13 +19,13 @@ export default function MenuGrid() {
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-5">
                     <div>
                         <h2 className="text-4xl md:text-5xl font-heading font-bold text-dark mb-4">
-                            Menu Boxes
+                            Catering Packages
                         </h2>
                         <p className="text-light max-w-md">
-                            Discover our curated Christmas menus from top chefs. Click a card to view full details.
+                            Explore our diverse catering options from world-class chefs. Each package can be customized to your needs.
                         </p>
                         <p className="mt-4 text-orange font-heading text-xl md:text-2xl font-bold tracking-wide">
-                            Customization
+                            Fully Customizable
                         </p>
                     </div>
                     <div className="flex gap-2">

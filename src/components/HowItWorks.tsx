@@ -6,20 +6,20 @@ import Image from "next/image";
 const steps = [
     {
         number: "01",
-        title: "Select Menu",
-        description: "Browse curated menus. Customization available.",
+        title: "Choose Your Menu",
+        description: "Browse our curated catering packages or request custom options.",
         image: "/images/step-select.png",
     },
     {
         number: "02",
-        title: "Book Chef",
-        description: "Choose your date and guest count.",
+        title: "Confirm Details",
+        description: "Select your date, guest count, and delivery preferences.",
         image: "/images/step-book.png",
     },
     {
         number: "03",
-        title: "Enjoy!",
-        description: "We handle the shopping, cooking & cleaning.",
+        title: "We Deliver Excellence",
+        description: "Professional setup, premium service, and seamless cleanup.",
         image: "/images/step-enjoy.png",
     },
 ];

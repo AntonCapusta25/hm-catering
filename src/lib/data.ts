@@ -39,13 +39,13 @@ export const menus: Menu[] = [
         price: "Price on Request",
         image: "/images/menu-brut.png",
         badge: "Private Dining",
-        description: "An intimate and exclusive Christmas dining experience brought to your home by Costanza.",
+        description: "An intimate and exclusive dining experience for your special event, crafted by Costanza.",
         items: [
             {
-                name: "Chef's Signature Christmas Menu",
-                description: "A bespoke culinary journey tailored to your preferences.",
+                name: "Chef's Signature Catering Menu",
+                description: "A bespoke culinary journey tailored to your event's preferences.",
                 ingredients: [
-                    { name: "Seasonal Specialties", description: "Fresh winter ingredients." },
+                    { name: "Seasonal Specialties", description: "Fresh seasonal ingredients." },
                     { name: "Personalized Service", description: "Full table service included." }
                 ]
             }
@@ -53,12 +53,12 @@ export const menus: Menu[] = [
     },
     {
         id: "christmas-box-moms-magic",
-        title: "Mom's Magic Christmas Box",
+        title: "Mom's Magic Catering Package",
         chef: "Mom's Magic",
         price: "Price on Request",
         image: "/images/menu-south-indian.png",
         badge: "Authentic",
-        description: "A heartwarming Christmas feast with authentic flavors. Choose from Veg, Non-Veg, or Premium options.",
+        description: "A heartwarming feast with authentic flavors perfect for any celebration. Choose from Veg, Non-Veg, or Premium options.",
         items: [
             {
                 name: "Appetizers",
@@ -90,16 +90,16 @@ export const menus: Menu[] = [
     },
     {
         id: "christmas-box-la-esquina",
-        title: "La Esquina Dominicana Box",
+        title: "La Esquina Dominicana Package",
         chef: "La Esquina Dominicana",
         price: "Price on Request",
         image: "/images/menu-classic.png",
         badge: "Caribbean",
-        description: "Celebrate Christmas with the vibrant flavors of the Dominican Republic.",
+        description: "Celebrate your event with the vibrant flavors of the Dominican Republic.",
         items: [
             {
                 name: "The Dominican Feast",
-                description: "A traditional holiday spread.",
+                description: "A traditional festive spread.",
                 ingredients: [
                     { name: "Moro", description: "Classic rice and beans." },
                     { name: "Russian Salad", description: "Creamy potato salad with vegetables." },
@@ -111,31 +111,31 @@ export const menus: Menu[] = [
     },
     {
         id: "christmas-box-sprinkle-swirl",
-        title: "Sprinkle and Swirl Box",
+        title: "Sprinkle and Swirl Dessert Package",
         chef: "Sprinkle and Swirl",
         price: "Price on Request",
         image: "/images/menu-dessert.png",
         badge: "Sweets",
-        description: "Delightful sweet treats and baked goods to brighten your holiday season.",
+        description: "Delightful sweet treats and baked goods to elevate any celebration.",
         items: [
             {
-                name: "Holiday Treats",
+                name: "Celebration Treats",
                 description: "Assorted baked goods.",
                 ingredients: [
-                    { name: "Custom Cakes", description: "Festive designs." },
-                    { name: "Cupcakes", description: "Holiday flavors." }
+                    { name: "Custom Cakes", description: "Personalized designs." },
+                    { name: "Cupcakes", description: "Gourmet flavors." }
                 ]
             }
         ]
     },
     {
         id: "christmas-box-bottega",
-        title: "Bottega Christmas Box",
+        title: "Bottega Gourmet Package",
         chef: "Bottega",
         price: "Price on Request",
         image: "/images/menu-ron.png",
         badge: "Gourmet",
-        description: "Italian gourmet selection for a sophisticated Christmas celebration.",
+        description: "Italian gourmet selection for sophisticated events and celebrations.",
         items: [
             {
                 name: "Italian Specialties",
@@ -147,26 +147,26 @@ export const menus: Menu[] = [
             }
         ]
     },
-    // --- Sold Out / Fully Booked Menus below ---
+    // --- Sold Out / Fully Booked Packages below ---
     {
         id: "christmas-4-course",
-        title: "Christmas 4-course",
+        title: "Classic 4-Course Package",
         chef: "Bergpaviljoen Bistronomique",
         price: "€64,50 p.p.",
         image: "/images/menu-classic.png",
         badge: "Classic",
-        description: "A classic 4-course culinary journey designed to bring the restaurant experience to your dining table.",
+        description: "A classic 4-course culinary journey designed to bring the restaurant experience to your event.",
         items: [],
         soldOut: true
     },
     {
         id: "brut172",
-        title: "Brut172 Christmas",
+        title: "Brut172 Exclusive Package",
         chef: "Hans Van Wolde",
         price: "€99,50 p.p.",
         image: "/images/menu-brut.png",
         badge: "Exclusive",
-        description: "An exclusive menu curated by Hans Van Wolde, focusing on bold flavors and exquisite presentation.",
+        description: "An exclusive catering package curated by Hans Van Wolde, focusing on bold flavors and exquisite presentation.",
         items: [],
         soldOut: true
     },
@@ -183,12 +183,12 @@ export const menus: Menu[] = [
     },
     {
         id: "christmas-veggie",
-        title: "Vegetarian Festive Feast",
+        title: "Vegetarian Celebration Package",
         chef: "Green Leaf Kitchen",
         price: "€55,00 p.p.",
         image: "/images/menu-veggie.png",
         badge: "Vegetarian",
-        description: "A vibrant and hearty plant-based menu that celebrates winter produce.",
+        description: "A vibrant and hearty plant-based menu that celebrates seasonal produce.",
         items: [],
         soldOut: true
     },
@@ -205,12 +205,12 @@ export const menus: Menu[] = [
     },
     {
         id: "asian-fusion",
-        title: "Asian Christmas Fusion",
+        title: "Asian Fusion Package",
         chef: "Kenji Moto",
         price: "€75,00 p.p.",
         image: "/images/menu-fusion.png",
         badge: "Fusion",
-        description: "East meets West in this spectacular fusion menu. Unexpected flavors for a memorable night.",
+        description: "East meets West in this spectacular fusion menu. Unexpected flavors for a memorable event.",
         items: [],
         soldOut: true
     }
@@ -219,43 +219,43 @@ export const menus: Menu[] = [
 export const occasions: Occasion[] = [
     {
         id: "kerst",
-        title: "Christmas Specials",
+        title: "Holiday Events",
         subtitle: "Seasonal",
         image: "/images/occasion-christmas.png",
-        description: "Celebrate the magic of Christmas with our specially curated holiday menus. From traditional roasts to modern gourmet experiences.",
-        features: ["Traditional Decor styling included", "Wine pairing options", "Kid-friendly alternatives"]
+        description: "Celebrate the magic of the holidays with our specially curated seasonal menus. From traditional favorites to modern gourmet experiences.",
+        features: ["Festive presentation styling", "Wine pairing options", "Dietary alternatives available"]
     },
     {
         id: "shared",
-        title: "Shared Dining",
+        title: "Family-Style Dining",
         subtitle: "Social",
         image: "/images/occasion-shared.png",
-        description: "Food is best when shared. Enjoy large platters and family-style serving for a warm, communal dining experience.",
+        description: "Food is best when shared. Enjoy large platters and family-style serving for a warm, communal dining experience at your event.",
         features: ["Large serving platters", "Interactive courses", "Casual atmosphere"]
     },
     {
         id: "newyear",
-        title: "New Year's Eve",
+        title: "Celebrations & Parties",
         subtitle: "Celebration",
         image: "/images/occasion-newyear.png",
-        description: "Ring in the New Year with sparkles and culinary fireworks. A luxurious menu to countdown to midnight.",
-        features: ["Champagne toast included", "Late-night snacks", "Festive dessert finale"]
+        description: "Make your celebration unforgettable with sparkles and culinary excellence. A luxurious menu for any special occasion.",
+        features: ["Champagne service available", "Late-night snacks", "Festive dessert finale"]
     },
     {
         id: "corporate",
         title: "Corporate Events",
         subtitle: "Professional",
         image: "/images/occasion-corporate.png",
-        description: "Impress your colleagues and clients with a high-end culinary experience. Perfect for year-end parties.",
+        description: "Impress your colleagues and clients with a high-end culinary experience. Perfect for business meetings, conferences, and corporate gatherings.",
         features: ["Branded menus available", "Professional service staff", "Dietary requirement handling"]
     },
     {
         id: "romantic",
-        title: "Romantic Dinner",
+        title: "Private Dining",
         subtitle: "Intimate",
         image: "/images/occasion-romantic.png",
-        description: "Waitlists? No thank you. A private chef ensures the most romantic setting possible: your own home.",
-        features: ["Candlelit setup", "Premium wine selection", "Discreet service"]
+        description: "Create the perfect intimate setting with our private dining service. Exceptional food in the comfort of your chosen venue.",
+        features: ["Elegant setup", "Premium beverage selection", "Discreet service"]
     }
 ];
 
@@ -307,32 +307,32 @@ export interface DoodleStory {
 
 export const doodleStories = [
     {
-        title: "The Seed of Quality",
-        description: "It all starts with a seed. We partner with local farmers who treat their crops like gold. No nasties, just pure, sun-soaked goodness grown right here.",
+        title: "Premium Ingredients",
+        description: "Quality starts at the source. We partner with trusted suppliers and local farmers who share our commitment to excellence. Every ingredient is carefully selected for your event.",
         image: "/images/doodles/seed.svg",
         bgColor: "bg-green-100"
     },
     {
-        title: "The Chef's Canvas",
-        description: "Our chefs aren't just cooks; they're artists. They take these fresh ingredients and sketch out flavors that dance on your palate. It's culinary wizardry in motion.",
+        title: "Expert Preparation",
+        description: "Our professional chefs bring years of culinary expertise to every event. They transform premium ingredients into extraordinary dishes that wow your guests.",
         image: "/images/doodles/chef-art.svg",
         bgColor: "bg-orange-100"
     },
     {
-        title: "Your Flavor Profile",
-        description: "We don't do cookie-cutter. We listen to your cravings, your quirks, and your dreams to craft a menu that feels like it was made just for you. Because it was.",
+        title: "Tailored to You",
+        description: "Every event is unique. We work closely with you to understand your vision, preferences, and requirements to craft a menu that perfectly matches your occasion.",
         image: "/images/doodles/profile.svg",
         bgColor: "bg-blue-100"
     },
     {
-        title: "Magic in the Making",
-        description: "Watch as your kitchen transforms. The sizzle, the aroma, the energy—it's a live performance where the grand finale is a meal you'll never forget.",
+        title: "Flawless Execution",
+        description: "From setup to service to cleanup, we handle every detail with precision. Your event runs smoothly while you focus on what matters—your guests.",
         image: "/images/doodles/magic.svg",
         bgColor: "bg-purple-100"
     },
     {
-        title: "Memories Served",
-        description: "The best part? It's not just about the food. It's about the laughter, the stories shared, and the memories created around the table. We just set the stage.",
+        title: "Memorable Moments",
+        description: "Great catering creates lasting impressions. It's about the conversations sparked, the compliments shared, and the memories made around exceptional food.",
         image: "/images/doodles/memories.svg",
         bgColor: "bg-yellow-100"
     }

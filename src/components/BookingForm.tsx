@@ -137,7 +137,7 @@ function BookingFormContent() {
 
                         <h3 className="text-3xl font-heading font-bold text-cream mb-4">You're Booked!</h3>
                         <p className="text-gray-400 mb-8 max-w-xs mx-auto">
-                            Thank you for your request. Our chefs are sharpening their knives and will contact you shortly to finalize the menu!
+                            Thank you for your request. Our catering team will contact you shortly to finalize your event details!
                         </p>
 
                         <motion.button
@@ -177,12 +177,12 @@ function BookingFormContent() {
                 <h2 className="text-5xl lg:text-7xl font-heading font-bold text-cream mb-6 leading-tight">
                     Reserve Your <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F27D42] to-[#FF9F6D]">
-                        Private Chef
+                        Catering Service
                     </span>
                 </h2>
 
                 <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                    From intimate dinner parties to grand celebrations, bring the art of fine dining into your home. Secure your date today.
+                    From corporate events to celebrations, we deliver exceptional catering experiences tailored to your needs.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 text-gray-400 text-sm">

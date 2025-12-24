@@ -20,10 +20,10 @@ export default function ChefCarousel() {
         <section className="relative w-full min-h-screen flex flex-col justify-center bg-cream overflow-hidden py-24">
             <div className="container mx-auto px-5 mb-10 text-center">
                 <h2 className="text-4xl md:text-5xl font-heading font-bold text-dark mb-4">
-                    What <span className="text-orange">Homemade</span> Provides
+                    The <span className="text-orange">HomeMade</span> Difference
                 </h2>
                 <p className="text-light max-w-xl mx-auto text-lg">
-                    More than just a meal. It's a story of freshness, passion, and connection.
+                    We don't just cater events—we create unforgettable culinary experiences.
                 </p>
             </div>
 
