@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Brand colors for HomeMade Catering
+    // Brand colors for Homemade Catering
     const COLORS = {
       cream: '#FDFBF7',
       dark: '#2D2420',
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
   <div class="container">
     <div class="header">
       <h1 style="margin: 0; font-size: 28px;">New Catering Request</h1>
-      <p style="margin: 10px 0 0 0; opacity: 0.9;">HomeMade Catering</p>
+      <p style="margin: 10px 0 0 0; opacity: 0.9;">Homemade Catering</p>
     </div>
     
     <div class="content">
@@ -159,7 +159,7 @@ export async function POST(request: NextRequest) {
     </div>
     
     <div class="footer">
-      <p style="margin: 0;">&copy; ${new Date().getFullYear()} HomeMade Catering. All rights reserved.</p>
+      <p style="margin: 0;">&copy; ${new Date().getFullYear()} Homemade Catering. All rights reserved.</p>
     </div>
   </div>
 </body>
@@ -202,7 +202,7 @@ export async function POST(request: NextRequest) {
     
     <!-- Header -->
     <div class="header">
-      <h1 class="logo-text">HomeMade Catering</h1>
+      <h1 class="logo-text">Homemade Catering</h1>
       <p class="tagline">Premium Event Catering</p>
     </div>
 
@@ -211,7 +211,7 @@ export async function POST(request: NextRequest) {
       <h2 class="greeting">Hi ${name.split(' ')[0]}! 👋</h2>
       
       <p class="text">
-        Thank you for choosing <strong>HomeMade Catering</strong> for your upcoming event. 
+        Thank you for choosing <strong>Homemade Catering</strong> for your upcoming event. 
         We're thrilled to have the opportunity to make your celebration truly special!
       </p>
 
@@ -259,13 +259,13 @@ export async function POST(request: NextRequest) {
 
     <!-- Footer -->
     <div class="footer">
-      <p style="margin: 0 0 10px 0; font-weight: 600; color: #ccc;">HomeMade Catering</p>
+      <p style="margin: 0 0 10px 0; font-weight: 600; color: #ccc;">Homemade Catering</p>
       <p style="margin: 5px 0;">Premium Event Catering Services</p>
       <p style="margin: 15px 0 5px 0;">
         <a href="https://www.homemademeals.net">www.homemademeals.net</a>
       </p>
       <p style="margin: 20px 0 0 0; font-size: 11px; color: #777;">
-        &copy; ${new Date().getFullYear()} HomeMade Catering. All rights reserved.
+        &copy; ${new Date().getFullYear()} Homemade Catering. All rights reserved.
       </p>
     </div>
 

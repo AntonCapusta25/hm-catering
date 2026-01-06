@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Restaurant } from '@/lib/hyperzod';
 
 interface ChefCardProps {
@@ -9,10 +10,8 @@ interface ChefCardProps {
 
 export default function ChefCard({ restaurant }: ChefCardProps) {
     return (
-        <a
-            href={restaurant.url}
-            target="_blank"
-            rel="noopener noreferrer"
+        <Link
+            href={`/restaurant/${restaurant.id}`}
             className="block w-full h-full rounded-[20px] overflow-hidden relative bg-black shadow-lg hover:shadow-2xl transition-shadow duration-300 group"
         >
             <Image
@@ -40,6 +39,6 @@ export default function ChefCard({ restaurant }: ChefCardProps) {
                     <span className="text-white text-sm font-semibold">{restaurant.rating.toFixed(1)}</span>
                 </div>
             </div>
-        </a>
+        </Link>
     );
 }

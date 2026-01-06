@@ -17,7 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "HomeMade Catering - Premium Event Catering Services",
+  title: "Homemade Catering - Premium Event Catering Services",
   description: "Professional catering services for corporate events, weddings, parties, and special occasions. Custom menus crafted by expert chefs.",
 };
 

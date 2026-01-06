@@ -6,7 +6,7 @@ export default function Footer() {
                     <div className="relative w-32 h-12 mb-4 mx-auto md:mx-0">
                         <img
                             src="/images/logo-homemade.png"
-                            alt="HomeMade Logo"
+                            alt="Homemade Logo"
                             className="object-contain w-full h-full brightness-0 invert"
                         />
                     </div>

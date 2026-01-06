@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -199,14 +200,12 @@ export default function MenuGrid() {
                                     {/* Divider */}
                                     <div className="border-t border-dark/10 pt-4 mt-auto">
                                         {/* Book Now Button */}
-                                        <a
-                                            href={restaurant.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                        <Link
+                                            href={`/restaurant/${restaurant.id}`}
                                             className="block w-full bg-orange text-white text-sm font-bold uppercase tracking-wider py-3 rounded-full hover:bg-dark transition-colors text-center shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0"
                                         >
-                                            Book Now →
-                                        </a>
+                                            View Menu →
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
