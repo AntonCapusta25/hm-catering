@@ -80,7 +80,7 @@ export default function RestaurantMenuPage() {
                         </svg>
                     </button>
                     <h1 className="text-lg font-semibold text-dark truncate flex-1 text-center px-4">
-                        {restaurant.name}
+                        {restaurant?.name || menu.merchant.name}
                     </h1>
                     <div className="w-10"></div> {/* Spacer for centering */}
                 </div>
