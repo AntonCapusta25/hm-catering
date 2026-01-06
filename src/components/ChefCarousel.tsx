@@ -9,13 +9,16 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-import { searchRestaurants, Restaurant } from "@/lib/hyperzod";
+import { searchRestaurants } from "@/lib/hyperzod";
+import type { Restaurant } from "@/lib/hyperzod";
+import { useCity } from "@/contexts/CityContext";
 import ChefCard from "./ui/ChefCard";
 
 export default function ChefCarousel() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const { selectedCity } = useCity();
 
     useEffect(() => {
         async function fetchRestaurants() {
@@ -25,8 +28,8 @@ export default function ChefCarousel() {
 
                 // Fetch restaurants - you can customize the search params
                 const data = await searchRestaurants({
-                    city: "Amsterdam", // or make this dynamic
-                    limit: 12 // Limit to 12 restaurants for the carousel
+                    city: selectedCity,
+                    limit: 100 // Fetch all restaurants
                 });
 
                 setRestaurants(data);
@@ -39,7 +42,7 @@ export default function ChefCarousel() {
         }
 
         fetchRestaurants();
-    }, []);
+    }, [selectedCity]);
 
     // Duplicate for smooth loop
     const carouselItems = restaurants.length > 0
