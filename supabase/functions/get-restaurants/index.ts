@@ -89,47 +89,75 @@ serve(async (req) => {
 
         const baseUrl = new URL(`${HYPERZOD_BASE_URL}/admin/v1/merchant/list`);
         let allMerchants: any[] = [];
-        let currentPage = 1;
-        let lastPage = 1;
 
-        // Fetch all pages
-        do {
-            const url = new URL(baseUrl.toString());
-            url.searchParams.set("page", currentPage.toString());
 
-            console.log(`   Fetching page ${currentPage}...`);
-            const response = await fetch(url.toString(), {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "X-TENANT": HYPERZOD_TENANT_ID,
-                    "X-API-KEY": HYPERZOD_API_KEY,
-                },
-            });
+        // Fetch page 1
+        const url = new URL(baseUrl.toString());
+        url.searchParams.set("page", "1");
 
-            if (!response.ok) {
-                const text = await response.text();
-                console.error(`❌ Hyperzod API error: ${response.status}`, text.substring(0, 200));
-                throw new Error(`Hyperzod API error: ${response.status}`);
+        console.log(`   Fetching page 1...`);
+        const response1 = await fetch(url.toString(), {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "X-TENANT": HYPERZOD_TENANT_ID,
+                "X-API-KEY": HYPERZOD_API_KEY,
+            },
+        });
+
+        if (!response1.ok) {
+            const text = await response1.text();
+            console.error(`❌ Hyperzod API error: ${response1.status}`, text.substring(0, 200));
+            throw new Error(`Hyperzod API error: ${response1.status}`);
+        }
+
+        const data1 = await response1.json();
+        const lastPage = data1.data?.last_page || 1;
+
+        if (data1.success && data1.data && Array.isArray(data1.data.data)) {
+            allMerchants = allMerchants.concat(data1.data.data);
+        }
+
+        console.log(`   Page 1 done. Total pages: ${lastPage}`);
+
+        // Fetch remaining pages in parallel
+        if (lastPage > 1) {
+            const promises = [];
+            for (let i = 2; i <= lastPage; i++) {
+                const pageUrl = new URL(baseUrl.toString());
+                pageUrl.searchParams.set("page", i.toString());
+
+                promises.push(
+                    fetch(pageUrl.toString(), {
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json",
+                            "X-TENANT": HYPERZOD_TENANT_ID,
+                            "X-API-KEY": HYPERZOD_API_KEY,
+                        },
+                    })
+                        .then(async (res) => {
+                            if (!res.ok) throw new Error(`Status ${res.status}`);
+                            return res.json();
+                        })
+                        .catch(err => {
+                            console.error(`❌ Error fetching page ${i}:`, err);
+                            return null; // Return null to handle gracefully
+                        })
+                );
             }
 
-            const responseData = await response.json();
-            console.log(`   Page ${currentPage} response:`, {
-                success: responseData.success,
-                dataLength: responseData.data?.data?.length || 0,
-                lastPage: responseData.data?.last_page || 1
-            });
+            console.log(`   🚀 Fetching ${promises.length} remaining pages in parallel...`);
+            const results = await Promise.all(promises);
 
-            if (responseData.success && responseData.data) {
-                lastPage = responseData.data.last_page || 1;
-                if (Array.isArray(responseData.data.data)) {
-                    allMerchants = allMerchants.concat(responseData.data.data);
+            results.forEach((res) => {
+                if (res && res.success && res.data && Array.isArray(res.data.data)) {
+                    allMerchants = allMerchants.concat(res.data.data);
                 }
-            }
-
-            currentPage++;
-        } while (currentPage <= lastPage);
+            });
+        }
 
         console.log(`🍽️ Total: ${allMerchants.length} merchants`);
         let merchants = allMerchants;

@@ -22,6 +22,52 @@ export interface Menu {
     soldOut?: boolean;
 }
 
+export interface Cuisine {
+    id: string;
+    title: string;
+    image: string;
+    description: string;
+}
+
+export const cuisines: Cuisine[] = [
+    {
+        id: "surinami",
+        title: "Suriname Soul Food",
+        image: "/images/menu-surinami.png",
+        description: "A vibrant fusion of Creole, Hindustani, and Javanese flavors."
+    },
+    {
+        id: "asian",
+        title: "Asian Fusion",
+        image: "/images/menu-fusion-new.png",
+        description: "A bold mix of Eastern flavors with modern culinary techniques."
+    },
+    {
+        id: "indian",
+        title: "Authentic Indian",
+        image: "/images/menu-indian-new.png",
+        description: "Rich curries, aromatic spices, and traditional recipes."
+    },
+    {
+        id: "italian",
+        title: "Italian Gourmet",
+        image: "/images/menu-italian-new.png",
+        description: "Handcrafted pasta, premium sauces, and the true taste of Italy."
+    },
+    {
+        id: "vegetarian",
+        title: "Fresh Vegetarian",
+        image: "/images/menu-veggie-new.png",
+        description: "Vibrant, plant-based dishes that celebrate seasonal produce."
+    },
+    {
+        id: "seafood",
+        title: "Ocean Treasures",
+        image: "/images/menu-seafood-new.png",
+        description: "Fresh catches prepared to highlight their natural delicate flavors."
+    }
+];
+
 export interface Occasion {
     id: string;
     title: string;

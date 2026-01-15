@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const HERO_IMAGES = [
+    "/images/hero-catering-new.png",
     "/images/hero-bg.jpg",
     "/images/Hero images/c0957052-7adc-456c-a804-d00325e75ac0 (1).png",
-    "/images/Hero images/hero-chef.png",
     "/images/Hero images/menu-south-indian.png"
 ];
 

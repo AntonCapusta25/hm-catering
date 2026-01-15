@@ -21,16 +21,19 @@ export default function RestaurantMenuPage() {
                 setLoading(true);
                 setError(null);
 
-                // Fetch menu
-                const menuData = await getMerchantMenu(restaurantId);
+                // Fetch menu and restaurants in parallel
+                const [menuData, restaurants] = await Promise.all([
+                    getMerchantMenu(restaurantId),
+                    searchRestaurants({ limit: 100 })
+                ]);
+
                 setMenu(menuData);
 
-                // Fetch all restaurants to find this one (to get full details)
-                const restaurants = await searchRestaurants({ limit: 100 });
+                // Find specific restaurant details
                 const restaurantData = restaurants.find(r => r.id === restaurantId);
                 setRestaurant(restaurantData || null);
             } catch (err) {
-                console.error("Failed to fetch menu:", err);
+                console.error("Failed to fetch data:", err);
                 setError("Failed to load menu");
             } finally {
                 setLoading(false);
