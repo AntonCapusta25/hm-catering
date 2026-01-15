@@ -47,10 +47,10 @@ export default function Partners() {
                             <div
                                 key={`${partner.name}-${index}`}
                                 className={`relative flex-shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 ${partner.name === 'Sure Mobility'
-                                        ? 'w-52 h-24 md:w-80 md:h-40'
-                                        : partner.name === 'Upfront'
-                                            ? 'w-40 h-20 md:w-56 md:h-28'
-                                            : 'w-32 h-16 md:w-40 md:h-20'
+                                    ? 'w-64 h-32 md:w-96 md:h-48'
+                                    : partner.name === 'Upfront'
+                                        ? 'w-40 h-20 md:w-56 md:h-28'
+                                        : 'w-32 h-16 md:w-40 md:h-20'
                                     }`}
                             >
                                 <img
