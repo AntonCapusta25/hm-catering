@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { cuisines } from "@/lib/data";
+import { trackCuisineClick, trackCTAClick } from "@/lib/analytics";
 
 export default function CuisineShowcase() {
     return (
@@ -50,6 +51,7 @@ export default function CuisineShowcase() {
 
                                 <Link
                                     href="/#booking"
+                                    onClick={() => trackCuisineClick(cuisine.title)}
                                     className="inline-flex items-center gap-2 font-bold text-orange uppercase tracking-wider text-sm hover:gap-3 transition-all"
                                 >
                                     Request Quote
@@ -66,6 +68,7 @@ export default function CuisineShowcase() {
                 <div className="text-center">
                     <Link
                         href="/#booking"
+                        onClick={() => trackCTAClick("Plan Your Menu Now", "cuisine_section")}
                         className="inline-block bg-orange text-white text-lg font-bold uppercase tracking-wider py-4 px-10 rounded-full hover:bg-dark transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
                     >
                         Plan Your Menu Now

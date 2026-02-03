@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,6 +9,7 @@ import "swiper/css/pagination";
 import { motion } from "framer-motion";
 import { occasions } from "@/lib/data";
 import OccasionCard from "./ui/OccasionCard";
+import { trackOccasionView } from "@/lib/analytics";
 
 export default function OccasionsCarousel() {
     return (
@@ -48,7 +47,11 @@ export default function OccasionsCarousel() {
             >
                 {occasions.map((occasion) => (
                     <SwiperSlide key={occasion.id} className="h-full">
-                        <Link href={`/occasions/${occasion.id}`} className="block h-full">
+                        <Link
+                            href={`/occasions/${occasion.id}`}
+                            onClick={() => trackOccasionView(occasion.title)}
+                            className="block h-full"
+                        >
                             <OccasionCard occasion={occasion} />
                         </Link>
                     </SwiperSlide>

@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { trackCTAClick } from "@/lib/analytics";
 
 const HERO_IMAGES = [
     "/images/hero-catering-new.png",
@@ -112,6 +113,7 @@ export default function Hero() {
                     <Link
                         href={bookingLink}
                         target={bookingLink.startsWith('http') ? "_blank" : "_self"}
+                        onClick={() => trackCTAClick("Request Quote", "hero_section")}
                         className="bg-orange/90 hover:bg-orange text-white px-10 py-4 rounded-full font-semibold uppercase tracking-wide backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-orange/40 hover:-translate-y-1 transition-all duration-300"
                     >
                         Request Quote

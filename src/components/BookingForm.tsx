@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Calendar, Users, Utensils, ArrowRight, Star, Sparkles, ChefHat, BookOpen, CheckCircle2 } from "lucide-react";
 import { menus, chefs } from "@/lib/data";
 import confetti from "canvas-confetti";
-import { trackEvent } from "@/components/GoogleAnalytics";
+import { trackEvent } from "@/lib/analytics";
 
 function BookingFormContent() {
     const [isSubmitting, setIsSubmitting] = useState(false);

@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
+import { trackFAQClick, trackCTAClick } from "@/lib/analytics";
 
 const faqs = [
     {
@@ -71,7 +72,13 @@ export default function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     const toggleFAQ = (index: number) => {
+        const isOpening = openIndex !== index;
         setOpenIndex(openIndex === index ? null : index);
+
+        // Track when FAQ is opened
+        if (isOpening) {
+            trackFAQClick(faqs[index].question);
+        }
     };
 
     return (
@@ -166,6 +173,7 @@ export default function FAQ() {
                     <p className="text-gray-600 mb-4">Still have questions?</p>
                     <a
                         href="#booking"
+                        onClick={() => trackCTAClick("Contact Our Team", "faq_section")}
                         className="inline-block px-8 py-4 bg-[#F27D42] text-white rounded-xl font-bold hover:bg-[#d66a35] transition-colors shadow-lg hover:shadow-xl"
                     >
                         Contact Our Team
