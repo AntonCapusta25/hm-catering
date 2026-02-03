@@ -3,6 +3,7 @@ import { Fraunces, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import CtaOverlay from "@/components/CtaOverlay";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -94,6 +95,9 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
           }}
         />
         {/* End TikTok Pixel Code */}
+
+        {/* Google Analytics */}
+        <GoogleAnalytics />
 
         {children}
         <CtaOverlay />

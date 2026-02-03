@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Calendar, Users, Utensils, ArrowRight, Star, Sparkles, ChefHat, BookOpen, CheckCircle2 } from "lucide-react";
 import { menus, chefs } from "@/lib/data";
 import confetti from "canvas-confetti";
+import { trackEvent } from "@/components/GoogleAnalytics";
 
 function BookingFormContent() {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -106,6 +107,17 @@ function BookingFormContent() {
             if (!response.ok) {
                 throw new Error(result.error || 'Failed to submit booking');
             }
+
+            // Track successful booking conversion in Google Analytics
+            trackEvent('booking_submitted', {
+                event_category: 'conversion',
+                event_label: 'Booking Form',
+                value: 1,
+                menu: selectedMenuId || 'custom',
+                chef: selectedChefName || 'any',
+                cuisine: selectedCuisine || 'custom',
+                guests: formData.get('guests') as string,
+            });
 
             setIsSubmitting(false);
             setIsSuccess(true);
