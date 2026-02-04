@@ -5,35 +5,59 @@ import { Star, Quote, TrendingUp, Users, Award, ThumbsUp } from "lucide-react";
 
 const testimonials = [
     {
-        company: "TechFlow Solutions",
-        eventType: "Quarterly Team Dinner",
-        quote: "We switched from expensive restaurant reservations to private chef dinners and couldn't be happier. The food quality exceeded our expectations, and the intimate setting allowed our team to actually connect. The cost savings were significant—we're now doing these dinners monthly instead of quarterly!",
-        author: "Sarah van der Berg",
-        title: "HR Director",
+        company: "Birthday Celebration",
+        eventType: "Custom Tiramisu Order",
+        quote: "Ordered Tiramisú for my Bday instead of the regular Bday cake!!! What to say... Best choice ever!!! All my friends loved it and Domenico fulfilled my order with only 48 hours to go before my party! Ordered 3 trays and we finished all of it!! Thanks Dome, I knew I could count on you!",
+        author: "Carlos Alberto",
+        title: "Verified Client",
         rating: 5
     },
     {
-        company: "Creative Minds Agency",
-        eventType: "Client Appreciation Event",
-        quote: "Hosting our client appreciation dinner with a private chef was a game-changer. Our clients were impressed by the personalized menu and professional service. The chef accommodated all dietary restrictions seamlessly, and the whole experience felt exclusive without the restaurant markup.",
-        author: "Marcus Johnson",
-        title: "Managing Partner",
+        company: "Private Dinner",
+        eventType: "Steak & Empanadas",
+        quote: "The food was amazing, steak was cooked perfectly with tasty chimichurri, and the empanada was exactly how authentic empanadas should taste!",
+        author: "Filip",
+        title: "Verified Client",
         rating: 5
     },
     {
-        company: "StartupHub Amsterdam",
-        eventType: "Team Building Dinner",
-        quote: "As a startup, budget matters. Getting restaurant-quality food at 40% less cost meant we could invite the entire team instead of just leadership. The Growth package was perfect—great food, wine included, and the chef even shared cooking tips with our team. Highly recommend!",
-        author: "Lisa Chen",
-        title: "Operations Manager",
+        company: "Special Occasion",
+        eventType: "Italian Dessert Catering",
+        quote: "This is by far one of the best Tiramisu I have tasted! It somehow melts inside the mouth! Super Good!!",
+        author: "Syrine",
+        title: "Verified Client",
         rating: 5
     },
     {
-        company: "Global Finance Corp",
-        eventType: "Executive Retreat",
-        quote: "The Premium package delivered on every promise. From the initial planning call to the post-event follow-up, everything was handled professionally. The 4-course menu was exquisite, and having an event coordinator made the day stress-free. Worth every euro.",
-        author: "David Kowalski",
-        title: "VP of Operations",
+        company: "Family Gathering",
+        eventType: "Private Chef Service",
+        quote: "Delicious!! Approved by my tiramisu loved boyfriend. He said it's the best he's ever had!",
+        author: "M.A. Van Der Waal",
+        title: "Verified Client",
+        rating: 5
+    },
+    {
+        company: "Direct Order",
+        eventType: "Recurring Client",
+        quote: "I ordered from Bottega da Dome a few times and they have hands down the best tiramisu! Will keep ordering from them again :)",
+        author: "Syukri Ainun Alfatg",
+        title: "Verified Client",
+        rating: 5
+    },
+    {
+        company: "Catering",
+        eventType: "Event Catering",
+        quote: "Delicious tiramisu! We all loved it. Very well made and Domenico is a very friendly chef. Will order again!",
+        author: "Robert",
+        title: "Verified Client",
+        rating: 5
+    },
+    {
+        company: "Dinner Party",
+        eventType: "Authentic Biryani",
+        quote: "The biryani was very hearty and tasty! Good portion with chicken and potatoes. Definitely will order again.",
+        author: "Sibbir",
+        title: "Verified Client",
         rating: 5
     }
 ];
@@ -42,7 +66,7 @@ const metrics = [
     {
         icon: Users,
         value: "500+",
-        label: "Companies Trust Us",
+        label: "Happy Clients",
         color: "text-[#F27D42]"
     },
     {
@@ -60,7 +84,7 @@ const metrics = [
     {
         icon: Award,
         value: "100%",
-        label: "Customer Satisfaction",
+        label: "Satisfaction Guarantee",
         color: "text-[#F27D42]"
     }
 ];
@@ -83,13 +107,13 @@ export default function Testimonials() {
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-200 text-[#F27D42] text-sm font-medium mb-6">
                         <ThumbsUp size={16} />
-                        <span>Trusted by Teams</span>
+                        <span>Loved by the Community</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-heading font-bold text-dark mb-4">
-                        What Our Clients Say
+                        What Our Customers Say
                     </h2>
                     <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                        Real experiences from companies who've transformed their team dinners.
+                        Real experiences from clients who've enjoyed our private chef services.
                     </p>
                 </motion.div>
 
@@ -116,7 +140,7 @@ export default function Testimonials() {
                 </div>
 
                 {/* Testimonials Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
                     {testimonials.map((testimonial, index) => (
                         <motion.div
                             key={index}
@@ -174,7 +198,7 @@ export default function Testimonials() {
                     className="text-center mt-16"
                 >
                     <p className="text-gray-600 mb-4 text-lg">
-                        Join hundreds of satisfied companies
+                        Join hundreds of satisfied clients
                     </p>
                     <a
                         href="#booking"
