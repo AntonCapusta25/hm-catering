@@ -79,8 +79,8 @@ export default function ProblemSolution() {
                         >
                             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 h-full">
                                 {/* Icon */}
-                                <div className="w-14 h-14 bg-gradient-to-br from-[#F27D42] to-[#FF9F6D] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                    <benefit.icon className="text-white" size={28} />
+                                <div className="mb-6 group-hover:scale-110 transition-transform origin-left">
+                                    <benefit.icon strokeWidth={1.5} className="text-[#F27D42]" size={40} />
                                 </div>
 
                                 {/* Content */}

@@ -124,37 +124,35 @@ export default function Testimonials() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.1 * index }}
-                            className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border border-gray-100"
+                            className="relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 h-full flex flex-col"
                         >
                             {/* Quote Icon */}
-                            <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-[#F27D42] to-[#FF9F6D] rounded-full flex items-center justify-center shadow-lg">
-                                <Quote className="text-white" size={20} />
-                            </div>
+                            <Quote className="text-orange/20 mb-4" size={40} />
 
                             {/* Rating */}
                             <div className="flex gap-1 mb-4">
                                 {[...Array(testimonial.rating)].map((_, i) => (
-                                    <Star key={i} className="text-yellow-500" size={18} fill="currentColor" />
+                                    <Star key={i} className="text-[#F27D42]" size={16} fill="currentColor" />
                                 ))}
                             </div>
 
-                            {/* Company & Event Type */}
-                            <div className="mb-4">
-                                <h4 className="font-heading font-bold text-dark text-lg">
-                                    {testimonial.company}
-                                </h4>
-                                <p className="text-sm text-gray-500">{testimonial.eventType}</p>
-                            </div>
-
                             {/* Quote */}
-                            <p className="text-gray-700 leading-relaxed mb-6 italic">
+                            <p className="text-dark text-lg font-medium leading-relaxed mb-6 flex-grow">
                                 "{testimonial.quote}"
                             </p>
 
+                            {/* Company & Event Type */}
+                            <div className="mb-4">
+                                <h4 className="font-heading font-bold text-dark text-sm uppercase tracking-wide">
+                                    {testimonial.company}
+                                </h4>
+                                <p className="text-xs text-gray-500">{testimonial.eventType}</p>
+                            </div>
+
                             {/* Attribution */}
-                            <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                                <div className="w-12 h-12 bg-gradient-to-br from-[#F27D42]/20 to-[#FF9F6D]/20 rounded-full flex items-center justify-center">
-                                    <span className="text-[#F27D42] font-bold text-lg">
+                            <div className="flex items-center gap-3 pt-4 border-t border-gray-100 mt-auto">
+                                <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                                    <span className="text-gray-600 font-bold text-sm">
                                         {testimonial.author.charAt(0)}
                                     </span>
                                 </div>
