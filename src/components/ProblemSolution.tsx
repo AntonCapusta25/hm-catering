@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, TrendingDown, Users, Sparkles } from "lucide-react";
+import { CheckCircle2, Users, Sparkles } from "lucide-react";
 
 const benefits = [
     {
@@ -37,10 +37,6 @@ export default function ProblemSolution() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 border border-red-200 text-red-600 text-sm font-medium mb-6">
-                        <TrendingDown size={16} />
-                        <span>The Challenge</span>
-                    </div>
                     <h2 className="text-3xl md:text-5xl font-heading font-bold text-dark mb-4 leading-tight">
                         Restaurant catering is expensive.
                         <br />
@@ -77,19 +73,21 @@ export default function ProblemSolution() {
                             transition={{ duration: 0.6, delay: 0.1 * index }}
                             className="relative group"
                         >
-                            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 h-full">
+                            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 h-full flex items-start gap-5 text-left">
                                 {/* Icon */}
-                                <div className="mb-6 group-hover:scale-110 transition-transform origin-left">
-                                    <benefit.icon strokeWidth={1.5} className="text-[#F27D42]" size={40} />
+                                <div className="shrink-0 p-3 bg-orange/10 rounded-xl group-hover:bg-orange/20 transition-colors">
+                                    <benefit.icon strokeWidth={2} className="text-[#F27D42]" size={24} />
                                 </div>
 
                                 {/* Content */}
-                                <h4 className="text-xl font-heading font-bold text-dark mb-3">
-                                    {benefit.title}
-                                </h4>
-                                <p className="text-gray-600 leading-relaxed">
-                                    {benefit.description}
-                                </p>
+                                <div>
+                                    <h4 className="text-lg font-heading font-bold text-dark mb-2">
+                                        {benefit.title}
+                                    </h4>
+                                    <p className="text-gray-600 leading-relaxed text-sm">
+                                        {benefit.description}
+                                    </p>
+                                </div>
                             </div>
                         </motion.div>
                     ))}
