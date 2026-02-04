@@ -64,7 +64,7 @@ const packages = [
 
 export default function PackageTiers() {
     return (
-        <section id="packages" className="relative py-24 bg-dark overflow-hidden">
+        <section id="packages" className="relative py-32 bg-dark overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-[#F27D42]/10 rounded-full blur-[120px]" />
@@ -80,10 +80,6 @@ export default function PackageTiers() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[#F27D42] text-sm font-medium tracking-wide mb-6">
-                        <Star size={14} fill="currentColor" />
-                        <span>Choose Your Experience</span>
-                    </div>
                     <h2 className="text-4xl md:text-6xl font-heading font-bold text-cream mb-6">
                         Team Dinner Packages
                     </h2>
@@ -114,8 +110,8 @@ export default function PackageTiers() {
 
                             {/* Card */}
                             <div className={`relative h-full rounded-3xl overflow-hidden ${pkg.highlight
-                                    ? 'bg-gradient-to-b from-[#F27D42]/20 to-[#F27D42]/5 border-2 border-[#F27D42]/50'
-                                    : 'bg-white/5 border border-white/10'
+                                ? 'bg-gradient-to-b from-[#F27D42]/20 to-[#F27D42]/5 border-2 border-[#F27D42]/50'
+                                : 'bg-white/5 border border-white/10'
                                 }`}>
                                 <div className="p-8">
                                     {/* Package Name */}
@@ -137,11 +133,11 @@ export default function PackageTiers() {
                                     {/* Details */}
                                     <div className="space-y-2 mb-8 pb-8 border-b border-white/10">
                                         <div className="flex items-center gap-2 text-gray-300 text-sm">
-                                            <Users size={16} className="text-[#F27D42]" />
+                                            <span className="text-[#F27D42] font-medium">Group:</span>
                                             <span>{pkg.groupSize}</span>
                                         </div>
                                         <div className="flex items-center gap-2 text-gray-300 text-sm">
-                                            <Clock size={16} className="text-[#F27D42]" />
+                                            <span className="text-[#F27D42] font-medium">Time:</span>
                                             <span>{pkg.duration}</span>
                                         </div>
                                     </div>
@@ -150,9 +146,7 @@ export default function PackageTiers() {
                                     <div className="space-y-3 mb-8">
                                         {pkg.features.map((feature, idx) => (
                                             <div key={idx} className="flex items-start gap-3">
-                                                <div className="mt-0.5 flex-shrink-0">
-                                                    <feature.icon size={18} className="text-[#F27D42]" />
-                                                </div>
+                                                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#F27D42] flex-shrink-0" />
                                                 <span className="text-gray-300 text-sm leading-relaxed">
                                                     {feature.text}
                                                 </span>
@@ -164,8 +158,8 @@ export default function PackageTiers() {
                                     <Link
                                         href="#booking"
                                         className={`block w-full text-center py-4 rounded-xl font-bold transition-all ${pkg.highlight
-                                                ? 'bg-[#F27D42] text-white hover:bg-[#d66a35] shadow-lg hover:shadow-xl'
-                                                : 'bg-white/10 text-cream hover:bg-white/20 border border-white/20'
+                                            ? 'bg-[#F27D42] text-white hover:bg-[#d66a35] shadow-lg hover:shadow-xl'
+                                            : 'bg-white/10 text-cream hover:bg-white/20 border border-white/20'
                                             }`}
                                     >
                                         Choose this package

@@ -7,7 +7,7 @@ import { trackCuisineClick, trackCTAClick } from "@/lib/analytics";
 
 export default function CuisineShowcase() {
     return (
-        <section id="menu-boxes" className="relative w-full py-24 bg-cream overflow-hidden">
+        <section id="menu-boxes" className="relative w-full py-32 bg-cream overflow-hidden">
             {/* Background Decorations */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-30">
                 <div className="absolute top-20 left-10 w-64 h-64 bg-orange/10 rounded-full blur-[80px]" />

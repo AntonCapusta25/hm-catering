@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, Quote, TrendingUp, Users, Award, ThumbsUp } from "lucide-react";
+import { Star } from "lucide-react";
 
 const testimonials = [
     {
@@ -64,25 +64,21 @@ const testimonials = [
 
 const metrics = [
     {
-        icon: Users,
         value: "500+",
         label: "Happy Clients",
         color: "text-[#F27D42]"
     },
     {
-        icon: Star,
         value: "4.8/5",
         label: "Average Rating",
         color: "text-yellow-500"
     },
     {
-        icon: TrendingUp,
         value: "40%",
         label: "Savings vs. Restaurants",
         color: "text-green-500"
     },
     {
-        icon: Award,
         value: "100%",
         label: "Satisfaction Guarantee",
         color: "text-[#F27D42]"
@@ -91,7 +87,7 @@ const metrics = [
 
 export default function Testimonials() {
     return (
-        <section className="relative py-24 bg-white overflow-hidden">
+        <section className="relative py-32 bg-white overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-orange/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#F27D42]/5 rounded-full blur-3xl" />
@@ -105,10 +101,6 @@ export default function Testimonials() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-200 text-[#F27D42] text-sm font-medium mb-6">
-                        <ThumbsUp size={16} />
-                        <span>Loved by the Community</span>
-                    </div>
                     <h2 className="text-4xl md:text-5xl font-heading font-bold text-dark mb-4">
                         What Our Customers Say
                     </h2>
@@ -126,13 +118,12 @@ export default function Testimonials() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.1 * index }}
-                            className="text-center p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-md hover:shadow-lg transition-shadow"
+                            className="text-center p-6 bg-white border border-gray-100 rounded-2xl shadow-sm"
                         >
-                            <metric.icon className={`${metric.color} mx-auto mb-3`} size={32} />
-                            <div className="text-3xl md:text-4xl font-bold text-dark mb-2">
+                            <div className={`text-4xl md:text-5xl font-heading font-bold mb-2 ${metric.color}`}>
                                 {metric.value}
                             </div>
-                            <div className="text-sm text-gray-600">
+                            <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">
                                 {metric.label}
                             </div>
                         </motion.div>
@@ -151,7 +142,7 @@ export default function Testimonials() {
                             className="relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 h-full flex flex-col"
                         >
                             {/* Quote Icon */}
-                            <Quote className="text-orange/20 mb-4" size={40} />
+                            <div className="text-6xl text-orange/20 font-heading leading-none mb-2">“</div>
 
                             {/* Rating */}
                             <div className="flex gap-1 mb-4">

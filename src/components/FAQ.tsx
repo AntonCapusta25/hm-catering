@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { trackFAQClick, trackCTAClick } from "@/lib/analytics";
 
 const faqs = [
@@ -82,7 +82,7 @@ export default function FAQ() {
     };
 
     return (
-        <section className="relative py-24 bg-gradient-to-b from-white to-cream overflow-hidden">
+        <section className="relative py-32 bg-gradient-to-b from-white to-cream overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 left-0 w-96 h-96 bg-[#F27D42]/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl" />
@@ -96,10 +96,6 @@ export default function FAQ() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 text-[#F27D42] text-sm font-medium mb-6">
-                        <HelpCircle size={16} />
-                        <span>Got Questions?</span>
-                    </div>
                     <h2 className="text-4xl md:text-5xl font-heading font-bold text-dark mb-4">
                         Frequently Asked Questions
                     </h2>

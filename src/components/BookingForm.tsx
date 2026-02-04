@@ -176,15 +176,7 @@ function BookingFormContent() {
                 transition={{ duration: 0.8 }}
                 className="flex-1 text-center lg:text-left"
             >
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[#F27D42] text-sm font-medium tracking-wide mb-6"
-                >
-                    <Sparkles size={14} />
-                    <span>Exclusive Culinary Experiences</span>
-                </motion.div>
+
 
                 <h2 className="text-5xl lg:text-7xl font-heading font-bold text-cream mb-6 leading-tight">
                     Reserve Your <br />

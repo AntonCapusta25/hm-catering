@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, X } from "lucide-react";
 import Link from "next/link";
 
 const features = [
@@ -30,12 +29,12 @@ const features = [
 const renderCell = (value: boolean | string) => {
     if (typeof value === "boolean") {
         return value ? (
-            <Check className="text-green-500 mx-auto" size={20} />
+            <div className="w-3 h-3 bg-[#F27D42] rounded-full mx-auto" />
         ) : (
-            <X className="text-gray-400 mx-auto" size={20} />
+            <div className="w-4 h-0.5 bg-gray-200 mx-auto rounded-full" />
         );
     }
-    return <span className="text-gray-300 text-sm">{value}</span>;
+    return <span className="text-gray-500 text-sm font-medium">{value}</span>;
 };
 
 export default function PackageComparison() {
@@ -175,8 +174,8 @@ export default function PackageComparison() {
                                     <Link
                                         href="#booking"
                                         className={`block w-full text-center py-4 rounded-xl font-bold mt-6 transition-colors ${isGrowth
-                                                ? 'bg-[#F27D42] text-white hover:bg-[#d66a35]'
-                                                : 'bg-dark text-white hover:bg-dark/90'
+                                            ? 'bg-[#F27D42] text-white hover:bg-[#d66a35]'
+                                            : 'bg-dark text-white hover:bg-dark/90'
                                             }`}
                                     >
                                         Select {pkg}

@@ -23,7 +23,7 @@ const benefits = [
 
 export default function ProblemSolution() {
     return (
-        <section className="relative py-24 bg-gradient-to-b from-cream to-white overflow-hidden">
+        <section className="relative py-32 bg-gradient-to-b from-cream to-white overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-orange/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#F27D42]/5 rounded-full blur-3xl" />
@@ -73,18 +73,18 @@ export default function ProblemSolution() {
                             transition={{ duration: 0.6, delay: 0.1 * index }}
                             className="relative group"
                         >
-                            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 h-full flex items-start gap-5 text-left">
-                                {/* Icon */}
-                                <div className="shrink-0 p-3 bg-orange/10 rounded-xl group-hover:bg-orange/20 transition-colors">
-                                    <benefit.icon strokeWidth={2} className="text-[#F27D42]" size={24} />
+                            <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 h-full flex flex-col items-start text-left">
+                                {/* Number */}
+                                <div className="text-6xl font-heading font-light text-orange/30 mb-6">
+                                    0{index + 1}
                                 </div>
 
                                 {/* Content */}
                                 <div>
-                                    <h4 className="text-lg font-heading font-bold text-dark mb-2">
+                                    <h4 className="text-xl font-heading font-bold text-dark mb-3">
                                         {benefit.title}
                                     </h4>
-                                    <p className="text-gray-600 leading-relaxed text-sm">
+                                    <p className="text-gray-600 leading-relaxed">
                                         {benefit.description}
                                     </p>
                                 </div>
