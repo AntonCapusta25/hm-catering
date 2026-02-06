@@ -33,37 +33,37 @@ export const cuisines: Cuisine[] = [
     {
         id: "surinami",
         title: "Suriname Soul Food",
-        image: "/images/menu-surinami.png",
+        image: "/images/generated/cuisine-suriname.png",
         description: "A vibrant fusion of Creole, Hindustani, and Javanese flavors."
     },
     {
         id: "asian",
         title: "Asian Fusion",
-        image: "/images/menu-fusion-new.png",
+        image: "/images/generated/cuisine-asian.png",
         description: "A bold mix of Eastern flavors with modern culinary techniques."
     },
     {
         id: "indian",
         title: "Authentic Indian",
-        image: "/images/menu-indian-new.png",
+        image: "/images/generated/cuisine-indian.png",
         description: "Rich curries, aromatic spices, and traditional recipes."
     },
     {
         id: "italian",
         title: "Italian Gourmet",
-        image: "/images/menu-italian-new.png",
+        image: "/images/generated/cuisine-italian.png",
         description: "Handcrafted pasta, premium sauces, and the true taste of Italy."
     },
     {
         id: "vegetarian",
         title: "Fresh Vegetarian",
-        image: "/images/menu-veggie-new.png",
+        image: "/images/generated/cuisine-vegetarian.png",
         description: "Vibrant, plant-based dishes that celebrate seasonal produce."
     },
     {
         id: "seafood",
         title: "Ocean Treasures",
-        image: "/images/menu-seafood-new.png",
+        image: "/images/generated/cuisine-seafood.png",
         description: "Fresh catches prepared to highlight their natural delicate flavors."
     }
 ];
@@ -83,7 +83,7 @@ export const menus: Menu[] = [
         title: "Private Dining by Costanza",
         chef: "Costanza",
         price: "Price on Request",
-        image: "/images/menu-brut.png",
+        image: "/images/generated/cuisine-italian.png",
         badge: "Private Dining",
         description: "An intimate and exclusive dining experience for your special event, crafted by Costanza.",
         items: [
@@ -102,7 +102,7 @@ export const menus: Menu[] = [
         title: "Mom's Magic Catering Package",
         chef: "Mom's Magic",
         price: "Price on Request",
-        image: "/images/menu-south-indian.png",
+        image: "/images/generated/cuisine-indian.png",
         badge: "Authentic",
         description: "A heartwarming feast with authentic flavors perfect for any celebration. Choose from Veg, Non-Veg, or Premium options.",
         items: [
@@ -139,7 +139,7 @@ export const menus: Menu[] = [
         title: "La Esquina Dominicana Package",
         chef: "La Esquina Dominicana",
         price: "Price on Request",
-        image: "/images/menu-classic.png",
+        image: "/images/generated/cuisine-suriname.png",
         badge: "Caribbean",
         description: "Celebrate your event with the vibrant flavors of the Dominican Republic.",
         items: [
@@ -160,7 +160,7 @@ export const menus: Menu[] = [
         title: "Sprinkle and Swirl Dessert Package",
         chef: "Sprinkle and Swirl",
         price: "Price on Request",
-        image: "/images/menu-dessert.png",
+        image: "/images/generated/occasion-party.png",
         badge: "Sweets",
         description: "Delightful sweet treats and baked goods to elevate any celebration.",
         items: [
@@ -179,7 +179,7 @@ export const menus: Menu[] = [
         title: "Bottega Gourmet Package",
         chef: "Bottega",
         price: "Price on Request",
-        image: "/images/menu-ron.png",
+        image: "/images/generated/cuisine-italian.png",
         badge: "Gourmet",
         description: "Italian gourmet selection for sophisticated events and celebrations.",
         items: [
@@ -199,7 +199,7 @@ export const menus: Menu[] = [
         title: "Classic 4-Course Package",
         chef: "Bergpaviljoen Bistronomique",
         price: "€64,50 p.p.",
-        image: "/images/menu-classic.png",
+        image: "/images/generated/hero-detail.png",
         badge: "Classic",
         description: "A classic 4-course culinary journey designed to bring the restaurant experience to your event.",
         items: [],
@@ -210,7 +210,7 @@ export const menus: Menu[] = [
         title: "Brut172 Exclusive Package",
         chef: "Hans Van Wolde",
         price: "€99,50 p.p.",
-        image: "/images/menu-brut.png",
+        image: "/images/generated/hero-secondary.png",
         badge: "Exclusive",
         description: "An exclusive catering package curated by Hans Van Wolde, focusing on bold flavors and exquisite presentation.",
         items: [],
@@ -221,7 +221,7 @@ export const menus: Menu[] = [
         title: "Ron Gastrobar",
         chef: "Ron Blaauw",
         price: "€31,00 p.p.",
-        image: "/images/menu-ron.png",
+        image: "/images/generated/hero-social.png",
         badge: "Signature",
         description: "Accessible top-tier dining with Ron Blaauw's signature gastrobar style. Fun, tasty, and unpretentious.",
         items: [],
@@ -232,7 +232,7 @@ export const menus: Menu[] = [
         title: "Vegetarian Celebration Package",
         chef: "Green Leaf Kitchen",
         price: "€55,00 p.p.",
-        image: "/images/menu-veggie.png",
+        image: "/images/generated/cuisine-vegetarian.png",
         badge: "Vegetarian",
         description: "A vibrant and hearty plant-based menu that celebrates seasonal produce.",
         items: [],
@@ -243,7 +243,7 @@ export const menus: Menu[] = [
         title: "Seafood Spectacular",
         chef: "Ocean Blue",
         price: "€85,00 p.p.",
-        image: "/images/menu-seafood.png",
+        image: "/images/generated/cuisine-seafood.png",
         badge: "Seafood",
         description: "A luxurious dive into the ocean's finest offerings. Lobster, oysters, and more.",
         items: [],
@@ -254,7 +254,7 @@ export const menus: Menu[] = [
         title: "Asian Fusion Package",
         chef: "Kenji Moto",
         price: "€75,00 p.p.",
-        image: "/images/menu-fusion.png",
+        image: "/images/generated/cuisine-asian.png",
         badge: "Fusion",
         description: "East meets West in this spectacular fusion menu. Unexpected flavors for a memorable event.",
         items: [],
@@ -267,7 +267,7 @@ export const occasions: Occasion[] = [
         id: "kerst",
         title: "Holiday Events",
         subtitle: "Seasonal",
-        image: "/images/occasion-christmas.png",
+        image: "/images/generated/occasion-holiday.png",
         description: "Celebrate the magic of the holidays with our specially curated seasonal menus. From traditional favorites to modern gourmet experiences.",
         features: ["Festive presentation styling", "Wine pairing options", "Dietary alternatives available"]
     },
@@ -275,7 +275,7 @@ export const occasions: Occasion[] = [
         id: "shared",
         title: "Family-Style Dining",
         subtitle: "Social",
-        image: "/images/occasion-shared.png",
+        image: "/images/generated/occasion-family.png",
         description: "Food is best when shared. Enjoy large platters and family-style serving for a warm, communal dining experience at your event.",
         features: ["Large serving platters", "Interactive courses", "Casual atmosphere"]
     },
@@ -283,7 +283,7 @@ export const occasions: Occasion[] = [
         id: "newyear",
         title: "Celebrations & Parties",
         subtitle: "Celebration",
-        image: "/images/occasion-newyear.png",
+        image: "/images/generated/occasion-party.png",
         description: "Make your celebration unforgettable with sparkles and culinary excellence. A luxurious menu for any special occasion.",
         features: ["Champagne service available", "Late-night snacks", "Festive dessert finale"]
     },
@@ -291,7 +291,7 @@ export const occasions: Occasion[] = [
         id: "corporate",
         title: "Corporate Events",
         subtitle: "Professional",
-        image: "/images/occasion-corporate.png",
+        image: "/images/generated/occasion-corporate.png",
         description: "Impress your colleagues and clients with a high-end culinary experience. Perfect for business meetings, conferences, and corporate gatherings.",
         features: ["Branded menus available", "Professional service staff", "Dietary requirement handling"]
     },
@@ -299,7 +299,7 @@ export const occasions: Occasion[] = [
         id: "romantic",
         title: "Private Dining",
         subtitle: "Intimate",
-        image: "/images/occasion-romantic.png",
+        image: "/images/generated/occasion-romantic.png",
         description: "Create the perfect intimate setting with our private dining service. Exceptional food in the comfort of your chosen venue.",
         features: ["Elegant setup", "Premium beverage selection", "Discreet service"]
     }

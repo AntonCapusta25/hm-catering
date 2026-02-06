@@ -6,10 +6,10 @@ import { useState, useEffect } from "react";
 import { trackCTAClick } from "@/lib/analytics";
 
 const HERO_IMAGES = [
-    "/images/hero-catering-new.png",
-    "/images/hero-bg.jpg",
-    "/images/Hero images/c0957052-7adc-456c-a804-d00325e75ac0 (1).png",
-    "/images/Hero images/menu-south-indian.png"
+    "/images/generated/hero-main.png",
+    "/images/generated/hero-secondary.png",
+    "/images/generated/hero-social.png",
+    "/images/generated/hero-detail.png"
 ];
 
 export default function Hero() {
