@@ -33,7 +33,7 @@ export const cuisines: Cuisine[] = [
     {
         id: "surinami",
         title: "Suriname Soul Food",
-        image: "/images/generated/cuisine-suriname.png",
+        image: "/images/suriname-new.png",
         description: "A vibrant fusion of Creole, Hindustani, and Javanese flavors."
     },
     {
@@ -57,13 +57,13 @@ export const cuisines: Cuisine[] = [
     {
         id: "vegetarian",
         title: "Fresh Vegetarian",
-        image: "/images/generated/cuisine-vegetarian.png",
+        image: "/images/veggie-new.png",
         description: "Vibrant, plant-based dishes that celebrate seasonal produce."
     },
     {
         id: "seafood",
         title: "Ocean Treasures",
-        image: "/images/generated/cuisine-seafood.png",
+        image: "/images/seafood-new.png",
         description: "Fresh catches prepared to highlight their natural delicate flavors."
     }
 ];
