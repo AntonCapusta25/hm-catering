@@ -45,7 +45,7 @@ export const cuisines: Cuisine[] = [
     {
         id: "indian",
         title: "Authentic Indian",
-        image: "/images/generated/cuisine-indian.png",
+        image: "/images/indian-46.png",
         description: "Rich curries, aromatic spices, and traditional recipes."
     },
     {
@@ -63,7 +63,7 @@ export const cuisines: Cuisine[] = [
     {
         id: "seafood",
         title: "Ocean Treasures",
-        image: "/images/seafood-new.png",
+        image: "/images/ocean-treasures-43.png",
         description: "Fresh catches prepared to highlight their natural delicate flavors."
     }
 ];
@@ -275,7 +275,7 @@ export const occasions: Occasion[] = [
         id: "shared",
         title: "Family-Style Dining",
         subtitle: "Social",
-        image: "/images/generated/occasion-family.png",
+        image: "/images/family-dining-44.png",
         description: "Food is best when shared. Enjoy large platters and family-style serving for a warm, communal dining experience at your event.",
         features: ["Large serving platters", "Interactive courses", "Casual atmosphere"]
     },
@@ -299,7 +299,7 @@ export const occasions: Occasion[] = [
         id: "romantic",
         title: "Private Dining",
         subtitle: "Intimate",
-        image: "/images/generated/occasion-romantic.png",
+        image: "/images/private-dining-45.png",
         description: "Create the perfect intimate setting with our private dining service. Exceptional food in the comfort of your chosen venue.",
         features: ["Elegant setup", "Premium beverage selection", "Discreet service"]
     }
