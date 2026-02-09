@@ -109,10 +109,18 @@ function BookingFormContent() {
             }
 
             // Track successful booking conversion in Google Analytics
-            trackEvent('booking_submitted', {
+            trackEvent('form_submit', {
+                event_category: 'engagement',
+                event_label: 'Booking Form',
+                form_id: 'booking-form',
+                form_name: 'Booking Form'
+            });
+
+            trackEvent('generate_lead', {
                 event_category: 'conversion',
                 event_label: 'Booking Form',
                 value: 1,
+                currency: 'EUR',
                 menu: selectedMenuId || 'custom',
                 chef: selectedChefName || 'any',
                 cuisine: selectedCuisine || 'custom',

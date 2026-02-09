@@ -8,7 +8,7 @@ const steps = [
         number: "01",
         title: "Choose Your Menu",
         description: "Browse our curated catering packages or request custom options.",
-        image: "/images/step-select.png",
+        image: "/images/select-menu-47.png",
     },
     {
         number: "02",
