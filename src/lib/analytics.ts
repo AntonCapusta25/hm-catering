@@ -2,8 +2,13 @@
 // Use this to track custom events throughout the app
 
 export const trackEvent = (eventName: string, eventParams?: Record<string, any>) => {
+    console.log('[Analytics] trackEvent called:', eventName, eventParams);
+
     if (typeof window !== "undefined" && (window as any).gtag) {
+        console.log('[Analytics] gtag available, sending event');
         (window as any).gtag("event", eventName, eventParams);
+    } else {
+        console.warn('[Analytics] gtag not available. Window:', typeof window, 'gtag:', typeof (window as any)?.gtag);
     }
 };
 
