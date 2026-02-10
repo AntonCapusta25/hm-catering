@@ -29,7 +29,7 @@ export default function Partners() {
                 {/* Infinite Scroll Container */}
                 <div className="flex w-full overflow-hidden">
                     <motion.div
-                        className="flex gap-16 md:gap-24 items-center flex-nowrap"
+                        className="flex gap-8 md:gap-24 items-center flex-nowrap"
                         animate={{
                             x: [0, -1000] // Adjust based on width of content
                         }}
