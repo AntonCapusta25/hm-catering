@@ -57,18 +57,20 @@ export default function Navbar() {
                 : "bg-white/90 backdrop-blur-sm shadow-sm"
                 }`}
         >
-            <Link href="/" className="flex items-center gap-2">
-                {/* Logo */}
-                <div className="h-9 w-auto">
-                    <img
-                        src="/images/logo-new.png"
-                        alt="Homemade Logo"
-                        className="h-full w-auto object-contain rounded-md"
-                    />
-                </div>
-            </Link>
+            <div className="flex-1 flex justify-start">
+                <Link href="/" className="flex items-center gap-2">
+                    {/* Logo */}
+                    <div className="h-9 w-auto">
+                        <img
+                            src="/images/logo-new.png"
+                            alt="Homemade Logo"
+                            className="h-full w-auto object-contain rounded-md"
+                        />
+                    </div>
+                </Link>
+            </div>
 
-            <div className="hidden md:flex items-center gap-8 text-light font-medium text-sm tracking-wide">
+            <div className="hidden md:flex flex-none justify-center items-center gap-8 text-light font-medium text-sm tracking-wide">
                 <Link href="#how-it-works" className="hover:text-orange transition-colors">
                     {t.howItWorks || "How it Works"}
                 </Link>
@@ -78,9 +80,12 @@ export default function Navbar() {
                 <Link href="#occasions" className="hover:text-orange transition-colors">
                     {(t as any).occasions || "Occasions"}
                 </Link>
+                <Link href={`/${i18n.lang || 'en'}/blog`} className="hover:text-orange transition-colors">
+                    {(t as any).blog || "Blog"}
+                </Link>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex-1 flex justify-end items-center gap-4">
                 <LanguageSwitcher />
 
                 <Link

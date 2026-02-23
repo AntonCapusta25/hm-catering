@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Users, Sparkles } from "lucide-react";
 import { useI18n } from "@/contexts/I18nContext";
 
 export default function ProblemSolution() {
@@ -10,17 +9,14 @@ export default function ProblemSolution() {
 
     const benefits = [
         {
-            icon: CheckCircle2,
             title: t.benefit1Title || "Better food than restaurants",
             description: t.benefit1Desc || "Chef-prepared meals with premium ingredients, tailored to your preferences"
         },
         {
-            icon: Users,
             title: t.benefit2Title || "Intimate atmosphere for real bonding",
             description: t.benefit2Desc || "Create meaningful connections in a comfortable, private setting"
         },
         {
-            icon: Sparkles,
             title: t.benefit3Title || "Fully customizable & flexible",
             description: t.benefit3Desc || "Adapt menus, timing, and service to match your exact needs"
         }
@@ -69,7 +65,6 @@ export default function ProblemSolution() {
                 {/* Benefits Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     {benefits.map((benefit, index) => {
-                        const IconComponent = benefit.icon;
                         return (
                             <motion.div
                                 key={benefit.title}
@@ -83,7 +78,6 @@ export default function ProblemSolution() {
                                     {/* Number */}
                                     <div className="text-6xl font-heading font-light text-orange/30 mb-6 flex items-center gap-4">
                                         0{index + 1}
-                                        <IconComponent className="w-10 h-10 text-orange" />
                                     </div>
 
                                     {/* Content */}

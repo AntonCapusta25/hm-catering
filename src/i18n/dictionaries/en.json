@@ -1,10 +1,11 @@
 {
     "navigation": {
         "howItWorks": "How It Works",
-        "menu": "Menu",
+        "menu": "Menus",
         "about": "About Us",
         "faq": "FAQ",
-        "bookNow": "Book Now"
+        "bookNow": "Book Now",
+        "blog": "Blog"
     },
     "hero": {
         "titlePart1": "Exceptional Catering",

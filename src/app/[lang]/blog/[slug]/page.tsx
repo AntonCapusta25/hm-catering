@@ -3,19 +3,30 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { CopyLinkBtn } from "./CopyLinkBtn"; // We will create this client component
+import { notFound } from "next/navigation";
+import { CopyLinkBtn } from "./CopyLinkBtn";
+import { BLOG_POSTS_I18N } from "@/lib/blogData";
 
 export async function generateMetadata({
     params,
 }: {
     params: Promise<{ lang: string; slug: string }>;
 }): Promise<Metadata> {
-    // In a real database scenario, you would fetch by slug here
+    const { lang, slug } = await params;
+    const posts = BLOG_POSTS_I18N[lang] || BLOG_POSTS_I18N['en'];
+    const post = posts.find((p) => p.slug === slug);
+
+    if (!post) {
+        return {
+            title: "Post Not Found | Homemade Catering",
+        };
+    }
+
     return {
-        title: "Vegan Dutch Recipes: Stamppot, Hachee & More | Homemade",
-        description: "Expand your menu with plant-based Dutch comfort food. Get detailed recipes for vegan stamppot, mushroom hachee, and smoky erwtensoep to attract more customers.",
+        title: `${post.title} | Homemade Catering`,
+        description: post.excerpt,
         openGraph: {
-            images: ['https://cdn.prod.website-files.com/67ca169b9408c827cc9df356/687e83af743aca19db9f7b28_Time%20Management%20Tips%20for%20Home%20Chefs%20(5).jpg']
+            images: [post.image],
         }
     };
 }
@@ -26,20 +37,13 @@ export default async function BlogPostTemplate({
     params: Promise<{ lang: string; slug: string }>;
 }) {
     const { lang, slug } = await params;
+    const posts = BLOG_POSTS_I18N[lang] || BLOG_POSTS_I18N['en'];
 
-    // Placeholder data that would normally come from a CMS or database
-    const post = {
-        title: "Embrace the Trend: How to Offer Exciting Vegan and Plant-Based Versions of Dutch Classics",
-        category: "General",
-        readTime: "5 Min Read",
-        publishedAt: "October 14, 2025",
-        author: {
-            name: "Homemade Team",
-            role: "Content Team",
-            image: "/images/chefs/ron.png", // Using an existing local image
-        },
-        heroImage: "https://cdn.prod.website-files.com/67ca169b9408c827cc9df356/687e83af743aca19db9f7b28_Time%20Management%20Tips%20for%20Home%20Chefs%20(5).jpg",
-    };
+    const post = posts.find((p) => p.slug === slug);
+
+    if (!post) {
+        notFound();
+    }
 
     return (
         <main className="min-h-screen bg-[#FDFBF7]">
@@ -47,9 +51,9 @@ export default async function BlogPostTemplate({
 
             {/* Hero Section */}
             <section className="relative h-[70vh] min-h-[500px] flex items-end pb-20 overflow-hidden">
-                <div className="absolute inset-0 z-0">
+                <div className="absolute inset-0 z-0 bg-[#0F1E19]">
                     <Image
-                        src={post.heroImage}
+                        src={post.image}
                         alt={post.title}
                         fill
                         className="object-cover scale-105"
@@ -81,18 +85,13 @@ export default async function BlogPostTemplate({
                                 {post.readTime}
                             </span>
                         </div>
-                        <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight drop-shadow-xl">
+                        <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight drop-shadow-xl">
                             {post.title}
                         </h1>
                         <div className="flex items-center gap-6 text-white/90 border-t border-white/20 pt-6">
                             <div className="flex items-center gap-3">
-                                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#F47A44]">
-                                    <Image
-                                        src={post.author.image}
-                                        alt={post.author.name}
-                                        fill
-                                        className="object-cover"
-                                    />
+                                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#F47A44] bg-[#F47A44]/10 flex justify-center items-center font-bold text-[#F47A44]">
+                                    {post.author.name.charAt(0)}
                                 </div>
                                 <div>
                                     <p className="font-bold text-lg leading-none">{post.author.name}</p>
@@ -140,48 +139,19 @@ export default async function BlogPostTemplate({
 
                 {/* Article Body */}
                 <article className="lg:col-span-8">
-                    <div className="prose prose-xl prose-stone max-w-none prose-headings:font-serif prose-headings:text-[#0F1E19] prose-headings:font-bold prose-p:text-[#0F1E19]/80 prose-p:leading-loose prose-a:text-[#F47A44] prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-4 prose-blockquote:border-[#F47A44] prose-blockquote:bg-[#F47A44]/5 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:rounded-r-lg prose-img:rounded-2xl prose-img:shadow-xl first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-[#F47A44] first-letter:mr-3 first-letter:float-left">
-                        <h2>Embrace the Trend: How to Offer Exciting Vegan and Plant-Based Versions of Dutch Classics</h2>
-
-                        <p>There's a certain kind of warmth that comes from a classic Dutch meal. It’s the feeling of <em>gezelligheid</em> in a bowl—a hearty <em>stamppot</em> on a chilly evening, a rich and fragrant <em>hachee</em> that has been simmering for hours, or a thick, spoon-standing <em>erwtensoep</em> that tastes like tradition itself. These are the dishes that many of us grew up with, the flavors that feel like home. But in today's culinary world, the definition of "home cooking" is beautifully expanding.</p>
-
-                        <p>A powerful and undeniable shift is happening at the dinner table. More and more people across the Netherlands are embracing plant-based eating—for their health, for the environment, and for ethical reasons. For a home chef, this isn't a limitation to be navigated; it is a massive and exciting opportunity. Veganizing Dutch classics isn't about taking something away from these beloved dishes. It’s about using creativity and new techniques to add a new, delicious dimension to them. It's about innovation that allows you to welcome even more people to your table.</p>
-
-                        <p>This guide will provide you with the practical, recipe-focused steps to transform three iconic Dutch comfort foods into spectacular plant-based masterpieces. These dishes are designed to satisfy the cravings of seasoned vegans and pleasantly surprise even the most devout meat-eaters, positioning your kitchen at the forefront of modern Dutch cuisine.</p>
-
-                        <h2>The Vegan Dutch Kitchen: Your Toolkit for Success</h2>
-
-                        <p>Before we dive into the recipes, let's establish a few key principles. Successfully veganizing hearty, meat-centric dishes comes down to mastering three things: savory depth (umami), richness, and texture.</p>
-
-                        <ul>
-                            <li><strong>Achieving <em>Hartigheid</em> (Savory Depth):</strong> The biggest challenge when removing meat is replacing its deep, savory flavor. Your pantry is your best friend here.
-                                <ul>
-                                    <li><strong>Umami Boosters:</strong> Mushrooms (especially dried shiitake or fresh chestnuts), soy sauce or tamari, miso paste, tomato purée, and nutritional yeast ("nooch") are essential for adding a complex, savory base.</li>
-                                    <li><strong>Smoky Notes:</strong> Smoked paprika, a few drops of liquid smoke, or chipotle paste are crucial for replicating the smoky flavor traditionally provided by bacon (<em>spekjes</em>) or smoked sausage (<em>rookworst</em>).</li>
-                                </ul>
-                            </li>
-                            <li><strong>Replicating Richness and Fat:</strong> The satisfying mouthfeel of classic Dutch food often comes from animal fats like butter or lard.
-                                <ul>
-                                    <li><strong>Your Go-To Fats:</strong> High-quality plant-based butter (<em>plantaardige boter</em>), olive oil for sautéing, and full-fat coconut milk or homemade cashew cream for finishing sauces and soups will provide the richness you need.</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    <div
+                        className="prose prose-xl prose-stone max-w-none prose-headings:font-heading prose-headings:text-[#0F1E19] prose-headings:font-bold prose-p:text-[#0F1E19]/80 prose-p:leading-loose prose-a:text-[#F47A44] prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-4 prose-blockquote:border-[#F47A44] prose-blockquote:bg-[#F47A44]/5 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:rounded-r-lg prose-img:rounded-2xl prose-img:shadow-xl first-letter:text-5xl first-letter:font-heading first-letter:font-bold first-letter:text-[#F47A44] first-letter:mr-3 first-letter:float-left"
+                        dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+                    />
 
                     {/* Author Box Block */}
                     <div className="bg-[#E6DCC3]/20 p-8 rounded-2xl flex flex-col md:flex-row items-center gap-6 mt-16 border border-[#E6DCC3]/50">
-                        <div className="relative w-24 h-24 flex-shrink-0">
-                            <div className="absolute inset-0 bg-[#F47A44] rounded-full opacity-10 scale-110"></div>
-                            <Image
-                                src={post.author.image}
-                                alt={post.author.name}
-                                fill
-                                className="object-cover rounded-full border-2 border-white shadow-md"
-                            />
+                        <div className="relative w-24 h-24 flex-shrink-0 flex items-center justify-center bg-[#F47A44]/10 rounded-full border-2 border-white shadow-md">
+                            <span className="text-4xl font-heading font-bold text-[#F47A44]">{post.author.name.charAt(0)}</span>
                         </div>
                         <div className="text-center md:text-left">
                             <span className="text-[#F47A44] font-bold text-xs uppercase tracking-wider mb-1 block">Written By</span>
-                            <h4 className="font-serif text-xl font-bold text-[#0F1E19]">{post.author.name}</h4>
+                            <h4 className="font-heading text-xl font-bold text-[#0F1E19]">{post.author.name}</h4>
                             <p className="text-[#0F1E19]/60 text-sm mt-1">{post.author.role}</p>
                             <p className="text-[#0F1E19]/70 text-sm mt-3 leading-relaxed">
                                 Passionate about sharing insights on culinary trends and kitchen management. Bringing you the latest updates from the heart of the industry.
@@ -193,38 +163,24 @@ export default async function BlogPostTemplate({
                 {/* Related Articles Array */}
                 <div className="lg:col-span-3">
                     <div className="sticky top-32">
-                        <h3 className="font-serif text-2xl font-bold text-[#0F1E19] mb-6 border-b border-[#0F1E19]/10 pb-4">Related Articles</h3>
+                        <h3 className="font-heading text-2xl font-bold text-[#0F1E19] mb-6 border-b border-[#0F1E19]/10 pb-4">Recent Articles</h3>
                         <div className="flex flex-col gap-8">
-
-                            <Link href={`/${lang}/blog/securing-your-first-customer`} className="group block">
-                                <div className="relative h-40 mb-4 overflow-hidden rounded-xl">
-                                    <Image
-                                        src="https://cdn.prod.website-files.com/67ca169b9408c827cc9df356/6809b26e8141cc203324666f_67ca169b9408c827cc9df375_image16.jpeg"
-                                        alt="Securing Your First Customer"
-                                        fill
-                                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                                    />
-                                </div>
-                                <span className="text-[#F47A44] text-xs font-bold uppercase tracking-wider">General</span>
-                                <h4 className="font-serif text-lg font-bold text-[#0F1E19] mt-2 group-hover:text-[#F47A44] transition-colors leading-snug">
-                                    Securing Your First Customer: An Advanced Guide by Homemade
-                                </h4>
-                            </Link>
-
-                            <Link href={`/${lang}/blog/food-truck-netherlands`} className="group block">
-                                <div className="relative h-40 mb-4 overflow-hidden rounded-xl">
-                                    <Image
-                                        src="https://cdn.prod.website-files.com/67ca169b9408c827cc9df356/6911bcaccd9df5355ac90e32_Homemade%20Chefs%20-%20Blog%20Banner%20(20).png"
-                                        alt="Food Truck Business"
-                                        fill
-                                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                                    />
-                                </div>
-                                <span className="text-[#F47A44] text-xs font-bold uppercase tracking-wider">General</span>
-                                <h4 className="font-serif text-lg font-bold text-[#0F1E19] mt-2 group-hover:text-[#F47A44] transition-colors leading-snug">
-                                    How to Open a Food Truck Business in the Netherlands (2025 Edition)
-                                </h4>
-                            </Link>
+                            {posts.filter(p => p.slug !== slug).slice(0, 3).map((relatedPost) => (
+                                <Link key={relatedPost.slug} href={`/${lang}/blog/${relatedPost.slug}`} className="group block">
+                                    <div className="relative h-40 mb-4 overflow-hidden rounded-xl bg-gray-100">
+                                        <Image
+                                            src={relatedPost.image}
+                                            alt={relatedPost.title}
+                                            fill
+                                            className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                        />
+                                    </div>
+                                    <span className="text-[#F47A44] text-xs font-bold uppercase tracking-wider">{relatedPost.category}</span>
+                                    <h4 className="font-heading text-lg font-bold text-[#0F1E19] mt-2 group-hover:text-[#F47A44] transition-colors leading-snug">
+                                        {relatedPost.title}
+                                    </h4>
+                                </Link>
+                            ))}
                         </div>
                     </div>
                 </div>
