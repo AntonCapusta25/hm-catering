@@ -31,7 +31,9 @@ export function middleware(request: NextRequest) {
         pathname.startsWith("/images/") ||
         pathname.includes("/favicon.ico") ||
         pathname.includes("/icon.png") ||
-        pathname.includes(".svg")
+        pathname.includes(".svg") ||
+        pathname.includes("sitemap.xml") ||
+        pathname.includes("robots.txt")
     ) {
         return NextResponse.next();
     }
@@ -54,6 +56,6 @@ export function middleware(request: NextRequest) {
 export const config = {
     matcher: [
         // Skip all internal paths (_next, api, images)
-        '/((?!api|_next/static|_next/image|images|favicon.ico|icon.png).*)',
+        '/((?!api|_next/static|_next/image|images|favicon.ico|icon.png|sitemap.xml|robots.txt).*)',
     ],
 };

@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share a Meal | Homemade Charity</title>
+    <meta name="description"
+        content="A community-driven, not-for-profit initiative combating food waste. Local chefs sharing surplus meals with the community.">
+
+    <style>
+        @font-face {
+            font-family: 'NewSpirit';
+            src: url('https://firebasestorage.googleapis.com/v0/b/homemademeals-7040d.appspot.com/o/fonts%2FNewSpirit-BoldCondensed.ttf?alt=media&token=c8efe058-eff2-4ae3-937e-5ec9d0d760cd') format('truetype');
+            font-weight: bold;
+        }
+
+        #share-a-meal-wrapper * {
+            box-sizing: border-box !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        #share-a-meal-wrapper {
+            --orange: #F27D42;
+            --orange-dk: #d9622e;
+            --warm: #FFF8F0;
+            --warmer: #f5ebd9;
+            --navy: #2D2420;
+            --brown: #6b4c35;
+            --muted: #5D5D5D;
+            --border: #e8ddd3;
+            --green: #1A4D2E;
+            --green-lt: #edf6f1;
+            --white: #ffffff;
+
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif !important;
+            background: var(--warm) !important;
+            color: var(--navy) !important;
+            overflow-x: hidden !important;
+            position: relative !important;
+            width: 100vw !important;
+            left: 50% !important;
+            right: 50% !important;
+            margin-left: -50vw !important;
+            margin-right: -50vw !important;
+            min-height: 100vh !important;
+            z-index: 10 !important;
+        }
+
+        /* ── GRAIN OVERLAY ── */
+        #share-a-meal-wrapper::before {
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E") !important;
+            pointer-events: none !important;
+            z-index: 10 !important;
+            opacity: 0.6 !important;
+        }
+
+        #share-a-meal-wrapper .container {
+            max-width: 1200px !important;
+            margin: 0 auto !important;
+            padding: 0 2rem !important;
+            position: relative !important;
+            z-index: 12 !important;
+        }
+
+        /* ── HERO ── */
+        #share-a-meal-wrapper .hero {
+            min-height: 90vh !important;
+            display: flex !important;
+            align-items: center !important;
+            padding: 120px 0 80px !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+
+        #share-a-meal-wrapper .hero::before {
+            content: '' !important;
+            position: absolute !important;
+            width: 900px !important;
+            height: 900px !important;
+            background: radial-gradient(circle, rgba(242, 125, 66, 0.1) 0%, transparent 70%) !important;
+            top: -200px !important;
+            right: -200px !important;
+            pointer-events: none !important;
+        }
+
+        #share-a-meal-wrapper .hero::after {
+            content: '' !important;
+            position: absolute !important;
+            width: 600px !important;
+            height: 600px !important;
+            background: radial-gradient(circle, rgba(26, 77, 46, 0.08) 0%, transparent 70%) !important;
+            bottom: -100px !important;
+            left: -100px !important;
+            pointer-events: none !important;
+        }
+
+        #share-a-meal-wrapper .hero-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 4rem !important;
+            align-items: center !important;
+        }
+
+        #share-a-meal-wrapper .hero-inner {
+            animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+        }
+
+        #share-a-meal-wrapper .hero-image-wrapper {
+            position: relative !important;
+            border-radius: 2rem !important;
+            overflow: hidden !important;
+            box-shadow: 0 30px 60px rgba(45, 36, 32, 0.15) !important;
+            height: 600px !important;
+            transform: rotate(2deg) !important;
+            animation: fadeUp 1s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+            background-color: transparent !important;
+        }
+
+        #share-a-meal-wrapper .hero-image-wrapper img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            display: block !important;
+            max-width: none !important;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) rotate(0deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #share-a-meal-wrapper .hero-pill {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+            background: var(--green-lt) !important;
+            border: 1px solid rgba(26, 77, 46, 0.25) !important;
+            color: var(--green) !important;
+            padding: 0.45rem 1.1rem !important;
+            border-radius: 50px !important;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.08em !important;
+            text-transform: uppercase !important;
+            margin-bottom: 2rem !important;
+        }
+
+        #share-a-meal-wrapper .hero-pill span {
+            font-size: 1rem !important;
+        }
+
+        #share-a-meal-wrapper .hero h1 {
+            font-family: 'NewSpirit', serif !important;
+            font-size: clamp(3rem, 6vw, 5.5rem) !important;
+            line-height: 0.95 !important;
+            color: var(--navy) !important;
+            margin-bottom: 1.5rem !important;
+            letter-spacing: -0.01em !important;
+            font-weight: bold !important;
+        }
+
+        #share-a-meal-wrapper .hero h1 .accent {
+            color: var(--orange) !important;
+            display: inline-block !important;
+            position: relative !important;
+        }
+
+        #share-a-meal-wrapper .hero h1 .accent::after {
+            content: '' !important;
+            position: absolute !important;
+            bottom: -2px !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 4px !important;
+            background: var(--orange) !important;
+            border-radius: 2px !important;
+            opacity: 0.4 !important;
+        }
+
+        #share-a-meal-wrapper .hero-sub {
+            font-size: clamp(1.05rem, 2vw, 1.25rem) !important;
+            color: var(--muted) !important;
+            line-height: 1.7 !important;
+            max-width: 500px !important;
+            margin-bottom: 2.5rem !important;
+        }
+
+        #share-a-meal-wrapper .hero-cta-wrap {
+            display: flex !important;
+            align-items: center !important;
+            gap: 1rem !important;
+            flex-wrap: wrap !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        #share-a-meal-wrapper .btn-main {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0.5rem !important;
+            background: var(--orange) !important;
+            color: white !important;
+            padding: 1.05rem 2.2rem !important;
+            border-radius: 50px !important;
+            font-weight: 700 !important;
+            font-size: 1rem !important;
+            text-decoration: none !important;
+            transition: all 0.25s ease !important;
+            box-shadow: 0 8px 28px rgba(242, 125, 66, 0.35) !important;
+            border: none !important;
+            height: auto !important;
+            line-height: 1.5 !important;
+        }
+
+        #share-a-meal-wrapper .btn-main svg {
+            width: 20px !important;
+            height: 20px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        #share-a-meal-wrapper .btn-main:hover {
+            background: var(--orange-dk) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 14px 36px rgba(242, 125, 66, 0.45) !important;
+            color: white !important;
+        }
+
+        /* ── SCROLL MARQUEE ── */
+        #share-a-meal-wrapper .marquee-wrap {
+            background: var(--navy) !important;
+            padding: 1.2rem 0 !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .marquee-track {
+            display: inline-flex !important;
+            gap: 0 !important;
+            animation: marquee 22s linear infinite !important;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        #share-a-meal-wrapper .marquee-item {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 0.6rem !important;
+            padding: 0 2.5rem !important;
+            font-size: 0.85rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.12em !important;
+            text-transform: uppercase !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .marquee-dot {
+            color: var(--orange) !important;
+            font-size: 1.2rem !important;
+            line-height: 1 !important;
+            margin: 0 !important;
+        }
+
+        /* ── SECTION SHARED ── */
+        #share-a-meal-wrapper .section {
+            padding: 120px 0 !important;
+            position: relative !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .eyebrow {
+            display: inline-block !important;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.15em !important;
+            text-transform: uppercase !important;
+            color: var(--orange) !important;
+            margin-bottom: 1rem !important;
+        }
+
+        #share-a-meal-wrapper .section-h {
+            font-family: 'NewSpirit', serif !important;
+            font-size: clamp(2.4rem, 4vw, 3.5rem) !important;
+            color: var(--navy) !important;
+            line-height: 1.05 !important;
+            margin-bottom: 1.1rem !important;
+            font-weight: bold !important;
+        }
+
+        #share-a-meal-wrapper .section-p {
+            font-size: 1.1rem !important;
+            color: var(--muted) !important;
+            line-height: 1.75 !important;
+            max-width: 520px !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* ── HOW IT WORKS ── */
+        #share-a-meal-wrapper .how-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 1.5rem !important;
+            margin-top: 4rem !important;
+        }
+
+        #share-a-meal-wrapper .how-card {
+            background: white !important;
+            border-radius: 24px !important;
+            padding: 2.5rem !important;
+            position: relative !important;
+            border: 1px solid var(--border) !important;
+            transition: all 0.35s ease !important;
+            overflow: hidden !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .how-card::before {
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            background: linear-gradient(135deg, rgba(242, 125, 66, 0.04) 0%, transparent 60%) !important;
+            opacity: 0 !important;
+            transition: opacity 0.35s ease !important;
+        }
+
+        #share-a-meal-wrapper .how-card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 24px 60px rgba(45, 36, 32, 0.08) !important;
+            border-color: transparent !important;
+        }
+
+        #share-a-meal-wrapper .how-card:hover::before {
+            opacity: 1 !important;
+        }
+
+        #share-a-meal-wrapper .how-num {
+            font-family: 'NewSpirit', serif !important;
+            font-size: 5rem !important;
+            line-height: 1 !important;
+            color: var(--warmer) !important;
+            margin-bottom: 1.5rem !important;
+            display: block !important;
+            font-weight: bold !important;
+        }
+
+        #share-a-meal-wrapper .how-icon-wrapper {
+            width: 60px !important;
+            height: 60px !important;
+            border-radius: 50% !important;
+            margin-bottom: 1.5rem !important;
+            overflow: hidden !important;
+            position: relative !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        #share-a-meal-wrapper .how-icon-wrapper img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .how-card h3 {
+            font-family: 'NewSpirit', serif !important;
+            font-size: 1.4rem !important;
+            color: var(--navy) !important;
+            margin-bottom: 0.75rem !important;
+            font-weight: bold !important;
+            line-height: 1.2 !important;
+        }
+
+        #share-a-meal-wrapper .how-card p {
+            font-size: 0.95rem !important;
+            color: var(--muted) !important;
+            line-height: 1.6 !important;
+        }
+
+        /* ── WHY SECTION ── */
+        #share-a-meal-wrapper .why-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 6rem !important;
+            align-items: center !important;
+        }
+
+        #share-a-meal-wrapper .why-visual {
+            position: relative !important;
+            border-radius: 28px !important;
+            overflow: hidden !important;
+            box-shadow: 0 40px 80px rgba(45, 36, 32, 0.1) !important;
+            height: 600px !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .why-visual img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            display: block !important;
+        }
+
+        #share-a-meal-wrapper .reasons {
+            list-style: none !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 2rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        #share-a-meal-wrapper .reason {
+            display: flex !important;
+            gap: 1.25rem !important;
+            align-items: flex-start !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .reason-ico {
+            width: 60px !important;
+            height: 60px !important;
+            background: var(--warmer) !important;
+            border-radius: 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 1.6rem !important;
+            font-family: 'NewSpirit', serif !important;
+            font-weight: bold !important;
+            color: var(--orange) !important;
+            flex-shrink: 0 !important;
+            transition: background 0.3s ease !important;
+        }
+
+        #share-a-meal-wrapper .reason:hover .reason-ico {
+            background: var(--orange-dk) !important;
+            color: white !important;
+        }
+
+        #share-a-meal-wrapper .reason strong {
+            display: block !important;
+            font-size: 1.1rem !important;
+            font-weight: 700 !important;
+            color: var(--navy) !important;
+            margin-bottom: 0.4rem !important;
+        }
+
+        #share-a-meal-wrapper .reason span {
+            font-size: 0.95rem !important;
+            color: var(--muted) !important;
+            line-height: 1.6 !important;
+        }
+
+        /* ── CHEF CTA BANNER ── */
+        #share-a-meal-wrapper .chef-banner {
+            background: linear-gradient(135deg, #1A4D2E 0%, #10361f 100%) !important;
+            border-radius: 32px !important;
+            padding: 5rem !important;
+            display: grid !important;
+            grid-template-columns: 1fr auto !important;
+            gap: 4rem !important;
+            align-items: center !important;
+            position: relative !important;
+            overflow: hidden !important;
+            color: white !important;
+            box-shadow: 0 20px 50px rgba(26, 77, 46, 0.2) !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .chef-banner::before {
+            content: '' !important;
+            position: absolute !important;
+            width: 400px !important;
+            height: 400px !important;
+            background: radial-gradient(circle, rgba(242, 125, 66, 0.2) 0%, transparent 70%) !important;
+            top: -100px !important;
+            left: -100px !important;
+            pointer-events: none !important;
+        }
+
+        #share-a-meal-wrapper .chef-banner h2 {
+            font-family: 'NewSpirit', serif !important;
+            font-size: clamp(2.2rem, 3.5vw, 3.2rem) !important;
+            color: white !important;
+            margin-bottom: 1rem !important;
+            line-height: 1.1 !important;
+            font-weight: bold !important;
+        }
+
+        #share-a-meal-wrapper .chef-banner p {
+            font-size: 1.1rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            max-width: 520px !important;
+            line-height: 1.7 !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .chef-banner-btns {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 1rem !important;
+            min-width: 220px !important;
+            margin: 0 !important;
+        }
+
+        /* ── FINAL CTA ── */
+        #share-a-meal-wrapper .final {
+            background: var(--navy) !important;
+            padding: 140px 0 !important;
+            text-align: center !important;
+            position: relative !important;
+            overflow: hidden !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .final::before {
+            content: '' !important;
+            position: absolute !important;
+            width: 1000px !important;
+            height: 1000px !important;
+            background: radial-gradient(circle, rgba(242, 125, 66, 0.15) 0%, transparent 65%) !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            pointer-events: none !important;
+        }
+
+        #share-a-meal-wrapper .final h2 {
+            font-family: 'NewSpirit', serif !important;
+            font-size: clamp(3rem, 6vw, 5rem) !important;
+            color: white !important;
+            margin-bottom: 1.5rem !important;
+            line-height: 1.05 !important;
+            font-weight: bold !important;
+        }
+
+        #share-a-meal-wrapper .final h2 em {
+            font-style: normal !important;
+            color: var(--orange) !important;
+        }
+
+        #share-a-meal-wrapper .final p {
+            font-size: 1.2rem !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+            max-width: 560px !important;
+            margin: 0 auto 3rem !important;
+            line-height: 1.7 !important;
+        }
+
+        #share-a-meal-wrapper .final .hero-cta-wrap {
+            justify-content: center !important;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 960px) {
+            #share-a-meal-wrapper .hero-grid {
+                grid-template-columns: 1fr !important;
+                text-align: center !important;
+                gap: 2rem !important;
+            }
+
+            #share-a-meal-wrapper .hero-inner {
+                max-width: 600px !important;
+                margin: 0 auto !important;
+            }
+
+            #share-a-meal-wrapper .hero-cta-wrap {
+                justify-content: center !important;
+            }
+
+            #share-a-meal-wrapper .hero-image-wrapper {
+                display: none !important;
+            }
+
+            #share-a-meal-wrapper .how-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            #share-a-meal-wrapper .why-grid {
+                grid-template-columns: 1fr !important;
+                gap: 4rem !important;
+            }
+
+            #share-a-meal-wrapper .why-visual {
+                height: 400px !important;
+                display: none !important;
+            }
+
+            #share-a-meal-wrapper .chef-banner {
+                grid-template-columns: 1fr !important;
+                padding: 3rem !important;
+                text-align: center !important;
+            }
+
+            #share-a-meal-wrapper .chef-banner-btns {
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #share-a-meal-wrapper .hero {
+                padding: 100px 0 60px !important;
+            }
+
+            #share-a-meal-wrapper .hero h1 {
+                font-size: 3rem !important;
+            }
+
+            #share-a-meal-wrapper .hero-cta-wrap {
+                flex-direction: column !important;
+            }
+
+            #share-a-meal-wrapper .btn-main {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+
+            #share-a-meal-wrapper .section {
+                padding: 80px 0 !important;
+            }
+
+            #share-a-meal-wrapper .how-card {
+                padding: 2rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="share-a-meal-wrapper">
+
+        <!-- ── HERO ── -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-inner">
+                        <div class="hero-pill"><span>🌱</span> Non-Profit Initiative</div>
+                        <h1>
+                            Food that.<br>
+                            <span class="accent">Matters.</span>
+                        </h1>
+                        <p class="hero-sub">
+                            We are a charitable initiative connecting home chefs with the community to share surplus
+                            meals.
+                            Not for profit, just for people. Because good food shouldn't go to waste.
+                        </p>
+                        <div class="hero-cta-wrap">
+                            <a href="https://zol4dc90rf4.typeform.com/to/HdWoEkfx" class="btn-main" target="_blank">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                                Get a free meal
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200&auto=format&fit=crop"
+                            alt="Delicious home cooked meal sharing for charity">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── MARQUEE ── -->
+        <div class="marquee-wrap">
+            <div class="marquee-track">
+                <span class="marquee-item"><span class="marquee-dot">●</span> 100% Not-for-Profit</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> Zero food waste</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> Community empowerment</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> Sharing surplus</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> Neighbour to neighbour</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> 100% Not-for-Profit</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> Zero food waste</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> Community empowerment</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> Sharing surplus</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> Neighbour to neighbour</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> 100% Not-for-Profit</span>
+                <span class="marquee-item"><span class="marquee-dot">●</span> Zero food waste</span>
+            </div>
+        </div>
+
+        <!-- ── HOW IT WORKS ── -->
+        <section class="section">
+            <div class="container">
+                <span class="eyebrow">Our Mission</span>
+                <h2 class="section-h">Nurturing communities,<br>one meal at a time.</h2>
+
+                <div class="how-grid">
+                    <div class="how-card">
+                        <span class="how-num">01</span>
+                        <div class="how-icon-wrapper">
+                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=300&auto=format&fit=crop"
+                                alt="Chef preparing meal">
+                        </div>
+                        <h3>Dodge the Bin</h3>
+                        <p>When our network of passionate home chefs cooks a little too much, they don't throw it out.
+                            They
+                            package the surplus to be shared locally.</p>
+                    </div>
+                    <div class="how-card">
+                        <span class="how-num">02</span>
+                        <div class="how-icon-wrapper">
+                            <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?q=80&w=300&auto=format&fit=crop"
+                                alt="Location pinpoint visually represented">
+                        </div>
+                        <h3>A True Community</h3>
+                        <p>Our platform facilitates the connection between these big-hearted cooks and neighbours who
+                            want
+                            wholesome, real food.</p>
+                    </div>
+                    <div class="how-card">
+                        <span class="how-num">03</span>
+                        <div class="how-icon-wrapper">
+                            <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=300&auto=format&fit=crop"
+                                alt="Hands passing food">
+                        </div>
+                        <h3>Feel-Good Impact</h3>
+                        <p>No inflated prices. No corporate margins. Just authentic, charity-driven exchanges that build
+                            localized food security and eliminate waste.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── WHY ── -->
+        <section class="section">
+            <div class="container">
+                <div class="why-grid">
+                    <div>
+                        <span class="eyebrow">Why it matters</span>
+                        <h2 class="section-h">Food that would've<br>been thrown away.<br>Community that wasn't.</h2>
+                        <p class="section-p" style="margin-bottom:3rem;">We are fundamentally committed to a charity
+                            model.
+                            By bypassing the profit incentives of standard tech giants, we empower pure human
+                            connection.
+                        </p>
+
+                        <ul class="reasons">
+                            <li class="reason">
+                                <div class="reason-ico">01</div>
+                                <div>
+                                    <strong>Zero food waste</strong>
+                                    <span>Every shared meal is food that would have gone uneaten. We are building
+                                        systems
+                                        that intercept and redistribute perfectly good food.</span>
+                                </div>
+                            </li>
+                            <li class="reason">
+                                <div class="reason-ico">02</div>
+                                <div>
+                                    <strong>Straight from the heart</strong>
+                                    <span>No factories, no industrial supply chains. Just a real person sharing an
+                                        honest
+                                        meal from a kitchen a few streets away from yours.</span>
+                                </div>
+                            </li>
+                            <li class="reason">
+                                <div class="reason-ico">03</div>
+                                <div>
+                                    <strong>Unapologetically charitable</strong>
+                                    <span>We don't take a cut. We simply act as the bridge allowing goodwill and excess
+                                        abundance to flow exactly where it's needed most.</span>
+                                </div>
+                            </li>
+                            <li class="reason">
+                                <div class="reason-ico">04</div>
+                                <div>
+                                    <strong>Hyper-local by design</strong>
+                                    <span>Our focus is entirely neighborhood-driven. We believe real societal change
+                                        happens
+                                        at the granular, community level.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="why-visual">
+                        <img src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=1200&auto=format&fit=crop"
+                            alt="Community sharing food on a large sunny table">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CHEF BANNER ── -->
+        <section class="section" style="padding-top:0;">
+            <div class="container">
+                <div class="chef-banner">
+                    <div>
+                        <h2>Become an<br>Ambassador.</h2>
+                        <p>Have an appetite for change? Whether you have surplus food to share, or you just want to
+                            volunteer your time, we welcome all forms of community support.</p>
+                    </div>
+                    <div class="chef-banner-btns">
+                        <a href="https://zol4dc90rf4.typeform.com/to/hMRxkYkq" class="btn-main" target="_blank">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                            Join Initiative
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── FINAL CTA ── -->
+        <section class="final">
+            <div class="container">
+                <h2>Good food.<br><em>For everyone.</em></h2>
+                <p>Join a growing community committed to eliminating waste and ensuring that everyone gets a seat at the
+                    table. Fill out our form to get involved.</p>
+                <div class="hero-cta-wrap">
+                    <a href="https://zol4dc90rf4.typeform.com/to/HdWoEkfx" class="btn-main" target="_blank">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                        Get a free meal
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
