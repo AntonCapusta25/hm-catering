@@ -60,11 +60,17 @@ function findNearestCity(userLat: number, userLon: number): string {
     return nearestCity;
 }
 
-export function CityProvider({ children }: { children: ReactNode }) {
-    const [selectedCity, setSelectedCity] = useState("Amsterdam");
-    const [isDetectingLocation, setIsDetectingLocation] = useState(true);
+export function CityProvider({ children, initialCity }: { children: ReactNode, initialCity?: string }) {
+    const formattedInitial = initialCity
+        ? initialCity.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+        : "Amsterdam";
+
+    const [selectedCity, setSelectedCity] = useState(formattedInitial);
+    const [isDetectingLocation, setIsDetectingLocation] = useState(!initialCity);
 
     useEffect(() => {
+        // If an initial city is provided via URL (like /nl/utrecht), don't overwrite it with geolocation
+        if (initialCity) return;
         // Try to detect user's location
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(

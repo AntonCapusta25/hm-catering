@@ -13,7 +13,11 @@ const HERO_IMAGES = [
     "/images/hero-51.png"
 ];
 
-export default function Hero() {
+interface HeroProps {
+    city?: string;
+}
+
+export default function Hero({ city }: HeroProps) {
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.hero || {};
 
@@ -83,7 +87,7 @@ export default function Hero() {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="text-5xl md:text-7xl font-heading font-bold leading-tight mb-6 drop-shadow-lg"
                 >
-                    {t.titlePart1 || "Exceptional Catering"}
+                    {t.titlePart1 || "Exceptional Catering"} {city && `in ${city.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}`}
                     <br />
                     {t.titlePart2 || "for Every"} <span className="text-orange italic font-serif">{t.titleHighlight || "Occasion"}</span>
                 </motion.h1>
