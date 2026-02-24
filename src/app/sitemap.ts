@@ -4,7 +4,7 @@ import { BLOG_POSTS_I18N, BlogPost } from '@/lib/blogData'
 
 // Helper to get the canonical URL for a specific language
 function getUrl(lang: string, path: string = '') {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://homemade-catering.com'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://catering.homemadechefs.com'
     return `${baseUrl}/${lang}${path ? `/${path}` : ''}`
 }
 
