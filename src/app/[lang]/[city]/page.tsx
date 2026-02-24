@@ -21,8 +21,8 @@ export const SUPPORTED_CITIES = [
   'rotterdam',
   'enschede',
   'den-haag',
-  'utrecht',
-  'eindhoven',
+  'haarlem',
+  'hengelo',
   'groningen'
 ];
 
@@ -106,8 +106,8 @@ export default async function CityLandingPage({
     "amsterdam": { lat: "52.3676", lon: "4.9041", desc: "Capital city and major catering hub." },
     "rotterdam": { lat: "51.9225", lon: "4.47917", desc: "Dynamic port city with excellent corporate catering reach." },
     "den-haag": { lat: "52.0705", lon: "4.3007", desc: "Home to international dining and high-end events." },
-    "utrecht": { lat: "52.0907", lon: "5.1214", desc: "Central location for nationwide catering logistics." },
-    "eindhoven": { lat: "51.4416", lon: "5.4697", desc: "Tech hub ideal for corporate catering events." },
+    "haarlem": { lat: "52.3874", lon: "4.6462", desc: "Historical center with exquisite boutique catering events." },
+    "hengelo": { lat: "52.2658", lon: "6.7930", desc: "Tech and manufacturing hub ideal for business catering." },
     "enschede": { lat: "52.2215", lon: "6.8937", desc: "Eastern center for local private and group dining." },
     "groningen": { lat: "53.2194", lon: "6.5665", desc: "Northern base for extensive celebration catering." }
   };

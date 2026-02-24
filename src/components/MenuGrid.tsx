@@ -15,8 +15,8 @@ const CITIES = [
     "Amsterdam",
     "Rotterdam",
     "The Hague",
-    "Utrecht",
-    "Eindhoven",
+    "Haarlem",
+    "Hengelo",
     "Enschede",
     "Groningen"
 ];

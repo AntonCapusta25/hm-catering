@@ -14,8 +14,8 @@ const CITIES = [
     "Amsterdam",
     "Rotterdam",
     "The Hague",
-    "Utrecht",
-    "Eindhoven",
+    "Haarlem",
+    "Hengelo",
     "Enschede",
     "Groningen"
 ];
@@ -25,8 +25,8 @@ const CITY_COORDS: Record<string, { lat: number; lon: number }> = {
     "Amsterdam": { lat: 52.3676, lon: 4.9041 },
     "Rotterdam": { lat: 51.9225, lon: 4.47917 },
     "The Hague": { lat: 52.0705, lon: 4.3007 },
-    "Utrecht": { lat: 52.0907, lon: 5.1214 },
-    "Eindhoven": { lat: 51.4416, lon: 5.4697 },
+    "Haarlem": { lat: 52.3874, lon: 4.6462 },
+    "Hengelo": { lat: 52.2658, lon: 6.7930 },
     "Enschede": { lat: 52.2215, lon: 6.8937 },
     "Groningen": { lat: 53.2194, lon: 6.5665 }
 };

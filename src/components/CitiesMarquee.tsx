@@ -3,14 +3,16 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useI18n } from "@/contexts/I18nContext";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 // The 7 active operational cities
 const CITIES = [
     "Amsterdam",
     "Rotterdam",
     "Den Haag",
-    "Utrecht",
-    "Eindhoven",
+    "Haarlem",
+    "Hengelo",
     "Enschede",
     "Groningen"
 ];
@@ -18,6 +20,8 @@ const CITIES = [
 export default function CitiesMarquee() {
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.citiesMarquee || {};
+    const params = useParams();
+    const lang = (params?.lang as string) || "en";
 
     return (
         <section className="py-12 bg-orange text-cream border-y border-orange/20 overflow-hidden flex flex-col items-center">
@@ -54,9 +58,11 @@ export default function CitiesMarquee() {
                                 key={`${city}-${index}`}
                                 className="flex items-center gap-16 md:gap-32"
                             >
-                                <span className="font-heading font-bold text-4xl md:text-6xl tracking-wide opacity-90 hover:opacity-100 transition-opacity duration-300">
-                                    {city}
-                                </span>
+                                <Link href={`/${lang}/${city.toLowerCase().replace(' ', '-')}`}>
+                                    <span className="font-heading font-bold text-4xl md:text-6xl tracking-wide opacity-90 hover:opacity-100 transition-opacity duration-300 cursor-pointer hover:text-white">
+                                        {city}
+                                    </span>
+                                </Link>
                                 {/* Dot separator */}
                                 <span className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-cream/50" />
                             </div>
