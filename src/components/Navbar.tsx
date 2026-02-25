@@ -58,7 +58,7 @@ export default function Navbar() {
                 }`}
         >
             <div className="flex-1 flex justify-start">
-                <Link href="/" className="flex items-center gap-2">
+                <Link href={`/${i18n.lang || 'en'}`} className="flex items-center gap-2">
                     {/* Logo */}
                     <div className="h-9 w-auto">
                         <img
@@ -71,13 +71,13 @@ export default function Navbar() {
             </div>
 
             <div className="hidden md:flex flex-none justify-center items-center gap-8 text-light font-medium text-sm tracking-wide">
-                <Link href="#how-it-works" className="hover:text-orange transition-colors">
+                <Link href={`/${i18n.lang || 'en'}#how-it-works`} className="hover:text-orange transition-colors">
                     {t.howItWorks || "How it Works"}
                 </Link>
-                <Link href="#menu-boxes" className="hover:text-orange transition-colors">
+                <Link href={`/${i18n.lang || 'en'}#menu-boxes`} className="hover:text-orange transition-colors">
                     {t.menu || "Menus"}
                 </Link>
-                <Link href="#occasions" className="hover:text-orange transition-colors">
+                <Link href={`/${i18n.lang || 'en'}#occasions`} className="hover:text-orange transition-colors">
                     {(t as any).occasions || "Occasions"}
                 </Link>
                 <Link href={`/${i18n.lang || 'en'}/blog`} className="hover:text-orange transition-colors">
