@@ -29,7 +29,7 @@ for (const locale of locales) {
     // The files are in the root directory, named by full language word
     const filePrefix = localeToFileMap[locale];
     // We are now only importing Batch 4
-    const batch4Path = path.join(rootDir, `${filePrefix}_batch_4.json`);
+    const batch4Path = path.join(rootDir, `${filePrefix}_batch_5.json`);
 
     if (fs.existsSync(batch4Path)) {
         console.log(`[+] Found ${batch4Path}`);
