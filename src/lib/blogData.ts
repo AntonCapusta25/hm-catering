@@ -64,7 +64,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 Feb, 2026",
             excerpt: "Vier uw verjaardag in stijl. Vergeet het reserveren van een luidruchtig restaurant en huur een privékok in voor een onvergetelijke, gepersonaliseerde culinaire ervaring.",
-            image: "https://images.unsplash.com/photo-1530103862676-de8892b07439?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2669&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Culinary Director" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">Til uw Verjaardag naar een Hoger Niveau</h2>
@@ -187,7 +187,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 Feb, 2026",
             excerpt: "Til uw bachelorette-weekend in Nederland naar een hoger niveau. Vermijd overvolle terrassen en standaard eetcafés door een privékok in te huren voor een luxueus diner in jullie accommodatie.",
-            image: "https://images.unsplash.com/photo-1543362143-6c84ccebd785?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?q=80&w=2574&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Culinary Director" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">Het Perfecte Idee voor een Vrijgezellenfeest: Een Privédiner</h2>
@@ -275,7 +275,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 Feb, 2026",
             excerpt: "Vier de liefde met een onvergetelijke intieme ervaring. Door een thuiskok in te huren voor uw jubileumdiner, wordt uw eigen woning het meest romantische restaurant ter wereld.",
-            image: "https://images.unsplash.com/photo-1510128213600-b6fbb7ed8a71?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2670&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Culinary Director" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">De Ultieme Romantische Verrassing: Een Privékok</h2>
@@ -827,7 +827,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "Feb 25, 2026",
             excerpt: "Celebrate your next birthday in style. Forget booking a loud restaurant; hire a private chef to craft an unforgettable, personalized culinary experience at home.",
-            image: "https://images.unsplash.com/photo-1530103862676-de8892b07439?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2669&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Culinary Director" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">Elevate Your Birthday: The Private Chef Experience</h2>
@@ -959,7 +959,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "Feb 25, 2026",
             excerpt: "Elevate your Bachelorette weekend. Skip the crowded bars and ordinary restaurants by booking a private chef for an unforgettable, luxurious dining experience at your accommodation.",
-            image: "https://images.unsplash.com/photo-1543362143-6c84ccebd785?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?q=80&w=2574&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Culinary Director" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">The Perfect Bachelorette Weekend Idea: A Private Dinner</h2>
@@ -1047,7 +1047,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "Feb 25, 2026",
             excerpt: "Celebrate your love story with an unforgettable, private culinary experience. A private chef transforms your dining room into the most romantic restaurant in the city.",
-            image: "https://images.unsplash.com/photo-1510128213600-b6fbb7ed8a71?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2670&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Culinary Director" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">The Ultimate Anniversary Surprise: A Private Chef</h2>
@@ -1812,7 +1812,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 Fév, 2026",
             excerpt: "Célébrez votre anniversaire avec élégance. Oubliez les restaurants bruyants et engagez un chef privé pour une expérience culinaire personnalisée inoubliable.",
-            image: "https://images.unsplash.com/photo-1530103862676-de8892b07439?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2669&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Directeur Culinaire" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">Sublimez Votre Anniversaire : L'Expérience du Chef Privé</h2>
@@ -1935,7 +1935,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 Fév, 2026",
             excerpt: "Élevez votre week-end d'enterrement de vie de jeune fille. Évitez les bars bondés et les restaurants ordinaires en réservant un chef privé pour une expérience inoubliable.",
-            image: "https://images.unsplash.com/photo-1543362143-6c84ccebd785?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?q=80&w=2574&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Directeur Culinaire" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">L'Idée Parfaite pour un Enterrement de Vie de Jeune Fille</h2>
@@ -2020,7 +2020,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 Fév, 2026",
             excerpt: "Célébrez votre amour avec une expérience intime inégalée. Transformez votre propre demeure en la table la plus amoureuse du pays.",
-            image: "https://images.unsplash.com/photo-1510128213600-b6fbb7ed8a71?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2670&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Directeur Culinaire" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">L'Ultime Surprise d'Anniversaire : Le Chef Privé</h2>
@@ -2734,7 +2734,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 فبراير 2026",
             excerpt: "احتفل بعيد ميلادك بأناقة لا مثيل لها. تخلى عن المطاعم المزعجة واستعن بطاهٍ خاص لتنظيم تجربة طهي شخصية لا تُنسى في منزلك.",
-            image: "https://images.unsplash.com/photo-1530103862676-de8892b07439?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2669&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "المدير الفني للطهي" },
             contentHtml: `
 <div dir="rtl" class="text-right font-arabic">
@@ -2863,7 +2863,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 فبراير 2026",
             excerpt: "ارتقِ بعطلة نهاية الأسبوع لتوديع العزوبية. تجنبي الحانات المزدحمة والمطاعم العادية عبر حجز طاهٍ خاص لتجربة طعام فاخرة لا تُنسى في مقر إقامتك.",
-            image: "https://images.unsplash.com/photo-1543362143-6c84ccebd785?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?q=80&w=2574&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "المدير الفني للطهي" },
             contentHtml: `
 <div dir="rtl" class="text-right font-arabic">
@@ -2952,7 +2952,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 فبراير 2026",
             excerpt: "احتفل بروائع قصص الارتباط والحب العميقة وتوجها بليلة تذوق استثنائية وبديلة وغير اعتيادية مُحضرة خصيصاً داخل مساكِنكم من أفضل خبراء ومبدعي الطهي لتسمو على أرقى مساحات وغرف الطعام الكبرى المزدحمة.",
-            image: "https://images.unsplash.com/photo-1510128213600-b6fbb7ed8a71?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2670&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "المدير الفني للطهي" },
             contentHtml: `
 <div dir="rtl" class="text-right font-arabic">
@@ -3701,7 +3701,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 फ़रवरी 2026",
             excerpt: "अपना अगला जन्मदिन शानदार तरीके से मनाएं। एक शोरगुल वाले रेस्तरां की बुकिंग भूल जाएं; घर पर एक अविस्मरणीय, व्यक्तिगत पाक अनुभव तैयार करने के लिए एक प्राइवेट शेफ को काम पर रखें।",
-            image: "https://images.unsplash.com/photo-1530103862676-de8892b07439?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2669&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Culinary Director" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">अपने जन्मदिन को खास बनाएं: प्राइवेट शेफ का अनुभव</h2>
@@ -3824,7 +3824,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 फ़रवरी 2026",
             excerpt: "अपने बैचलरेट वीकेंड को एक नया रूप दें। भीड़-भाड़ वाले बार और साधारण डाइनिंग से बचें और अपने विला में एक अविस्मरणीय भोजन अनुभव के लिए एक प्राइवेट शेफ बुक करें।",
-            image: "https://images.unsplash.com/photo-1543362143-6c84ccebd785?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?q=80&w=2574&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Culinary Director" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">बैचलरेट पार्टी का सही विचार: एक प्राइवेट डाइनिंग अनुभव</h2>
@@ -3909,7 +3909,7 @@ export const BLOG_POSTS_I18N: Record<string, BlogPost[]> = {
             readTime: "6 min read",
             publishedAt: "25 फ़रवरी 2026",
             excerpt: "एक बेजोड़ और अंतरंग अनुभव के साथ अपने प्यार का जश्न मनाएं। शोर-शराबे वाले रेस्तरां को स्पष्ट करें और अपने डाइनिंग रूम को देश की सबसे रोमांटिक टेबल में बदलें।",
-            image: "https://images.unsplash.com/photo-1510128213600-b6fbb7ed8a71?q=80&w=2670&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2670&auto=format&fit=crop",
             author: { name: "Alexander Filippov", role: "Culinary Director" },
             contentHtml: `
 <h2 class="text-3xl font-bold font-serif mb-6 text-[#1A4D2E]">सालगिरह का बेहतरीन सरप्राइज: एक प्राइवेट शेफ</h2>
