@@ -647,6 +647,289 @@
                 padding: 2rem !important;
             }
         }
+
+        /* ── DONATION INTERACTIVE SECTION ── */
+        #share-a-meal-wrapper .donation-grid {
+            display: grid !important;
+            grid-template-columns: 1.2fr 1fr !important;
+            gap: 6rem !important;
+            background: white !important;
+            border-radius: 32px !important;
+            padding: 5rem !important;
+            box-shadow: 0 40px 80px rgba(45, 36, 32, 0.05) !important;
+            border: 1px solid var(--border) !important;
+            align-items: center !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .input-group {
+            margin-bottom: 3rem !important;
+        }
+
+        #share-a-meal-wrapper .input-group label {
+            display: block !important;
+            font-size: 1.1rem !important;
+            font-weight: bold !important;
+            color: var(--navy) !important;
+            margin-bottom: 1rem !important;
+        }
+
+        #share-a-meal-wrapper .input-wrapper {
+            display: inline-flex !important;
+            align-items: center !important;
+            background: var(--warmer) !important;
+            border-radius: 100px !important;
+            padding: 0.5rem !important;
+            border: 1px solid var(--border) !important;
+        }
+
+        #share-a-meal-wrapper .qty-btn {
+            width: 48px !important;
+            height: 48px !important;
+            border-radius: 50% !important;
+            background: white !important;
+            border: none !important;
+            color: var(--navy) !important;
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+            transition: all 0.2s ease !important;
+        }
+
+        #share-a-meal-wrapper .qty-btn:hover {
+            color: var(--orange) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+            transform: scale(1.05) !important;
+        }
+
+        #share-a-meal-wrapper .input-wrapper input {
+            width: 80px !important;
+            text-align: center !important;
+            background: transparent !important;
+            border: none !important;
+            font-size: 1.8rem !important;
+            font-weight: bold !important;
+            font-family: 'NewSpirit', serif !important;
+            color: var(--navy) !important;
+            padding: 0 1rem !important;
+            outline: none !important;
+            -moz-appearance: textfield !important;
+        }
+
+        #share-a-meal-wrapper .input-wrapper input::-webkit-outer-spin-button,
+        #share-a-meal-wrapper .input-wrapper input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0 !important;
+        }
+
+        #share-a-meal-wrapper .slider-container {
+            position: relative !important;
+            padding-bottom: 2rem !important;
+        }
+
+        #share-a-meal-wrapper .slider-track {
+            position: absolute !important;
+            top: 10px !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 8px !important;
+            background: var(--warmer) !important;
+            border-radius: 4px !important;
+            pointer-events: none !important;
+            z-index: 1 !important;
+        }
+
+        #share-a-meal-wrapper .slider-fill {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            height: 100% !important;
+            background: var(--orange) !important;
+            border-radius: 4px !important;
+            transition: width 0.1s linear !important;
+        }
+
+        #share-a-meal-wrapper .slider-thumb {
+            position: absolute !important;
+            top: 50% !important;
+            width: 24px !important;
+            height: 24px !important;
+            background: white !important;
+            border: 3px solid var(--orange) !important;
+            border-radius: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            box-shadow: 0 4px 12px rgba(242, 125, 66, 0.4) !important;
+            transition: left 0.1s linear !important;
+            z-index: 2 !important;
+        }
+
+        #share-a-meal-wrapper .raw-slider {
+            -webkit-appearance: none !important;
+            width: 100% !important;
+            height: 28px !important;
+            background: transparent !important;
+            position: relative !important;
+            z-index: 3 !important;
+            margin: 0 !important;
+            cursor: pointer !important;
+        }
+
+        #share-a-meal-wrapper .raw-slider::-webkit-slider-thumb {
+            -webkit-appearance: none !important;
+            width: 30px !important;
+            height: 30px !important;
+            background: transparent !important;
+            cursor: grab !important;
+        }
+
+        #share-a-meal-wrapper .slider-labels {
+            display: flex !important;
+            justify-content: space-between !important;
+            margin-top: 1rem !important;
+            color: var(--muted) !important;
+            font-size: 0.9rem !important;
+            font-weight: 500 !important;
+        }
+
+        /* NFT DISPLAY */
+        #share-a-meal-wrapper .nft-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%), var(--green) !important;
+            border-radius: 32px !important;
+            padding: 3rem !important;
+            color: white !important;
+            position: relative !important;
+            overflow: hidden !important;
+            box-shadow: 0 40px 80px rgba(26, 77, 46, 0.25) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            min-height: 480px !important;
+        }
+
+        #share-a-meal-wrapper .nft-glow {
+            position: absolute !important;
+            width: 300px !important;
+            height: 300px !important;
+            background: radial-gradient(circle, rgba(242, 125, 66, 0.4) 0%, transparent 70%) !important;
+            top: -100px !important;
+            right: -100px !important;
+            border-radius: 50% !important;
+            pointer-events: none !important;
+        }
+
+        #share-a-meal-wrapper .nft-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            z-index: 2 !important;
+            margin-bottom: 2rem !important;
+        }
+
+        #share-a-meal-wrapper .nft-badge {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            padding: 0.4rem 1rem !important;
+            border-radius: 50px !important;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.1em !important;
+            text-transform: uppercase !important;
+            backdrop-filter: blur(10px) !important;
+        }
+
+        #share-a-meal-wrapper .nft-body {
+            z-index: 2 !important;
+            text-align: center !important;
+            flex-grow: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+        }
+
+        #share-a-meal-wrapper .nft-meal-viz {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 6px !important;
+            justify-content: center !important;
+            margin-bottom: 2rem !important;
+            max-height: 120px !important;
+            overflow: hidden !important;
+        }
+
+        #share-a-meal-wrapper .viz-dot {
+            width: 12px !important;
+            height: 12px !important;
+            background: var(--orange) !important;
+            border-radius: 50% !important;
+            box-shadow: 0 0 10px rgba(242, 125, 66, 0.6) !important;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both !important;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #share-a-meal-wrapper .nft-amount {
+            font-family: 'NewSpirit', serif !important;
+            font-size: 4rem !important;
+            line-height: 1 !important;
+            margin-bottom: 0.5rem !important;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        #share-a-meal-wrapper .nft-impact {
+            color: rgba(255, 255, 255, 0.7) !important;
+            font-size: 1.1rem !important;
+        }
+
+        #share-a-meal-wrapper .nft-footer {
+            z-index: 2 !important;
+            margin-top: 3rem !important;
+            padding-top: 2rem !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+
+        #share-a-meal-wrapper .nft-price {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: flex-end !important;
+        }
+
+        #share-a-meal-wrapper .nft-price span {
+            color: rgba(255, 255, 255, 0.7) !important;
+            font-size: 0.9rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+            font-weight: bold !important;
+        }
+
+        #share-a-meal-wrapper .nft-price strong {
+            font-family: 'NewSpirit', serif !important;
+            font-size: 2.5rem !important;
+            color: var(--orange) !important;
+            line-height: 1 !important;
+        }
+
+        @media (max-width: 960px) {
+            #share-a-meal-wrapper .donation-grid {
+                grid-template-columns: 1fr !important;
+                gap: 4rem !important;
+                padding: 3rem 2rem !important;
+            }
+        }
     </style>
 </head>
 
@@ -808,6 +1091,76 @@
             </div>
         </section>
 
+        <!-- ── DONATION INTERACTIVE ── -->
+        <section class="section">
+            <div class="container">
+                <div class="donation-grid">
+                    <!-- Left: Controls -->
+                    <div class="donation-controls">
+                        <span class="eyebrow">Make an Impact</span>
+                        <h2 class="section-h">How many meals would you like to share?</h2>
+                        <p class="section-p" style="margin-bottom:2rem;">Every 70 cents provides a wholesome,
+                            home-cooked meal to a neighbor in need. Use the slider or enter a custom amount.</p>
+
+                        <div class="input-group">
+                            <label for="meal-input">Number of Meals</label>
+                            <div class="input-wrapper">
+                                <button class="qty-btn" id="btn-minus">−</button>
+                                <input type="number" id="meal-input" value="10" min="1" max="500">
+                                <button class="qty-btn" id="btn-plus">+</button>
+                            </div>
+                        </div>
+
+                        <div class="slider-container">
+                            <div class="slider-track">
+                                <div class="slider-fill" id="slider-fill" style="width: 10%"></div>
+                                <div class="slider-thumb" id="slider-thumb" style="left: 10%"></div>
+                            </div>
+                            <input type="range" id="meal-slider" min="1" max="100" value="10" class="raw-slider">
+                            <div class="slider-labels">
+                                <span>1</span>
+                                <span>25</span>
+                                <span>50</span>
+                                <span>75</span>
+                                <span>100+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: NFT Display Card -->
+                    <div class="donation-nft">
+                        <div class="nft-card">
+                            <div class="nft-glow"></div>
+                            <div class="nft-header">
+                                <span class="nft-badge">Digital Collectible</span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="rgba(255,255,255,0.8)" stroke-width="2">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                            </div>
+                            <div class="nft-body">
+                                <div class="nft-meal-viz" id="nft-meal-viz">
+                                    <!-- Dots injected via JS -->
+                                </div>
+                                <h3 class="nft-amount"><span id="nft-count">10</span> Meals</h3>
+                                <p class="nft-impact">Shared directly with the local community</p>
+                            </div>
+                            <div class="nft-footer">
+                                <div class="nft-price">
+                                    <span>Total Impact</span>
+                                    <strong id="nft-price">€7.00</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="https://zol4dc90rf4.typeform.com/to/HdWoEkfx" class="btn-main"
+                            style="width:100%; margin-top:1.5rem; justify-content:center;">
+                            Donate Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ── CHEF BANNER ── -->
         <section class="section" style="padding-top:0;">
             <div class="container">
@@ -851,3 +1204,65 @@
 </body>
 
 </html>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const COST_PER_MEAL = 0.70;
+
+        // Elements
+        const input = document.getElementById("meal-input");
+        const slider = document.getElementById("meal-slider");
+        const sliderFill = document.getElementById("slider-fill");
+        const sliderThumb = document.getElementById("slider-thumb");
+        const btnMinus = document.getElementById("btn-minus");
+        const btnPlus = document.getElementById("btn-plus");
+
+        const countDisplay = document.getElementById("nft-count");
+        const priceDisplay = document.getElementById("nft-price");
+        const vizContainer = document.getElementById("nft-meal-viz");
+
+        // Logic
+        function updateUI(val) {
+            let numeric = parseInt(val, 10);
+            if (isNaN(numeric) || numeric < 1) numeric = 1;
+            if (numeric > 500) numeric = 500;
+
+            // Update inputs without triggering loops
+            if (input.value != numeric) input.value = numeric;
+
+            // Slider visually syncs up to 100, but allows input > 100
+            let percent = numeric;
+            if (percent > 100) percent = 100;
+            if (slider.value != percent) slider.value = percent;
+
+            sliderFill.style.width = `${percent}%`;
+            sliderThumb.style.left = `${percent}%`;
+
+            // Update NFT
+            countDisplay.textContent = numeric;
+            priceDisplay.textContent = "€" + (numeric * COST_PER_MEAL).toFixed(2);
+
+            // Render dots (limit to 100 visually for performance/wrapping)
+            const vizCount = Math.min(numeric, 100);
+            let dotsHTML = '';
+            for (let i = 0; i < vizCount; i++) {
+                dotsHTML += '<div class="viz-dot"></div>';
+            }
+            vizContainer.innerHTML = dotsHTML;
+        }
+
+        // Listeners
+        input.addEventListener("input", (e) => updateUI(e.target.value));
+        slider.addEventListener("input", (e) => updateUI(e.target.value));
+
+        btnMinus.addEventListener("click", () => {
+            updateUI(parseInt(input.value || 1) - 1);
+        });
+
+        btnPlus.addEventListener("click", () => {
+            updateUI(parseInt(input.value || 1) + 1);
+        });
+
+        // Init
+        updateUI(10);
+    });
+</script>
