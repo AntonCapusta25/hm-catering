@@ -18,7 +18,8 @@ export default async function BlogIndexPage({
     params: Promise<{ lang: string }>;
 }) {
     const { lang } = await params;
-    const posts = BLOG_POSTS_I18N[lang] || BLOG_POSTS_I18N['en'];
+    // Temporarily show English posts only while other languages are being translated
+    const posts = BLOG_POSTS_I18N['en'];
 
     if (!posts || posts.length === 0) {
         return <div className="min-h-screen flex items-center justify-center">No posts found.</div>;

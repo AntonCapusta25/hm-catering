@@ -14,7 +14,7 @@ export async function generateMetadata({
     params: Promise<{ lang: string; slug: string }>;
 }): Promise<Metadata> {
     const { lang, slug } = await params;
-    const posts = (BLOG_POSTS_I18N[lang] || BLOG_POSTS_I18N['en']).slice(0, 25);
+    const posts = BLOG_POSTS_I18N['en'];
     const post = posts.find((p) => p.slug === slug);
 
     if (!post) {
@@ -38,7 +38,7 @@ export default async function BlogPostTemplate({
     params: Promise<{ lang: string; slug: string }>;
 }) {
     const { lang, slug } = await params;
-    const posts = (BLOG_POSTS_I18N[lang] || BLOG_POSTS_I18N['en']).slice(0, 25);
+    const posts = BLOG_POSTS_I18N['en'];
 
     const post = posts.find((p) => p.slug === slug);
 
