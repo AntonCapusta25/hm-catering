@@ -37,11 +37,7 @@ export default function LanguageSwitcher() {
     const handleLanguageChange = async (newLang: Locale) => {
         await setCookie("NEXT_LOCALE", newLang);
         const parts = pathname.split("/");
-        // Blog posts have language-specific slugs, so swapping lang would 404.
-        // When on /[lang]/blog/[slug], redirect to the blog index in the new language.
-        if (parts.length >= 4 && parts[2] === "blog") {
-            router.push(`/${newLang}/blog`);
-        } else if (parts.length > 1) {
+        if (parts.length > 1) {
             parts[1] = newLang;
             router.push(parts.join("/"));
         }
