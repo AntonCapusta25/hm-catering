@@ -131,6 +131,11 @@ function BookingFormContent() {
                 guests: formData.get('guests') as string,
             });
 
+            // LinkedIn Lead Conversion
+            if (typeof (window as any).lintrk === 'function') {
+                (window as any).lintrk('track', { conversion_id: 0 }); // ← replace 0 with your LinkedIn conversion ID
+            }
+
             setIsSubmitting(false);
             setIsSuccess(true);
             triggerConfetti();
