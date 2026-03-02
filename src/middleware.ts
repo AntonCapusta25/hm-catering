@@ -38,17 +38,6 @@ export function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    // 301 redirects: /ar/* and /hi/* → /en/* (broken language pages removed)
-    const removedLocales = ["ar", "hi"];
-    for (const removed of removedLocales) {
-        if (pathname === `/${removed}` || pathname.startsWith(`/${removed}/`)) {
-            const rest = pathname.slice(removed.length + 1); // strip /ar or /hi prefix
-            const redirectUrl = request.nextUrl.clone();
-            redirectUrl.pathname = `/en${rest || "/"}`;
-            return NextResponse.redirect(redirectUrl, { status: 301 });
-        }
-    }
-
     const pathnameHasLocale = locales.some(
         (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
     );

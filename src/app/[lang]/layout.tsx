@@ -34,6 +34,8 @@ export async function generateMetadata(
         'en': '/en',
         'nl-NL': '/nl',
         'fr': '/fr',
+        'ar': '/ar',
+        'hi': '/hi',
       },
     },
   };
