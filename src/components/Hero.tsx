@@ -8,7 +8,7 @@ import { trackCTAClick } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
 
 const HERO_IMAGES = [
-    "/images/hero-banners/hero_latest_1.jpg",
+    "/images/hero-banners/hero_main.jpg",
     "/images/hero-banners/hero_latest_2.jpg",
     "/images/hero-banners/hero_latest_3.jpg",
     "/images/hero-banners/hero_latest_4.jpg",
