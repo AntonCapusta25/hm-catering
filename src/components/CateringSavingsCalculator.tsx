@@ -66,7 +66,7 @@ export default function CateringSavingsCalculator() {
                     <div className="inline-flex items-center gap-2 bg-orange/10 text-orange border border-orange/20 rounded-full px-5 py-2 text-sm font-bold uppercase tracking-widest mb-6">
                         {t.badge || "💰 Savings Calculator"}
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-heading font-bold text-dark mb-4 leading-tight">
+                    <h2 className="text-5xl md:text-7xl font-heading font-bold text-dark mb-4 leading-tight">
                         {t.title1 || "See how much your team"}<br />
                         <span className="text-orange">{t.title2 || "could save"}</span>
                     </h2>
@@ -178,7 +178,7 @@ export default function CateringSavingsCalculator() {
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 0.3 }}
-                                    className="font-heading text-6xl md:text-7xl font-bold mb-1 tracking-tight text-[#F27D42]"
+                                    className="font-heading text-7xl md:text-8xl font-bold mb-1 tracking-tight text-[#F27D42]"
                                 >
                                     {formatEur(savings)}
                                 </motion.div>
