@@ -74,7 +74,7 @@ export default function Hero({ city }: HeroProps) {
                         alt={`Hero Background ${currentImageIndex + 1}`}
                         fill
                         priority={currentImageIndex === 0}
-                        className="object-cover"
+                        className="object-cover object-top"
                         sizes="100vw"
                     />
                 </motion.div>
