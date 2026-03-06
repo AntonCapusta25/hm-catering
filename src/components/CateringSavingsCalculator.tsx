@@ -1,31 +1,27 @@
 "use client";
 
-import { useState, useTransition, useRef, useCallback } from "react";
+import { useState, useTransition, useRef, useEffect, useCallback } from "react";
 import { useI18n } from "@/contexts/I18nContext";
 
 const RESTAURANT_PPP: Record<string, number> = {
-    lunch: 35,
-    dinner: 65,
-    drinks: 20,
-    breakfast: 22,
+    lunch: 35, dinner: 65, drinks: 20, breakfast: 22,
 };
-
 const HOMEMADE_PPP: Record<string, number> = {
-    lunch: 22,
-    dinner: 40,
-    drinks: 12,
-    breakfast: 14,
+    lunch: 22, dinner: 40, drinks: 12, breakfast: 14,
 };
-
 const MEAL_LABELS: Record<string, string> = {
-    lunch: "Team Lunch",
-    dinner: "Team Dinner",
-    drinks: "Drinks & Snacks",
-    breakfast: "Breakfast Meeting",
+    lunch: "Team Lunch", dinner: "Team Dinner",
+    drinks: "Drinks & Snacks", breakfast: "Breakfast Meeting",
 };
 
-function formatEur(value: number) {
-    return "€" + Math.round(value).toLocaleString("nl-NL");
+function formatEur(v: number) {
+    return "€" + Math.round(v).toLocaleString("nl-NL");
+}
+
+// GPU-accelerated fill update - called inside RAF, zero React involvement
+function updateFill(track: HTMLDivElement | null, label: HTMLSpanElement | null, pct: number, display: number) {
+    if (track) track.style.width = `${pct}%`;
+    if (label) label.textContent = String(display);
 }
 
 export default function CateringSavingsCalculator() {
@@ -37,8 +33,53 @@ export default function CateringSavingsCalculator() {
     const [events, setEvents] = useState(4);
     const [, startTransition] = useTransition();
 
-    const guestsFillRef = useRef<HTMLDivElement>(null);
-    const eventsFillRef = useRef<HTMLDivElement>(null);
+    // DOM refs for instant visual updates (no React re-render during drag)
+    const guestsTrackRef = useRef<HTMLDivElement>(null);
+    const eventsTrackRef = useRef<HTMLDivElement>(null);
+    const guestsLabelRef = useRef<HTMLSpanElement>(null);
+    const eventsLabelRef = useRef<HTMLSpanElement>(null);
+    const guestsInputRef = useRef<HTMLInputElement>(null);
+    const eventsInputRef = useRef<HTMLInputElement>(null);
+
+    // RAF refs for throttling
+    const guestsRaf = useRef<number | null>(null);
+    const eventsRaf = useRef<number | null>(null);
+
+    // Attach passive touch listeners directly — not through React synthetic events
+    useEffect(() => {
+        const guestEl = guestsInputRef.current;
+        const eventEl = eventsInputRef.current;
+        if (!guestEl || !eventEl) return;
+
+        const onGuestsInput = (e: Event) => {
+            const val = Number((e.target as HTMLInputElement).value);
+            if (guestsRaf.current) cancelAnimationFrame(guestsRaf.current);
+            guestsRaf.current = requestAnimationFrame(() => {
+                updateFill(guestsTrackRef.current, guestsLabelRef.current, ((val - 5) / 195) * 100, val);
+            });
+            startTransition(() => setGuests(val));
+        };
+
+        const onEventsInput = (e: Event) => {
+            const val = Number((e.target as HTMLInputElement).value);
+            if (eventsRaf.current) cancelAnimationFrame(eventsRaf.current);
+            eventsRaf.current = requestAnimationFrame(() => {
+                updateFill(eventsTrackRef.current, eventsLabelRef.current, ((val - 1) / 23) * 100, val);
+            });
+            startTransition(() => setEvents(val));
+        };
+
+        // Passive: browser doesn't wait for JS before moving thumb
+        guestEl.addEventListener("input", onGuestsInput, { passive: true });
+        eventEl.addEventListener("input", onEventsInput, { passive: true });
+
+        return () => {
+            guestEl.removeEventListener("input", onGuestsInput);
+            eventEl.removeEventListener("input", onEventsInput);
+            if (guestsRaf.current) cancelAnimationFrame(guestsRaf.current);
+            if (eventsRaf.current) cancelAnimationFrame(eventsRaf.current);
+        };
+    }, [startTransition]);
 
     const restaurantTotal = guests * RESTAURANT_PPP[mealType] * events;
     const homemadeTotal = guests * HOMEMADE_PPP[mealType] * events;
@@ -46,23 +87,6 @@ export default function CateringSavingsCalculator() {
     const savingsPct = Math.round((savings / restaurantTotal) * 100);
     const perEventSaving = savings / events;
     const barPct = (homemadeTotal / restaurantTotal) * 100;
-
-    // Fully controlled slider — uses native browser events for smooth drag,
-    // defers React state update so it doesn't block the thumb movement
-    const handleGuestsChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = Number(e.target.value);
-        const pct = ((val - 5) / 195) * 100;
-        if (guestsFillRef.current) guestsFillRef.current.style.width = `${pct}%`;
-        startTransition(() => setGuests(val));
-    }, [startTransition]);
-
-    const handleEventsChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = Number(e.target.value);
-        const pct = ((val - 1) / 23) * 100;
-        if (eventsFillRef.current) eventsFillRef.current.style.width = `${pct}%`;
-        startTransition(() => setEvents(val));
-    }, [startTransition]);
-
     const guestsPct = ((guests - 5) / 195) * 100;
     const eventsPct = ((events - 1) / 23) * 100;
 
@@ -116,19 +140,25 @@ export default function CateringSavingsCalculator() {
                         <div className="mb-8">
                             <div className="flex justify-between items-end mb-3">
                                 <label className="text-sm font-bold text-gray-500 uppercase tracking-widest">{t.guestsLabel || "Number of guests"}</label>
-                                <span className="text-2xl font-heading font-bold text-dark">{guests}</span>
+                                <span ref={guestsLabelRef} className="text-2xl font-heading font-bold text-dark">{guests}</span>
                             </div>
+                            {/* Custom GPU-accelerated track */}
+                            <div className="relative h-3 bg-gray-200 rounded-full" style={{ willChange: "transform" }}>
+                                <div
+                                    ref={guestsTrackRef}
+                                    className="absolute left-0 top-0 h-3 bg-[#F27D42] rounded-full"
+                                    style={{ width: `${guestsPct}%`, willChange: "width" }}
+                                />
+                            </div>
+                            {/* Invisible native input layered on top — handles all touch/mouse events natively */}
                             <input
+                                ref={guestsInputRef}
                                 type="range"
-                                min={5}
-                                max={200}
-                                step={5}
-                                value={guests}
-                                onChange={handleGuestsChange}
-                                className="w-full h-2 rounded-full appearance-none cursor-pointer accent-[#F27D42]"
-                                style={{ background: `linear-gradient(to right, #F27D42 ${guestsPct}%, #e5e7eb ${guestsPct}%)` }}
+                                min={5} max={200} step={5}
+                                defaultValue={guests}
+                                className="w-full h-3 rounded-full appearance-none cursor-pointer -mt-3 relative opacity-0"
                             />
-                            <div className="flex justify-between mt-2 text-xs text-gray-400 font-medium">
+                            <div className="flex justify-between text-xs text-gray-400 font-medium">
                                 <span>{t.guestsMin || "5 guests"}</span>
                                 <span>{t.guestsMax || "200 guests"}</span>
                             </div>
@@ -138,19 +168,23 @@ export default function CateringSavingsCalculator() {
                         <div className="mb-2">
                             <div className="flex justify-between items-end mb-3">
                                 <label className="text-sm font-bold text-gray-500 uppercase tracking-widest">{t.eventsLabel || "Events per year"}</label>
-                                <span className="text-2xl font-heading font-bold text-dark">{events}</span>
+                                <span ref={eventsLabelRef} className="text-2xl font-heading font-bold text-dark">{events}</span>
+                            </div>
+                            <div className="relative h-3 bg-gray-200 rounded-full" style={{ willChange: "transform" }}>
+                                <div
+                                    ref={eventsTrackRef}
+                                    className="absolute left-0 top-0 h-3 bg-[#F27D42] rounded-full"
+                                    style={{ width: `${eventsPct}%`, willChange: "width" }}
+                                />
                             </div>
                             <input
+                                ref={eventsInputRef}
                                 type="range"
-                                min={1}
-                                max={24}
-                                step={1}
-                                value={events}
-                                onChange={handleEventsChange}
-                                className="w-full h-2 rounded-full appearance-none cursor-pointer accent-[#F27D42]"
-                                style={{ background: `linear-gradient(to right, #F27D42 ${eventsPct}%, #e5e7eb ${eventsPct}%)` }}
+                                min={1} max={24} step={1}
+                                defaultValue={events}
+                                className="w-full h-3 rounded-full appearance-none cursor-pointer -mt-3 relative opacity-0"
                             />
-                            <div className="flex justify-between mt-2 text-xs text-gray-400 font-medium">
+                            <div className="flex justify-between text-xs text-gray-400 font-medium">
                                 <span>{t.eventsMin || "1x"}</span>
                                 <span>{t.eventsMax || "24x / year"}</span>
                             </div>
