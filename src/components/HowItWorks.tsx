@@ -19,7 +19,7 @@ export default function HowItWorks() {
             number: "02",
             title: t.step2Title || "Confirm Details",
             description: t.step2Desc || "Select your date, guest count, and delivery preferences.",
-            image: "/images/step-book.png",
+            image: "/images/step-confirm.jpg",
         },
         {
             number: "03",
