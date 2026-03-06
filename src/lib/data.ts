@@ -33,7 +33,7 @@ export const cuisines: Cuisine[] = [
     {
         id: "surinami",
         title: "Suriname Soul Food",
-        image: "/images/suriname-new.png",
+        image: "/images/suriname-new.jpg",
         description: "A vibrant fusion of Creole, Hindustani, and Javanese flavors."
     },
     {
