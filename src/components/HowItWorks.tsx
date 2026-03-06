@@ -25,7 +25,7 @@ export default function HowItWorks() {
             number: "03",
             title: t.step3Title || "We Deliver Excellence",
             description: t.step3Desc || "Professional setup, premium service, and seamless cleanup.",
-            image: "/images/step-enjoy.png",
+            image: "/images/step-enjoy.jpg",
         },
     ];
 
