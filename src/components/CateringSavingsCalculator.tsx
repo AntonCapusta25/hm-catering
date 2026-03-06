@@ -220,11 +220,9 @@ export default function CateringSavingsCalculator() {
                                     </div>
                                     <div className="w-full bg-gray-100 rounded-full h-2.5">
                                         <motion.div
-                                            key={homemadeTotal}
                                             className="bg-[#F27D42] h-2.5 rounded-full"
-                                            initial={{ width: 0 }}
                                             animate={{ width: `${(homemadeTotal / restaurantTotal) * 100}%` }}
-                                            transition={{ duration: 0.5, ease: "easeOut" }}
+                                            transition={{ duration: 0.2, ease: "easeOut" }}
                                         />
                                     </div>
                                 </div>
