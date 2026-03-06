@@ -67,14 +67,14 @@ export default function Hero({ city }: HeroProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="absolute top-0 left-0 w-full h-full z-0 block"
+                    className="absolute inset-[-10%] z-0 block"
                 >
                     <Image
                         src={HERO_IMAGES[currentImageIndex]}
                         alt={`Hero Background ${currentImageIndex + 1}`}
                         fill
                         priority={currentImageIndex === 0}
-                        className="object-contain"
+                        className="object-cover object-center"
                         sizes="100vw"
                     />
                 </motion.div>
