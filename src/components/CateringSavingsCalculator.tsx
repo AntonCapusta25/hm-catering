@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useI18n } from "@/contexts/I18nContext";
 
 const RESTAURANT_PPP: Record<string, number> = {
@@ -18,12 +18,6 @@ function formatEur(v: number) {
     return "€" + Math.round(v).toLocaleString("nl-NL");
 }
 
-// GPU-accelerated fill update - called inside RAF, zero React involvement
-function updateFill(track: HTMLDivElement | null, label: HTMLSpanElement | null, pct: number, display: number) {
-    if (track) track.style.width = `${pct}%`;
-    if (label) label.textContent = String(display);
-}
-
 export default function CateringSavingsCalculator() {
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.cateringCalculator || {};
@@ -31,64 +25,90 @@ export default function CateringSavingsCalculator() {
     const [guests, setGuests] = useState(25);
     const [mealType, setMealType] = useState<"lunch" | "dinner" | "drinks" | "breakfast">("lunch");
     const [events, setEvents] = useState(4);
-    const [, startTransition] = useTransition();
 
     // DOM refs for instant visual updates (no React re-render during drag)
-    const guestsTrackRef = useRef<HTMLDivElement>(null);
-    const eventsTrackRef = useRef<HTMLDivElement>(null);
-    const guestsLabelRef = useRef<HTMLSpanElement>(null);
-    const eventsLabelRef = useRef<HTMLSpanElement>(null);
     const guestsInputRef = useRef<HTMLInputElement>(null);
     const eventsInputRef = useRef<HTMLInputElement>(null);
 
-    // RAF refs for throttling
-    const guestsRaf = useRef<number | null>(null);
-    const eventsRaf = useRef<number | null>(null);
+    const guestsLabelRef = useRef<HTMLSpanElement>(null);
+    const eventsLabelRef = useRef<HTMLSpanElement>(null);
 
-    // Attach passive touch listeners directly — not through React synthetic events
+    // Result refs for extreme 60fps performance without React updates
+    const savingsValRef = useRef<HTMLDivElement>(null);
+    const savingsPctRef = useRef<HTMLSpanElement>(null);
+    const perEventValRef = useRef<HTMLParagraphElement>(null);
+    const over5YearsValRef = useRef<HTMLParagraphElement>(null);
+    const restaurantTotalValRef = useRef<HTMLSpanElement>(null);
+    const homemadeTotalValRef = useRef<HTMLSpanElement>(null);
+    const barFillRef = useRef<HTMLDivElement>(null);
+
+    // RAF refs for throttling
+    const rafId = useRef<number | null>(null);
+
+    // Keep mealType accessible to the vanilla JS event listener
+    const mealTypeRef = useRef(mealType);
+    useEffect(() => {
+        mealTypeRef.current = mealType;
+        // Trigger a visual recalculation whenever meal type changes
+        if (guestsInputRef.current) guestsInputRef.current.dispatchEvent(new Event('input'));
+    }, [mealType]);
+
+    // Attach passive touch listeners directly
     useEffect(() => {
         const guestEl = guestsInputRef.current;
         const eventEl = eventsInputRef.current;
         if (!guestEl || !eventEl) return;
 
-        const onGuestsInput = (e: Event) => {
-            const val = Number((e.target as HTMLInputElement).value);
-            if (guestsRaf.current) cancelAnimationFrame(guestsRaf.current);
-            guestsRaf.current = requestAnimationFrame(() => {
-                updateFill(guestsTrackRef.current, guestsLabelRef.current, ((val - 5) / 195) * 100, val);
-            });
-            startTransition(() => setGuests(val));
-        };
+        const recalculate = () => {
+            if (rafId.current) cancelAnimationFrame(rafId.current);
+            rafId.current = requestAnimationFrame(() => {
+                const g = Number(guestEl.value);
+                const e = Number(eventEl.value);
+                const mType = mealTypeRef.current;
 
-        const onEventsInput = (e: Event) => {
-            const val = Number((e.target as HTMLInputElement).value);
-            if (eventsRaf.current) cancelAnimationFrame(eventsRaf.current);
-            eventsRaf.current = requestAnimationFrame(() => {
-                updateFill(eventsTrackRef.current, eventsLabelRef.current, ((val - 1) / 23) * 100, val);
+                // 1. Math
+                const restTotal = g * RESTAURANT_PPP[mType] * e;
+                const hmTotal = g * HOMEMADE_PPP[mType] * e;
+                const savings = restTotal - hmTotal;
+                const savingsPct = Math.round((savings / restTotal) * 100);
+                const perEventSaving = savings / e;
+                const barPct = (hmTotal / restTotal) * 100;
+
+                // 2. DOM Updates
+                if (guestsLabelRef.current) guestsLabelRef.current.textContent = String(g);
+                if (eventsLabelRef.current) eventsLabelRef.current.textContent = String(e);
+
+                if (savingsValRef.current) savingsValRef.current.textContent = formatEur(savings);
+                if (savingsPctRef.current) savingsPctRef.current.textContent = String(savingsPct);
+
+                if (perEventValRef.current) perEventValRef.current.textContent = formatEur(perEventSaving);
+                if (over5YearsValRef.current) over5YearsValRef.current.textContent = formatEur(savings * 5);
+
+                if (restaurantTotalValRef.current) restaurantTotalValRef.current.textContent = formatEur(restTotal);
+                if (homemadeTotalValRef.current) homemadeTotalValRef.current.textContent = formatEur(hmTotal);
+
+                if (barFillRef.current) barFillRef.current.style.width = `${barPct}%`;
             });
-            startTransition(() => setEvents(val));
         };
 
         // Passive: browser doesn't wait for JS before moving thumb
-        guestEl.addEventListener("input", onGuestsInput, { passive: true });
-        eventEl.addEventListener("input", onEventsInput, { passive: true });
+        guestEl.addEventListener("input", recalculate, { passive: true });
+        eventEl.addEventListener("input", recalculate, { passive: true });
 
         return () => {
-            guestEl.removeEventListener("input", onGuestsInput);
-            eventEl.removeEventListener("input", onEventsInput);
-            if (guestsRaf.current) cancelAnimationFrame(guestsRaf.current);
-            if (eventsRaf.current) cancelAnimationFrame(eventsRaf.current);
+            guestEl.removeEventListener("input", recalculate);
+            eventEl.removeEventListener("input", recalculate);
+            if (rafId.current) cancelAnimationFrame(rafId.current);
         };
-    }, [startTransition]);
+    }, []);
 
+    // For initial render (SSR matching), we still calculate the baseline values
     const restaurantTotal = guests * RESTAURANT_PPP[mealType] * events;
     const homemadeTotal = guests * HOMEMADE_PPP[mealType] * events;
     const savings = restaurantTotal - homemadeTotal;
     const savingsPct = Math.round((savings / restaurantTotal) * 100);
     const perEventSaving = savings / events;
     const barPct = (homemadeTotal / restaurantTotal) * 100;
-    const guestsPct = ((guests - 5) / 195) * 100;
-    const eventsPct = ((events - 1) / 23) * 100;
 
     return (
         <section className="relative py-14 md:py-32 bg-gradient-to-b from-white to-cream overflow-hidden">
@@ -142,23 +162,16 @@ export default function CateringSavingsCalculator() {
                                 <label className="text-sm font-bold text-gray-500 uppercase tracking-widest">{t.guestsLabel || "Number of guests"}</label>
                                 <span ref={guestsLabelRef} className="text-2xl font-heading font-bold text-dark">{guests}</span>
                             </div>
-                            {/* Custom GPU-accelerated track */}
-                            <div className="relative h-3 bg-gray-200 rounded-full" style={{ willChange: "transform" }}>
-                                <div
-                                    ref={guestsTrackRef}
-                                    className="absolute left-0 top-0 h-3 bg-[#F27D42] rounded-full"
-                                    style={{ width: `${guestsPct}%`, willChange: "width" }}
-                                />
-                            </div>
-                            {/* Invisible native input layered on top — handles all touch/mouse events natively */}
+                            {/* Standard Native Slider */}
                             <input
                                 ref={guestsInputRef}
+                                onChange={(e) => setGuests(Number(e.target.value))}
                                 type="range"
                                 min={5} max={200} step={5}
                                 defaultValue={guests}
-                                className="w-full h-3 rounded-full appearance-none cursor-pointer -mt-3 relative opacity-0"
+                                className="w-full h-2 bg-gray-200 rounded-lg cursor-pointer accent-[#F27D42] outline-none"
                             />
-                            <div className="flex justify-between text-xs text-gray-400 font-medium">
+                            <div className="flex justify-between text-xs text-gray-400 font-medium mt-3">
                                 <span>{t.guestsMin || "5 guests"}</span>
                                 <span>{t.guestsMax || "200 guests"}</span>
                             </div>
@@ -170,21 +183,16 @@ export default function CateringSavingsCalculator() {
                                 <label className="text-sm font-bold text-gray-500 uppercase tracking-widest">{t.eventsLabel || "Events per year"}</label>
                                 <span ref={eventsLabelRef} className="text-2xl font-heading font-bold text-dark">{events}</span>
                             </div>
-                            <div className="relative h-3 bg-gray-200 rounded-full" style={{ willChange: "transform" }}>
-                                <div
-                                    ref={eventsTrackRef}
-                                    className="absolute left-0 top-0 h-3 bg-[#F27D42] rounded-full"
-                                    style={{ width: `${eventsPct}%`, willChange: "width" }}
-                                />
-                            </div>
+                            {/* Standard Native Slider */}
                             <input
                                 ref={eventsInputRef}
+                                onChange={(e) => setEvents(Number(e.target.value))}
                                 type="range"
                                 min={1} max={24} step={1}
                                 defaultValue={events}
-                                className="w-full h-3 rounded-full appearance-none cursor-pointer -mt-3 relative opacity-0"
+                                className="w-full h-2 bg-gray-200 rounded-lg cursor-pointer accent-[#F27D42] outline-none"
                             />
-                            <div className="flex justify-between text-xs text-gray-400 font-medium">
+                            <div className="flex justify-between text-xs text-gray-400 font-medium mt-3">
                                 <span>{t.eventsMin || "1x"}</span>
                                 <span>{t.eventsMax || "24x / year"}</span>
                             </div>
@@ -201,19 +209,24 @@ export default function CateringSavingsCalculator() {
                             <div className="absolute top-0 right-0 w-64 h-64 bg-[#F27D42]/20 rounded-full blur-3xl pointer-events-none" />
                             <div className="relative z-10">
                                 <p className="text-white/70 font-medium mb-2 text-lg">{t.saveText || "You could save"}</p>
-                                <div className="font-heading text-7xl md:text-8xl font-bold mb-1 tracking-tight text-[#F27D42]">
+                                <div
+                                    ref={savingsValRef}
+                                    className="font-heading text-7xl md:text-8xl font-bold mb-1 tracking-tight text-[#F27D42]"
+                                >
                                     {formatEur(savings)}
                                 </div>
-                                <p className="text-white/70 font-medium mb-8 text-lg">{t.perYearText || "per year"} · {savingsPct}% {t.lessThanText || "less than restaurants"}</p>
+                                <p className="text-white/70 font-medium mb-8 text-lg">
+                                    {t.perYearText || "per year"} · <span ref={savingsPctRef}>{savingsPct}</span>% {t.lessThanText || "less than restaurants"}
+                                </p>
                                 <div className="w-full h-px bg-white/10 mb-8" />
                                 <div className="grid grid-cols-2 gap-6">
                                     <div>
                                         <p className="text-white/60 text-sm font-medium mb-1">{t.perEventSave || "Per event saving"}</p>
-                                        <p className="font-heading font-bold text-2xl">{formatEur(perEventSaving)}</p>
+                                        <p ref={perEventValRef} className="font-heading font-bold text-2xl">{formatEur(perEventSaving)}</p>
                                     </div>
                                     <div>
                                         <p className="text-white/60 text-sm font-medium mb-1">{t.over5Years || "Over 5 years"}</p>
-                                        <p className="font-heading font-bold text-2xl">{formatEur(savings * 5)}</p>
+                                        <p ref={over5YearsValRef} className="font-heading font-bold text-2xl">{formatEur(savings * 5)}</p>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +238,7 @@ export default function CateringSavingsCalculator() {
                                 <div>
                                     <div className="flex justify-between items-center mb-1.5">
                                         <span className="text-sm font-medium text-gray-500">{t.restaurantCatering || "Restaurant catering"}</span>
-                                        <span className="font-bold text-dark">{formatEur(restaurantTotal)}</span>
+                                        <span ref={restaurantTotalValRef} className="font-bold text-dark">{formatEur(restaurantTotal)}</span>
                                     </div>
                                     <div className="w-full bg-gray-100 rounded-full h-2.5">
                                         <div className="bg-gray-300 h-2.5 rounded-full w-full" />
@@ -234,10 +247,11 @@ export default function CateringSavingsCalculator() {
                                 <div>
                                     <div className="flex justify-between items-center mb-1.5">
                                         <span className="text-sm font-medium text-gray-500">{t.homemadeCatering || "Homemade catering"}</span>
-                                        <span className="font-bold text-[#F27D42]">{formatEur(homemadeTotal)}</span>
+                                        <span ref={homemadeTotalValRef} className="font-bold text-[#F27D42]">{formatEur(homemadeTotal)}</span>
                                     </div>
                                     <div className="w-full bg-gray-100 rounded-full h-2.5">
                                         <div
+                                            ref={barFillRef}
                                             className="bg-[#F27D42] h-2.5 rounded-full"
                                             style={{ width: `${barPct}%`, transition: "width 0.15s ease-out" }}
                                         />
