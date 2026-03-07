@@ -114,20 +114,16 @@ export default function FAQ() {
                                     />
                                 </button>
 
-                                {/* Optimized smooth height transition */}
+                                {/* CSS grid trick for smooth height animation */}
                                 <div
-                                    className="grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
+                                    className="grid transition-[grid-template-rows] duration-200 ease-out"
                                     style={{
                                         gridTemplateRows: isOpen ? '1fr' : '0fr',
-                                        opacity: isOpen ? 1 : 0,
-                                        willChange: 'grid-template-rows, opacity'
+                                        willChange: 'grid-template-rows'
                                     }}
                                 >
                                     <div className="overflow-hidden">
-                                        <div
-                                            className={`px-6 pb-6 text-gray-600 leading-relaxed transition-transform duration-300 ease-out ${isOpen ? 'translate-y-0' : '-translate-y-4'}`}
-                                            style={{ filter: 'blur(0)' }} // Hardware acceleration hint
-                                        >
+                                        <div className="px-6 pb-6 text-gray-600 leading-relaxed">
                                             {faq.answer}
                                         </div>
                                     </div>

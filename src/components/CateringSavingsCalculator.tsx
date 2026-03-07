@@ -1,14 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useI18n } from "@/contexts/I18nContext";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, EffectFade } from "swiper/modules";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
 
 const RESTAURANT_PPP: Record<string, number> = {
     lunch: 35, dinner: 65, drinks: 20, breakfast: 22,
@@ -34,92 +27,88 @@ export default function CateringSavingsCalculator() {
     const [events, setEvents] = useState(4);
 
     // DOM refs for instant visual updates (no React re-render during drag)
-    // We use classes for mobile vs desktop synchronization
     const guestsInputRef = useRef<HTMLInputElement>(null);
     const eventsInputRef = useRef<HTMLInputElement>(null);
-    const mobileGuestsInputRef = useRef<HTMLInputElement>(null);
-    const mobileEventsInputRef = useRef<HTMLInputElement>(null);
 
-    const guestsLabelRefs = useRef<HTMLSpanElement[]>([]);
-    const eventsLabelRefs = useRef<HTMLSpanElement[]>([]);
+    const guestsLabelRef = useRef<HTMLSpanElement>(null);
+    const eventsLabelRef = useRef<HTMLSpanElement>(null);
 
-    // Result refs
-    const savingsValRefs = useRef<HTMLDivElement[]>([]);
-    const savingsPctRefs = useRef<HTMLSpanElement[]>([]);
-    const perEventValRefs = useRef<HTMLParagraphElement[]>([]);
-    const over5YearsValRefs = useRef<HTMLParagraphElement[]>([]);
-    const restaurantTotalValRefs = useRef<HTMLSpanElement[]>([]);
-    const homemadeTotalValRefs = useRef<HTMLSpanElement[]>([]);
-    const barFillRefs = useRef<HTMLDivElement[]>([]);
+    // Result refs for extreme 60fps performance without React updates
+    const savingsValRef = useRef<HTMLDivElement>(null);
+    const savingsPctRef = useRef<HTMLSpanElement>(null);
+    const perEventValRef = useRef<HTMLParagraphElement>(null);
+    const over5YearsValRef = useRef<HTMLParagraphElement>(null);
+    const restaurantTotalValRef = useRef<HTMLSpanElement>(null);
+    const homemadeTotalValRef = useRef<HTMLSpanElement>(null);
+    const barFillRef = useRef<HTMLDivElement>(null);
 
+    // RAF refs for throttling
     const rafId = useRef<number | null>(null);
-    const mealTypeRef = useRef(mealType);
 
+    // Keep mealType accessible to the vanilla JS event listener
+    const mealTypeRef = useRef(mealType);
     useEffect(() => {
         mealTypeRef.current = mealType;
-        // Sync visuals
-        recalculate();
+        // Trigger a visual recalculation whenever meal type changes
+        if (guestsInputRef.current) guestsInputRef.current.dispatchEvent(new Event('input'));
     }, [mealType]);
 
-    const recalculate = () => {
-        if (rafId.current) cancelAnimationFrame(rafId.current);
-        rafId.current = requestAnimationFrame(() => {
-            // Get value from whichever input is present
-            const g = Number(guestsInputRef.current?.value || mobileGuestsInputRef.current?.value || guests);
-            const e = Number(eventsInputRef.current?.value || mobileEventsInputRef.current?.value || events);
-            const mType = mealTypeRef.current;
-
-            const restTotal = g * RESTAURANT_PPP[mType] * e;
-            const hmTotal = g * HOMEMADE_PPP[mType] * e;
-            const savings = restTotal - hmTotal;
-            const savingsPct = Math.round((savings / restTotal) * 100);
-            const perEventSaving = savings / e;
-            const barPct = (hmTotal / restTotal) * 100;
-
-            // Update all linked labels/bars
-            guestsLabelRefs.current.forEach(el => { if (el) el.textContent = String(g); });
-            eventsLabelRefs.current.forEach(el => { if (el) el.textContent = String(e); });
-
-            savingsValRefs.current.forEach(el => { if (el) el.textContent = formatEur(savings); });
-            savingsPctRefs.current.forEach(el => { if (el) el.textContent = String(savingsPct); });
-
-            perEventValRefs.current.forEach(el => { if (el) el.textContent = formatEur(perEventSaving); });
-            over5YearsValRefs.current.forEach(el => { if (el) el.textContent = formatEur(savings * 5); });
-
-            restaurantTotalValRefs.current.forEach(el => { if (el) el.textContent = formatEur(restTotal); });
-            homemadeTotalValRefs.current.forEach(el => { if (el) el.textContent = formatEur(hmTotal); });
-
-            barFillRefs.current.forEach(el => { if (el) el.style.width = `${barPct}%`; });
-        });
-    };
-
+    // Attach passive touch listeners directly
     useEffect(() => {
-        const inputs = [guestsInputRef.current, eventsInputRef.current, mobileGuestsInputRef.current, mobileEventsInputRef.current];
-        inputs.forEach(input => {
-            if (input) input.addEventListener("input", recalculate, { passive: true });
-        });
-        return () => {
-            inputs.forEach(input => {
-                if (input) input.removeEventListener("input", recalculate);
+        const guestEl = guestsInputRef.current;
+        const eventEl = eventsInputRef.current;
+        if (!guestEl || !eventEl) return;
+
+        const recalculate = () => {
+            if (rafId.current) cancelAnimationFrame(rafId.current);
+            rafId.current = requestAnimationFrame(() => {
+                const g = Number(guestEl.value);
+                const e = Number(eventEl.value);
+                const mType = mealTypeRef.current;
+
+                // 1. Math
+                const restTotal = g * RESTAURANT_PPP[mType] * e;
+                const hmTotal = g * HOMEMADE_PPP[mType] * e;
+                const savings = restTotal - hmTotal;
+                const savingsPct = Math.round((savings / restTotal) * 100);
+                const perEventSaving = savings / e;
+                const barPct = (hmTotal / restTotal) * 100;
+
+                // 2. DOM Updates
+                if (guestsLabelRef.current) guestsLabelRef.current.textContent = String(g);
+                if (eventsLabelRef.current) eventsLabelRef.current.textContent = String(e);
+
+                if (savingsValRef.current) savingsValRef.current.textContent = formatEur(savings);
+                if (savingsPctRef.current) savingsPctRef.current.textContent = String(savingsPct);
+
+                if (perEventValRef.current) perEventValRef.current.textContent = formatEur(perEventSaving);
+                if (over5YearsValRef.current) over5YearsValRef.current.textContent = formatEur(savings * 5);
+
+                if (restaurantTotalValRef.current) restaurantTotalValRef.current.textContent = formatEur(restTotal);
+                if (homemadeTotalValRef.current) homemadeTotalValRef.current.textContent = formatEur(hmTotal);
+
+                if (barFillRef.current) barFillRef.current.style.width = `${barPct}%`;
             });
+        };
+
+        // Passive: browser doesn't wait for JS before moving thumb
+        guestEl.addEventListener("input", recalculate, { passive: true });
+        eventEl.addEventListener("input", recalculate, { passive: true });
+
+        return () => {
+            guestEl.removeEventListener("input", recalculate);
+            eventEl.removeEventListener("input", recalculate);
             if (rafId.current) cancelAnimationFrame(rafId.current);
         };
     }, []);
 
-    // Initial render values
-    const initialSavings = useMemo(() => {
-        const restTotal = guests * RESTAURANT_PPP[mealType] * events;
-        const hmTotal = guests * HOMEMADE_PPP[mealType] * events;
-        const s = restTotal - hmTotal;
-        return {
-            total: s,
-            pct: Math.round((s / restTotal) * 100),
-            perEvent: s / events,
-            bar: (hmTotal / restTotal) * 100,
-            restTotal,
-            hmTotal
-        };
-    }, [guests, mealType, events]);
+    // For initial render (SSR matching), we still calculate the baseline values
+    const restaurantTotal = guests * RESTAURANT_PPP[mealType] * events;
+    const homemadeTotal = guests * HOMEMADE_PPP[mealType] * events;
+    const savings = restaurantTotal - homemadeTotal;
+    const savingsPct = Math.round((savings / restaurantTotal) * 100);
+    const perEventSaving = savings / events;
+    const barPct = (homemadeTotal / restaurantTotal) * 100;
 
     return (
         <section className="relative py-14 md:py-32 bg-gradient-to-b from-white to-cream overflow-hidden">
@@ -140,12 +129,12 @@ export default function CateringSavingsCalculator() {
                     </p>
                 </div>
 
-                {/* Desktop View: Side-by-side Grid */}
-                <div className="hidden lg:grid lg:grid-cols-2 gap-10 items-start max-w-6xl mx-auto">
+                <div className="grid lg:grid-cols-2 gap-10 items-start max-w-6xl mx-auto">
+                    {/* Left: Controls */}
                     <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-gray-100">
                         <h3 className="text-2xl font-heading font-bold text-dark mb-8">{t.configTitle || "Configure your event"}</h3>
 
-                        {/* Meal type selection */}
+                        {/* Meal type */}
                         <div className="mb-8">
                             <label className="block text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">{t.eventTypeLabel || "Event type"}</label>
                             <div className="grid grid-cols-2 gap-2">
@@ -171,12 +160,15 @@ export default function CateringSavingsCalculator() {
                         <div className="mb-8">
                             <div className="flex justify-between items-end mb-3">
                                 <label className="text-sm font-bold text-gray-500 uppercase tracking-widest">{t.guestsLabel || "Number of guests"}</label>
-                                <span ref={el => { if (el) guestsLabelRefs.current[0] = el; }} className="text-2xl font-heading font-bold text-dark">{guests}</span>
+                                <span ref={guestsLabelRef} className="text-2xl font-heading font-bold text-dark">{guests}</span>
                             </div>
+                            {/* Standard Native Slider */}
                             <input
                                 ref={guestsInputRef}
                                 onPointerUp={(e) => setGuests(Number((e.target as HTMLInputElement).value))}
-                                type="range" min={5} max={200} step={5} defaultValue={guests}
+                                type="range"
+                                min={5} max={200} step={5}
+                                defaultValue={guests}
                                 className="w-full h-2 bg-gray-200 rounded-lg cursor-pointer accent-[#F27D42] outline-none"
                             />
                             <div className="flex justify-between text-xs text-gray-400 font-medium mt-3">
@@ -189,12 +181,15 @@ export default function CateringSavingsCalculator() {
                         <div className="mb-2">
                             <div className="flex justify-between items-end mb-3">
                                 <label className="text-sm font-bold text-gray-500 uppercase tracking-widest">{t.eventsLabel || "Events per year"}</label>
-                                <span ref={el => { if (el) eventsLabelRefs.current[0] = el; }} className="text-2xl font-heading font-bold text-dark">{events}</span>
+                                <span ref={eventsLabelRef} className="text-2xl font-heading font-bold text-dark">{events}</span>
                             </div>
+                            {/* Standard Native Slider */}
                             <input
                                 ref={eventsInputRef}
                                 onPointerUp={(e) => setEvents(Number((e.target as HTMLInputElement).value))}
-                                type="range" min={1} max={24} step={1} defaultValue={events}
+                                type="range"
+                                min={1} max={24} step={1}
+                                defaultValue={events}
                                 className="w-full h-2 bg-gray-200 rounded-lg cursor-pointer accent-[#F27D42] outline-none"
                             />
                             <div className="flex justify-between text-xs text-gray-400 font-medium mt-3">
@@ -202,197 +197,77 @@ export default function CateringSavingsCalculator() {
                                 <span>{t.eventsMax || "24x / year"}</span>
                             </div>
                         </div>
+
+                        <div className="mt-8 p-4 rounded-2xl bg-gray-50 border border-gray-100 text-sm text-gray-500 leading-relaxed">
+                            <p>{t.noteRef || "💡 Based on average Amsterdam restaurant catering rates vs. Homemade's transparent pricing. Actual savings may vary."}</p>
+                        </div>
                     </div>
 
-                    {/* Results Card (shared content logic) */}
+                    {/* Right: Results */}
                     <div className="flex flex-col gap-5">
-                        <ResultsCard
-                            t={t}
-                            formatEur={formatEur}
-                            initial={initialSavings}
-                            refs={{
-                                savingsVal: (el: HTMLDivElement | null) => { if (el) savingsValRefs.current[0] = el; },
-                                savingsPct: (el: HTMLSpanElement | null) => { if (el) savingsPctRefs.current[0] = el; },
-                                perEventVal: (el: HTMLParagraphElement | null) => { if (el) perEventValRefs.current[0] = el; },
-                                over5YearsVal: (el: HTMLParagraphElement | null) => { if (el) over5YearsValRefs.current[0] = el; },
-                                restaurantTotalVal: (el: HTMLSpanElement | null) => { if (el) restaurantTotalValRefs.current[0] = el; },
-                                homemadeTotalVal: (el: HTMLSpanElement | null) => { if (el) homemadeTotalValRefs.current[0] = el; },
-                                barFill: (el: HTMLDivElement | null) => { if (el) barFillRefs.current[0] = el; },
-                            }}
-                        />
+                        <div className="bg-[#1A2D20] rounded-3xl p-8 md:p-10 text-white relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#F27D42]/20 rounded-full blur-3xl pointer-events-none" />
+                            <div className="relative z-10">
+                                <p className="text-white/70 font-medium mb-2 text-lg">{t.saveText || "You could save"}</p>
+                                <div
+                                    ref={savingsValRef}
+                                    className="font-heading text-7xl md:text-8xl font-bold mb-1 tracking-tight text-[#F27D42]"
+                                >
+                                    {formatEur(savings)}
+                                </div>
+                                <p className="text-white/70 font-medium mb-8 text-lg">
+                                    {t.perYearText || "per year"} · <span ref={savingsPctRef}>{savingsPct}</span>% {t.lessThanText || "less than restaurants"}
+                                </p>
+                                <div className="w-full h-px bg-white/10 mb-8" />
+                                <div className="grid grid-cols-2 gap-6">
+                                    <div>
+                                        <p className="text-white/60 text-sm font-medium mb-1">{t.perEventSave || "Per event saving"}</p>
+                                        <p ref={perEventValRef} className="font-heading font-bold text-2xl">{formatEur(perEventSaving)}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-white/60 text-sm font-medium mb-1">{t.over5Years || "Over 5 years"}</p>
+                                        <p ref={over5YearsValRef} className="font-heading font-bold text-2xl">{formatEur(savings * 5)}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm">
+                            <h4 className="font-heading font-bold text-dark mb-6 text-lg">{t.costBreakdown || "Annual cost breakdown"}</h4>
+                            <div className="space-y-4">
+                                <div>
+                                    <div className="flex justify-between items-center mb-1.5">
+                                        <span className="text-sm font-medium text-gray-500">{t.restaurantCatering || "Restaurant catering"}</span>
+                                        <span ref={restaurantTotalValRef} className="font-bold text-dark">{formatEur(restaurantTotal)}</span>
+                                    </div>
+                                    <div className="w-full bg-gray-100 rounded-full h-2.5">
+                                        <div className="bg-gray-300 h-2.5 rounded-full w-full" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="flex justify-between items-center mb-1.5">
+                                        <span className="text-sm font-medium text-gray-500">{t.homemadeCatering || "Homemade catering"}</span>
+                                        <span ref={homemadeTotalValRef} className="font-bold text-[#F27D42]">{formatEur(homemadeTotal)}</span>
+                                    </div>
+                                    <div className="w-full bg-gray-100 rounded-full h-2.5">
+                                        <div
+                                            ref={barFillRef}
+                                            className="bg-[#F27D42] h-2.5 rounded-full"
+                                            style={{ width: `${barPct}%`, transition: "width 0.15s ease-out" }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <a
+                                href="#booking"
+                                className="mt-8 block w-full text-center bg-[#F27D42] text-white font-heading font-bold text-lg py-4 rounded-2xl transition-colors hover:bg-[#d66a35]"
+                            >
+                                {t.bookBtn || "Book your first event →"}
+                            </a>
+                        </div>
                     </div>
-                </div>
-
-                {/* Mobile View: Swiper Wizard */}
-                <div className="lg:hidden max-w-lg mx-auto overflow-visible">
-                    <Swiper
-                        modules={[Pagination]}
-                        pagination={{ clickable: true, dynamicBullets: true }}
-                        spaceBetween={20}
-                        slidesPerView={1}
-                        className="pb-12"
-                    >
-                        {/* Step 1: Type */}
-                        <SwiperSlide>
-                            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 min-h-[350px] flex flex-col">
-                                <span className="text-[#F27D42] font-bold text-xs uppercase tracking-widest mb-2">Step 1 of 3</span>
-                                <h3 className="text-2xl font-heading font-bold text-dark mb-6">{t.eventTypeLabel || "Select Event Type"}</h3>
-                                <div className="grid grid-cols-2 gap-2 flex-grow">
-                                    {Object.entries(MEAL_LABELS).map(([key, defaultLabel]) => {
-                                        const label = (t.mealLabels as Record<string, string>)?.[key] || defaultLabel;
-                                        return (
-                                            <button
-                                                key={key}
-                                                onClick={() => setMealType(key as any)}
-                                                className={`py-4 px-4 rounded-2xl text-sm font-bold transition-all border ${mealType === key
-                                                    ? "bg-[#F27D42] text-white border-[#F27D42] scale-105 shadow-md"
-                                                    : "bg-gray-50 text-gray-600 border-gray-100"
-                                                    }`}
-                                            >
-                                                {label}
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-                                <div className="mt-8 text-center text-gray-400 text-sm animate-pulse">
-                                    Swipe to next step →
-                                </div>
-                            </div>
-                        </SwiperSlide>
-
-                        {/* Step 2: Guests */}
-                        <SwiperSlide>
-                            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 min-h-[350px]">
-                                <span className="text-[#F27D42] font-bold text-xs uppercase tracking-widest mb-2">Step 2 of 3</span>
-                                <h3 className="text-2xl font-heading font-bold text-dark mb-10">{t.guestsLabel || "Number of guests"}</h3>
-                                <div className="text-center mb-8">
-                                    <span ref={el => { if (el) guestsLabelRefs.current[1] = el; }} className="text-6xl font-heading font-bold text-[#F27D42]">{guests}</span>
-                                    <span className="text-gray-400 font-bold ml-2">people</span>
-                                </div>
-                                <input
-                                    ref={mobileGuestsInputRef}
-                                    onPointerUp={(e) => setGuests(Number((e.target as HTMLInputElement).value))}
-                                    type="range" min={5} max={200} step={5} defaultValue={guests}
-                                    className="w-full h-3 bg-gray-200 rounded-lg cursor-pointer accent-[#F27D42] outline-none"
-                                />
-                                <div className="flex justify-between text-xs text-gray-400 font-medium mt-4">
-                                    <span>{t.guestsMin || "5"}</span>
-                                    <span>{t.guestsMax || "200"}</span>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-
-                        {/* Step 3: Frequency */}
-                        <SwiperSlide>
-                            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 min-h-[350px]">
-                                <span className="text-[#F27D42] font-bold text-xs uppercase tracking-widest mb-2">Step 3 of 3</span>
-                                <h3 className="text-2xl font-heading font-bold text-dark mb-10">{t.eventsLabel || "Frequency"}</h3>
-                                <div className="text-center mb-8">
-                                    <span ref={el => { if (el) eventsLabelRefs.current[1] = el; }} className="text-6xl font-heading font-bold text-[#F27D42]">{events}</span>
-                                    <span className="text-gray-400 font-bold ml-2">events/yr</span>
-                                </div>
-                                <input
-                                    ref={mobileEventsInputRef}
-                                    onPointerUp={(e) => setEvents(Number((e.target as HTMLInputElement).value))}
-                                    type="range" min={1} max={24} step={1} defaultValue={events}
-                                    className="w-full h-3 bg-gray-200 rounded-lg cursor-pointer accent-[#F27D42] outline-none"
-                                />
-                                <div className="flex justify-between text-xs text-gray-400 font-medium mt-4">
-                                    <span>1 event</span>
-                                    <span>24 events</span>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-
-                        {/* Final Step: Results */}
-                        <SwiperSlide>
-                            <div className="flex flex-col gap-4">
-                                <ResultsCard
-                                    t={t}
-                                    formatEur={formatEur}
-                                    initial={initialSavings}
-                                    refs={{
-                                        savingsVal: (el: HTMLDivElement | null) => { if (el) savingsValRefs.current[1] = el; },
-                                        savingsPct: (el: HTMLSpanElement | null) => { if (el) savingsPctRefs.current[1] = el; },
-                                        perEventVal: (el: HTMLParagraphElement | null) => { if (el) perEventValRefs.current[1] = el; },
-                                        over5YearsVal: (el: HTMLParagraphElement | null) => { if (el) over5YearsValRefs.current[1] = el; },
-                                        restaurantTotalVal: (el: HTMLSpanElement | null) => { if (el) restaurantTotalValRefs.current[1] = el; },
-                                        homemadeTotalVal: (el: HTMLSpanElement | null) => { if (el) homemadeTotalValRefs.current[1] = el; },
-                                        barFill: (el: HTMLDivElement | null) => { if (el) barFillRefs.current[1] = el; },
-                                    }}
-                                />
-                            </div>
-                        </SwiperSlide>
-                    </Swiper>
                 </div>
             </div>
         </section>
-    );
-}
-
-function ResultsCard({ t, formatEur, initial, refs }: any) {
-    return (
-        <>
-            <div className="bg-[#1A2D20] rounded-3xl p-8 md:p-10 text-white relative overflow-hidden shadow-xl">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#F27D42]/20 rounded-full blur-3xl pointer-events-none" />
-                <div className="relative z-10">
-                    <p className="text-white/70 font-medium mb-2 text-lg">{t.saveText || "You could save"}</p>
-                    <div
-                        ref={refs.savingsVal}
-                        className="font-heading text-7xl md:text-8xl font-bold mb-1 tracking-tight text-[#F27D42]"
-                    >
-                        {formatEur(initial.total)}
-                    </div>
-                    <p className="text-white/70 font-medium mb-8 text-lg">
-                        {t.perYearText || "per year"} · <span ref={refs.savingsPct}>{initial.pct}</span>% {t.lessThanText || "less than restaurants"}
-                    </p>
-                    <div className="w-full h-px bg-white/10 mb-8" />
-                    <div className="grid grid-cols-2 gap-6">
-                        <div>
-                            <p className="text-white/60 text-sm font-medium mb-1">{t.perEventSave || "Per event saving"}</p>
-                            <p ref={refs.perEventVal} className="font-heading font-bold text-2xl">{formatEur(initial.perEvent)}</p>
-                        </div>
-                        <div>
-                            <p className="text-white/60 text-sm font-medium mb-1">{t.over5Years || "Over 5 years"}</p>
-                            <p ref={refs.over5YearsVal} className="font-heading font-bold text-2xl">{formatEur(initial.total * 5)}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm">
-                <h4 className="font-heading font-bold text-dark mb-6 text-lg">{t.costBreakdown || "Annual cost breakdown"}</h4>
-                <div className="space-y-4">
-                    <div>
-                        <div className="flex justify-between items-center mb-1.5">
-                            <span className="text-sm font-medium text-gray-500">{t.restaurantCatering || "Restaurant catering"}</span>
-                            <span ref={refs.restaurantTotalVal} className="font-bold text-dark">{formatEur(initial.restTotal)}</span>
-                        </div>
-                        <div className="w-full bg-gray-100 rounded-full h-2.5">
-                            <div className="bg-gray-300 h-2.5 rounded-full w-full" />
-                        </div>
-                    </div>
-                    <div>
-                        <div className="flex justify-between items-center mb-1.5">
-                            <span className="text-sm font-medium text-gray-500">{t.homemadeCatering || "Homemade catering"}</span>
-                            <span ref={refs.homemadeTotalVal} className="font-bold text-[#F27D42]">{formatEur(initial.hmTotal)}</span>
-                        </div>
-                        <div className="w-full bg-gray-100 rounded-full h-2.5">
-                            <div
-                                ref={refs.barFill}
-                                className="bg-[#F27D42] h-2.5 rounded-full"
-                                style={{ width: `${initial.bar}%`, transition: "width 0.15s ease-out" }}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <a
-                    href="#booking"
-                    className="mt-8 block w-full text-center bg-[#F27D42] text-white font-heading font-bold text-lg py-4 rounded-3xl transition-all hover:bg-[#d66a35] hover:scale-[1.02] shadow-md active:scale-[0.98]"
-                >
-                    {t.bookBtn || "Book your first event →"}
-                </a>
-            </div>
-        </>
     );
 }
