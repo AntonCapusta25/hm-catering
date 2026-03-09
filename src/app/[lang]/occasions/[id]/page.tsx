@@ -7,10 +7,11 @@ import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import { occasions } from "@/lib/data";
 
-export default function OccasionDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default function OccasionDetailPage({ params }: { params: Promise<{ lang: string; id: string }> }) {
     // Unwrap params
     const resolvedParams = use(params);
-    const occasion = occasions.find((o) => o.id === resolvedParams.id);
+    const { lang, id } = resolvedParams;
+    const occasion = occasions.find((o) => o.id === id);
 
     if (!occasion) {
         notFound();
@@ -59,7 +60,7 @@ export default function OccasionDetailPage({ params }: { params: Promise<{ id: s
                         transition={{ delay: 0.8 }}
                     >
                         <Link
-                            href="/#booking"
+                            href={`/${lang}/quote`}
                             className="bg-orange text-white px-10 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-orange transition-all shadow-xl hover:shadow-2xl"
                         >
                             Start Planning

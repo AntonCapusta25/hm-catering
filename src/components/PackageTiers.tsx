@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useI18n } from "@/contexts/I18nContext";
+import { usePathname } from 'next/navigation';
 
 const packageConfig = [
     {
@@ -28,6 +29,8 @@ const packageConfig = [
 export default function PackageTiers() {
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.packageTiers || {};
+    const pathname = usePathname();
+    const lang = pathname?.split('/')[1] || 'en';
 
     const fallbackPackages: Record<string, any> = {
         starter: {
@@ -173,7 +176,7 @@ export default function PackageTiers() {
 
                                         {/* CTA */}
                                         <Link
-                                            href="#booking"
+                                            href={`/${lang}/quote`}
                                             className={`block w-full text-center py-4 rounded-xl font-bold transition-all ${pkg.highlight
                                                 ? 'bg-[#F27D42] text-white hover:bg-[#d66a35] shadow-lg hover:shadow-xl'
                                                 : 'bg-white/10 text-cream hover:bg-white/20 border border-white/20'

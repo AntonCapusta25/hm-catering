@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useI18n } from "@/contexts/I18nContext";
+import { usePathname } from 'next/navigation';
 
 const RESTAURANT_PPP: Record<string, number> = {
     lunch: 35, dinner: 65, drinks: 20, breakfast: 22,
@@ -21,6 +22,8 @@ function formatEur(v: number) {
 export default function CateringSavingsCalculator() {
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.cateringCalculator || {};
+    const pathname = usePathname();
+    const lang = pathname?.split('/')[1] || 'en';
 
     const [guests, setGuests] = useState(25);
     const [mealType, setMealType] = useState<"lunch" | "dinner" | "drinks" | "breakfast">("lunch");
@@ -198,8 +201,16 @@ export default function CateringSavingsCalculator() {
                             </div>
                         </div>
 
-                        <div className="mt-8 p-4 rounded-2xl bg-gray-50 border border-gray-100 text-sm text-gray-500 leading-relaxed">
-                            <p>{t.noteRef || "💡 Based on average Amsterdam restaurant catering rates vs. Homemade's transparent pricing. Actual savings may vary."}</p>
+                        <div className="mt-8">
+                            <div className="hidden lg:block p-4 rounded-2xl bg-gray-50 border border-gray-100 text-sm text-gray-500 leading-relaxed">
+                                <p>{t.noteRef || "💡 Based on average Amsterdam restaurant catering rates vs. Homemade's transparent pricing. Actual savings may vary."}</p>
+                            </div>
+                            <a
+                                href={`/${lang}/quote`}
+                                className="lg:hidden block w-full text-center bg-[#F27D42] text-white font-heading font-bold text-lg py-4 rounded-2xl transition-colors hover:bg-[#d66a35]"
+                            >
+                                {t.bookBtn || "Book your first event →"}
+                            </a>
                         </div>
                     </div>
 
@@ -259,7 +270,7 @@ export default function CateringSavingsCalculator() {
                                 </div>
                             </div>
                             <a
-                                href="#booking"
+                                href={`/${lang}/quote`}
                                 className="mt-8 block w-full text-center bg-[#F27D42] text-white font-heading font-bold text-lg py-4 rounded-2xl transition-colors hover:bg-[#d66a35]"
                             >
                                 {t.bookBtn || "Book your first event →"}

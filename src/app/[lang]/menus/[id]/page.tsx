@@ -7,10 +7,11 @@ import { notFound } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { menus, type Menu, type MenuItem } from "@/lib/data";
 
-export default function MenuDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default function MenuDetailPage({ params }: { params: Promise<{ lang: string; id: string }> }) {
     // Unwrap params using React.use()
     const resolvedParams = use(params);
-    const menu = menus.find((m) => m.id === resolvedParams.id);
+    const { lang, id } = resolvedParams;
+    const menu = menus.find((m) => m.id === id);
 
     if (!menu) {
         notFound();
@@ -26,7 +27,7 @@ export default function MenuDetailPage({ params }: { params: Promise<{ id: strin
                     &larr; Back to Menu
                 </Link>
                 <Link
-                    href="/#booking"
+                    href={`/${lang}/quote`}
                     className="pointer-events-auto bg-orange text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-orange/90 shadow-lg hover:shadow-orange/30 transition-all uppercase tracking-wider"
                 >
                     Book Now
@@ -82,7 +83,7 @@ export default function MenuDetailPage({ params }: { params: Promise<{ id: strin
             {/* Floating Booking CTA for Mobile */}
             <div className="md:hidden fixed bottom-5 left-5 right-5 z-40">
                 <Link
-                    href="/#booking"
+                    href={`/${lang}/quote`}
                     className="block w-full bg-orange text-white text-center py-4 rounded-full font-bold shadow-xl uppercase tracking-widest"
                 >
                     Reserve for {menu.price}

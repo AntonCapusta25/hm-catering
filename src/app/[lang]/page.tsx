@@ -1,6 +1,6 @@
 "use client";
 
-import BookingForm from "@/components/BookingForm";
+
 import Hero from "@/components/Hero";
 import Partners from "@/components/Partners";
 import CuisineShowcase from "@/components/CuisineShowcase";
@@ -31,8 +31,6 @@ export default function Home() {
         <CitiesMarquee />
         <HowItWorks />
         <FAQ />
-
-        <BookingForm />
 
         <Footer />
       </main>

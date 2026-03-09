@@ -308,6 +308,24 @@
         "contactedText": "You'll be contacted to finalize details.",
         "loadingText": "Loading form..."
     },
+    "quizForm": {
+        "stepProgress": "Step {current} of {total}",
+        "backButton": "Back",
+        "nextButton": "Next",
+        "submitButton": "Submit Booking Request",
+        "occasionTitle": "What's the occasion?",
+        "occasionSubtitle": "Select the type of event you're planning.",
+        "guestsTitle": "How many guests?",
+        "guestsSubtitle": "Rough estimates are fine. Minimum 5 guests.",
+        "dateTitle": "When is the event?",
+        "dateSubtitle": "Select your preferred date.",
+        "contactTitle": "Your Details",
+        "contactSubtitle": "Where should we send the quote?",
+        "submitting": "Submitting...",
+        "successTitle": "You're Booked!",
+        "successMessage": "Thank you for your request. Our catering team will contact you shortly to finalize your event details!",
+        "backHome": "Back to Home"
+    },
     "menuGrid": {
         "title": "Catering Restaurants",
         "subtitle": "Explore our diverse restaurant options. Each restaurant can be customized to your needs.",

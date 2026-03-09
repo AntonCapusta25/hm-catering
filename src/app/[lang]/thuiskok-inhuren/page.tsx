@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import BookingForm from "@/components/BookingForm";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { FAQSchema } from "@/components/SEO/Schemas";
@@ -80,9 +80,7 @@ export default async function ThuiskokInhurenPage({
                 </div>
             </section>
 
-            <div id="booking-section" className="mt-12">
-                <BookingForm />
-            </div>
+
 
             <Footer />
         </main>

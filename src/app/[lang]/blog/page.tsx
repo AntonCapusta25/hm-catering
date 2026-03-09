@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import BookingForm from "@/components/BookingForm";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -53,7 +53,6 @@ export default async function BlogIndexPage({
 
                     <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full max-w-4xl text-white">
                         <div className="flex gap-4 mb-4">
-                            <span className="bg-[#F47A44] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">{posts[0].category}</span>
                             <span className="text-white/80 text-sm font-medium flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
                                 {posts[0].readTime}
@@ -110,8 +109,6 @@ export default async function BlogIndexPage({
                     ))}
                 </div>
             </section>
-
-            <BookingForm />
 
             <Footer />
         </main>

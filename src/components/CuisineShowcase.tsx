@@ -6,10 +6,13 @@ import Image from "next/image";
 import { cuisines } from "@/lib/data";
 import { trackCuisineClick, trackCTAClick } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
+import { usePathname } from 'next/navigation';
 
 export default function CuisineShowcase() {
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.cuisineShowcase || {};
+    const pathname = usePathname();
+    const lang = pathname?.split('/')[1] || 'en';
 
     return (
         <section id="menu-boxes" className="relative w-full py-14 md:py-32 bg-cream overflow-hidden">
@@ -59,7 +62,7 @@ export default function CuisineShowcase() {
                                     </p>
 
                                     <Link
-                                        href="/#booking"
+                                        href={`/${lang}/quote`}
                                         onClick={() => trackCuisineClick(cuisine.title)}
                                         className="inline-flex items-center gap-2 font-bold text-orange uppercase tracking-wider text-sm hover:gap-3 transition-all"
                                     >

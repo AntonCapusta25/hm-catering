@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useI18n } from "@/contexts/I18nContext";
+import { usePathname } from 'next/navigation';
 
 const renderCell = (value: boolean | string) => {
     if (typeof value === "boolean") {
@@ -18,6 +19,8 @@ const renderCell = (value: boolean | string) => {
 export default function PackageComparison() {
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.packageComparison || {};
+    const pathname = usePathname();
+    const lang = pathname?.split('/')[1] || 'en';
 
     const featuresData = [
         { category: "Menu", name: t.features?.numberOfCourses || "Number of Courses", starter: t.features?.courses2 || "2 courses", growth: t.features?.courses3 || "3 courses", premium: t.features?.courses4 || "4 courses" },

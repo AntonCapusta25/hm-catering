@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { useI18n } from "@/contexts/I18nContext";
+import { usePathname } from 'next/navigation';
 
 const testimonialConfig = [
     { author: "Carlos Alberto", rating: 5 },
@@ -62,6 +63,8 @@ const metricConfig = [
 export default function Testimonials() {
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.testimonials || {};
+    const pathname = usePathname();
+    const lang = pathname?.split('/')[1] || 'en';
 
     return (
         <section className="relative py-14 md:py-32 bg-white overflow-hidden">
@@ -172,7 +175,7 @@ export default function Testimonials() {
                         {t.joinText || "Join hundreds of satisfied clients"}
                     </p>
                     <a
-                        href="#booking"
+                        href={`/${lang}/quote`}
                         className="inline-block px-8 py-4 bg-[#F27D42] text-white rounded-xl font-bold hover:bg-[#d66a35] transition-colors shadow-lg hover:shadow-xl"
                     >
                         {t.bookButton || "Book Your Team Dinner"}

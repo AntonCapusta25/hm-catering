@@ -34,7 +34,7 @@ export default function Partners() {
                 {/* Infinite Scroll Container */}
                 <div className="flex w-full overflow-hidden">
                     <motion.div
-                        className="flex gap-8 md:gap-24 items-center flex-nowrap"
+                        className="flex gap-8 md:gap-16 items-center flex-nowrap"
                         animate={{
                             x: [0, -1000] // Adjust based on width of content
                         }}
@@ -52,10 +52,10 @@ export default function Partners() {
                             <div
                                 key={`${partner.name}-${index}`}
                                 className={`relative flex-shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 ${partner.name === 'Sure Mobility'
-                                    ? 'w-64 h-32 md:w-96 md:h-48'
+                                    ? 'w-56 h-28 md:w-80 md:h-40 mx-[-30px] md:mx-[-50px]'
                                     : partner.name === 'Upfront'
-                                        ? 'w-40 h-20 md:w-56 md:h-28'
-                                        : 'w-32 h-16 md:w-40 md:h-20'
+                                        ? 'w-36 h-18 md:w-52 md:h-26'
+                                        : 'w-28 h-14 md:w-36 md:h-18'
                                     }`}
                             >
                                 <Image

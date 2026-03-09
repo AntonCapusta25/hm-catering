@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { trackCTAClick } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
 import AnimatedHeroHeadline from "./AnimatedHeroHeadline";
+import { usePathname } from 'next/navigation';
 
 const HERO_IMAGES = [
     "/images/hero-banners/hero_main.jpg",
@@ -23,8 +24,10 @@ interface HeroProps {
 export default function Hero({ city }: HeroProps) {
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.hero || {};
+    const pathname = usePathname();
+    const lang = pathname?.split('/')[1] || 'en';
 
-    const [bookingLink, setBookingLink] = useState("#booking");
+    const [bookingLink, setBookingLink] = useState(`/${lang}/quote`);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(() => {
@@ -36,7 +39,7 @@ export default function Hero({ city }: HeroProps) {
                 if (config.useTypeform && config.typeformUrl) {
                     setBookingLink(config.typeformUrl);
                 } else {
-                    setBookingLink("#booking");
+                    setBookingLink(`/${lang}/quote`);
                 }
             }
         };

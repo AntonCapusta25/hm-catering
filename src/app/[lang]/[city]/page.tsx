@@ -3,7 +3,7 @@ import { getDictionary } from '@/i18n/getDictionary';
 import { notFound } from 'next/navigation';
 import { CityProvider } from '@/contexts/CityContext';
 
-import BookingForm from '@/components/BookingForm';
+
 import Hero from '@/components/Hero';
 import Partners from '@/components/Partners';
 import CuisineShowcase from '@/components/CuisineShowcase';
@@ -147,15 +147,12 @@ export default async function CityLandingPage({
         <Navbar />
         <Hero city={city} />
         <Partners />
-        <ProblemSolution />
         <CuisineShowcase />
         <OccasionsCarousel />
         <Testimonials />
         <CitiesMarquee />
         <HowItWorks />
-        <FAQ />
 
-        <BookingForm />
 
         <Footer />
       </main>

@@ -6,10 +6,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useI18n } from "@/contexts/I18nContext";
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
-    const [bookingLink, setBookingLink] = useState("#booking");
+    const pathname = usePathname();
+    const lang = pathname?.split('/')[1] || 'en';
+    const [bookingLink, setBookingLink] = useState(`/${lang}/quote`);
 
     // Fallbacks incase dictionary misses keys
     const i18n = useI18n();
@@ -33,7 +36,7 @@ export default function Navbar() {
                 if (config.useTypeform && config.typeformUrl) {
                     setBookingLink(config.typeformUrl);
                 } else {
-                    setBookingLink("#booking");
+                    setBookingLink(`/${lang}/quote`);
                 }
             }
         };

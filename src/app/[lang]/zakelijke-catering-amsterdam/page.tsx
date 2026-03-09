@@ -1,6 +1,6 @@
 import { getDictionary } from "@/i18n/getDictionary";
 import { Locale } from "@/i18n/config";
-import BookingForm from "@/components/BookingForm";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Metadata } from "next";
@@ -83,9 +83,7 @@ export default async function ZakelijkeCateringPage({
                 </div>
             </section>
 
-            <div id="booking-section" className="mt-12">
-                <BookingForm />
-            </div>
+
 
             <Footer />
         </main>

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Menu } from '@/lib/data';
+import { usePathname } from 'next/navigation';
 
 interface MenuCardProps {
     menu: Menu;
@@ -11,6 +12,8 @@ interface MenuCardProps {
 }
 
 export default function MenuCard({ menu, index = 0, priority = false }: MenuCardProps) {
+    const pathname = usePathname();
+    const lang = pathname?.split('/')[1] || 'en';
     const isSoldOut = menu.soldOut;
 
     return (
@@ -74,7 +77,7 @@ export default function MenuCard({ menu, index = 0, priority = false }: MenuCard
 
                         {/* Quick Book Button */}
                         <a
-                            href={`#booking?menu=${encodeURIComponent(menu.title)}`}
+                            href={`/${lang}/quote?menu=${encodeURIComponent(menu.title)}`}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 // Optional: Smooth scroll manually if needed, but anchor tag works

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { trackFAQClick, trackCTAClick } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
+import { usePathname } from 'next/navigation';
 
 const fallbackFaqs = [
     {
@@ -64,6 +65,8 @@ export default function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.faq || {};
+    const pathname = usePathname();
+    const lang = pathname?.split('/')[1] || 'en';
 
     const items = t.items || fallbackFaqs;
 
@@ -137,7 +140,7 @@ export default function FAQ() {
                 <div className="text-center mt-12">
                     <p className="text-gray-600 mb-4">{t.stillQuestions || "Still have questions?"}</p>
                     <a
-                        href="#booking"
+                        href={`/${lang}/quote`}
                         onClick={() => trackCTAClick("Contact Our Team", "faq_section")}
                         className="inline-block px-8 py-4 bg-[#F27D42] text-white rounded-xl font-bold hover:bg-[#d66a35] transition-colors shadow-lg hover:shadow-xl"
                     >

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import BookingForm from "@/components/BookingForm";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
@@ -64,9 +64,6 @@ export default async function HuisgemaakteMaaltijdenPage({
                 </div>
             </section>
 
-            <div id="booking-section" className="mt-12">
-                <BookingForm />
-            </div>
 
             <Footer />
         </main>

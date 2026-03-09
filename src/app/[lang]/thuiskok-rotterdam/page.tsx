@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import BookingForm from "@/components/BookingForm";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LocalBusinessSchema } from "@/components/SEO/Schemas";
@@ -59,7 +59,7 @@ export default async function ThuiskokRotterdamPage({
 
                 <div className="mt-12 mb-8">
                     <a
-                        href="#booking-section"
+                        href={`/${lang}/quote`}
                         className="inline-block bg-orange hover:bg-orange/90 text-white px-8 py-3.5 rounded-full font-semibold text-sm uppercase tracking-wide shadow-md hover:-translate-y-0.5 transition-all duration-300"
                     >
                         Vind jouw Rotterdamse Thuiskok
@@ -67,9 +67,6 @@ export default async function ThuiskokRotterdamPage({
                 </div>
             </section>
 
-            <div id="booking-section" className="mt-12">
-                <BookingForm />
-            </div>
 
             <Footer />
         </main>

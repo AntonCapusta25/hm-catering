@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import BookingForm from "@/components/BookingForm";
+
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -91,9 +91,6 @@ export default async function BlogPostTemplate({
                         </h1>
                         <div className="flex items-center gap-6 text-white/90 border-t border-white/20 pt-6">
                             <div className="flex items-center gap-3">
-                                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#F47A44] bg-[#F47A44]/10 flex justify-center items-center font-bold text-[#F47A44]">
-                                    {post.author.name.charAt(0)}
-                                </div>
                                 <div>
                                     <p className="font-bold text-lg leading-none">{post.author.name}</p>
                                     <p className="text-white/60 text-sm">{post.author.role}</p>
@@ -187,8 +184,6 @@ export default async function BlogPostTemplate({
                 </div>
 
             </div>
-
-            <BookingForm />
 
             <Footer />
         </main>

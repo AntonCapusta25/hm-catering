@@ -308,6 +308,24 @@
         "contactedText": "Er wordt contact met u opgenomen om de details af te ronden.",
         "loadingText": "Formulier laden..."
     },
+    "quizForm": {
+        "stepProgress": "Stap {current} van {total}",
+        "backButton": "Terug",
+        "nextButton": "Volgende",
+        "submitButton": "Aanvraag Verzenden",
+        "occasionTitle": "Wat is de gelegenheid?",
+        "occasionSubtitle": "Selecteer het type evenement dat u plant.",
+        "guestsTitle": "Hoeveel gasten?",
+        "guestsSubtitle": "Een ruwe schatting is prima. Minimaal 5 gasten.",
+        "dateTitle": "Wanneer is het evenement?",
+        "dateSubtitle": "Selecteer de gewenste datum.",
+        "contactTitle": "Uw Gegevens",
+        "contactSubtitle": "Waar mogen we de offerte naartoe sturen?",
+        "submitting": "Verzenden...",
+        "successTitle": "U bent Geboekt!",
+        "successMessage": "Bedankt voor uw aanvraag. Ons cateringteam neemt binnenkort contact met u op om uw evenementdetails af te ronden!",
+        "backHome": "Terug naar Start"
+    },
     "menuGrid": {
         "title": "Catering Restaurants",
         "subtitle": "Ontdek onze diverse restaurantopties. Elk restaurant kan worden aangepast aan uw behoeften.",
