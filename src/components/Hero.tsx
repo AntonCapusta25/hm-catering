@@ -86,7 +86,7 @@ export default function Hero({ city }: HeroProps) {
     }, [isMobile]);
 
     return (
-        <header className="relative w-full flex items-center justify-center overflow-hidden text-white bg-black" style={{ height: '90svh', maxHeight: '90svh' }}>
+        <header className="relative w-full overflow-hidden text-white bg-black" style={{ height: '90svh', maxHeight: '90svh' }}>
             {/* Background Slideshow using Next.js Image for LCP Optimization */}
             <AnimatePresence>
                 <motion.div
@@ -112,33 +112,34 @@ export default function Hero({ city }: HeroProps) {
             <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
             <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-cream to-transparent z-0" />
 
-            <div className="relative z-10 text-center max-w-4xl px-5">
+            <div className="relative z-10 w-full h-full flex flex-col justify-start md:justify-center items-center pt-52 md:pt-0 py-12 md:py-20 px-5">
+                <div className="text-center max-w-4xl w-full flex flex-col items-center">
+                    <AnimatedHeroHeadline
+                        staticText={t.animatedTitleStatic || "Home Chefs. At Your Office. Delivering in "}
+                        words={t.animatedRotatingWords || ["Amsterdam", "Rotterdam", "Den Haag", "Haarlem", "Enschede"]}
+                    />
 
-                <AnimatedHeroHeadline
-                    staticText={t.animatedTitleStatic || "Home Chefs. At Your Office. Delivering in "}
-                    words={t.animatedRotatingWords || ["Amsterdam", "Rotterdam", "Den Haag", "Haarlem", "Enschede"]}
-                />
-
-                <motion.p
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                    className="text-base md:text-lg text-white/90 mb-10 max-w-2xl mx-auto drop-shadow-md"
-                >
-                    {t.subtitle || "From intimate gatherings to grand celebrations, we bring restaurant-quality cuisine to your event."}
-                </motion.p>
+                    <motion.p
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                        className="text-lg md:text-xl lg:text-2xl text-white/90 mt-6 mb-0 max-w-2xl mx-auto drop-shadow-md font-medium"
+                    >
+                        {t.subtitle || "From intimate gatherings to grand celebrations, we bring restaurant-quality cuisine to your event."}
+                    </motion.p>
+                </div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-                    className="flex flex-col md:flex-row gap-5 justify-center mt-8 md:mt-0"
+                    className="w-full flex justify-center mt-12"
                 >
                     <Link
                         href={bookingLink}
                         target={bookingLink.startsWith('http') ? "_blank" : "_self"}
                         onClick={() => trackCTAClick("Request Quote", "hero_section")}
-                        className="bg-orange/90 hover:bg-orange text-white px-10 py-4 rounded-full font-semibold uppercase tracking-wide backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-orange/40 hover:-translate-y-1 transition-all duration-300"
+                        className="bg-orange/90 hover:bg-orange text-white px-8 py-3.5 md:px-12 md:py-5 rounded-full font-bold text-base md:text-lg uppercase tracking-wider backdrop-blur-sm border-2 border-white/20 shadow-2xl hover:shadow-orange/40 hover:-translate-y-1 transition-all duration-300"
                     >
                         {t.cta || "Request Quote"}
                     </Link>
