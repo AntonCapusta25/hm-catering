@@ -17,6 +17,13 @@ const HERO_IMAGES = [
     "/images/hero-banners/hero_latest_5.jpg"
 ];
 
+const MOBILE_HERO_IMAGES = [
+    "/images/hero-banners/hero_mobile_1.jpg",
+    "/images/hero-banners/hero_mobile_2.jpg",
+    "/images/hero-banners/hero_mobile_3.jpg",
+    "/images/hero-banners/hero_mobile_4.jpg"
+];
+
 interface HeroProps {
     city?: string;
 }
@@ -29,6 +36,18 @@ export default function Hero({ city }: HeroProps) {
 
     const [bookingLink, setBookingLink] = useState(`/${lang}/quote`);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const images = isMobile ? MOBILE_HERO_IMAGES : HERO_IMAGES;
 
     useEffect(() => {
         // Check for Typeform config
@@ -55,11 +74,16 @@ export default function Hero({ city }: HeroProps) {
     // Slideshow transition logic
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+            setCurrentImageIndex((prev) => (prev + 1) % images.length);
         }, 5000); // Change image every 5 seconds
 
         return () => clearInterval(interval);
-    }, []);
+    }, [images]); // Re-run when image set changes
+
+    // Reset index if it exceeds new array length
+    useEffect(() => {
+        setCurrentImageIndex(0);
+    }, [isMobile]);
 
     return (
         <header className="relative w-full flex items-center justify-center overflow-hidden text-white bg-black" style={{ height: '90svh', maxHeight: '90svh' }}>
@@ -74,7 +98,7 @@ export default function Hero({ city }: HeroProps) {
                     className="absolute inset-[-10%] z-0 block"
                 >
                     <Image
-                        src={HERO_IMAGES[currentImageIndex]}
+                        src={images[currentImageIndex]}
                         alt={`Hero Background ${currentImageIndex + 1}`}
                         fill
                         priority={currentImageIndex === 0}
