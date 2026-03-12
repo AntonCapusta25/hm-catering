@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
 
     // Send admin notification email
     const adminEmail = {
-      to: process.env.SENDGRID_TO_EMAIL!,
+      to: [process.env.SENDGRID_TO_EMAIL!, 'mahmoudelwakil22@gmail.com'],
       from: process.env.SENDGRID_FROM_EMAIL!,
       subject: `🎉 New Catering Request: ${name}`,
       html: `
