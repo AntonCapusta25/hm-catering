@@ -35,7 +35,7 @@ export default function AnimatedHeroHeadline({ staticText, words }: AnimatedHero
     }, [words]);
 
     return (
-        <h1 className={`${styles.heroHeadline} text-5xl md:text-6xl lg:text-7xl drop-shadow-lg`}>
+        <h1 className={`${styles.heroHeadline} text-6xl md:text-6xl lg:text-7xl drop-shadow-lg leading-tight md:leading-normal`}>
             {staticText}{' '}
             <span
                 className={styles.rotatingWord}
