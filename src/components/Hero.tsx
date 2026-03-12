@@ -112,7 +112,7 @@ export default function Hero({ city }: HeroProps) {
             <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
             <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-cream to-transparent z-0" />
 
-            <div className="relative z-10 w-full h-full flex flex-col justify-start md:justify-center items-center pt-52 md:pt-0 py-12 md:py-20 px-5">
+            <div className="relative z-10 w-full h-full flex flex-col justify-start md:justify-center items-center pt-36 md:pt-0 py-12 md:py-20 px-5">
                 <div className="text-center max-w-4xl w-full flex flex-col items-center">
                     <AnimatedHeroHeadline
                         staticText={t.animatedTitleStatic || "Home Chefs. At Your Office. Delivering in "}
