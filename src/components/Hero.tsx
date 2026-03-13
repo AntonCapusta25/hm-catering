@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation';
 const HERO_IMAGES = [
     "/images/hero-banners/hero_main_highres.jpg",
     "/images/hero-banners/hero_main.jpg",
-    "/images/hero-banners/hero_latest_2.jpg",
+    "/images/hero_washing_tomatoes.jpg",
     "/images/hero-banners/hero_latest_3.jpg",
     "/images/hero-banners/hero_latest_4.jpg",
     "/images/hero-banners/hero_latest_5_highres.jpg"
