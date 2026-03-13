@@ -15,7 +15,7 @@ const HERO_IMAGES = [
     "/images/hero-banners/hero_latest_2.jpg",
     "/images/hero-banners/hero_latest_3.jpg",
     "/images/hero-banners/hero_latest_4.jpg",
-    "/images/hero-banners/hero_latest_5.jpg"
+    "/images/hero-banners/hero_latest_5_highres.jpg"
 ];
 
 const MOBILE_HERO_IMAGES = [
