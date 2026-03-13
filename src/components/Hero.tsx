@@ -95,7 +95,7 @@ export default function Hero({ city }: HeroProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="absolute inset-[-10%] z-0 block"
+                    className="absolute inset-0 z-0 block"
                 >
                     <Image
                         src={images[currentImageIndex]}
