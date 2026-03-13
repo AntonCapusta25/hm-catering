@@ -11,8 +11,8 @@ import { usePathname } from 'next/navigation';
 
 const HERO_IMAGES = [
     "/images/hero-banners/hero_main_highres.jpg",
-    "/images/hero_washing_tomatoes.jpg",
-    "/images/hero_friends_dinner.jpg",
+    "/images/hero-banners/hero_washing_tomatoes.jpg",
+    "/images/hero-banners/hero_friends_dinner.jpg",
     "/images/hero-banners/hero_latest_5_highres.jpg"
 ];
 
