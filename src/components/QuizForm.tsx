@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, CheckCircle2, Utensils, Users, Calendar, Mail, User } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Utensils, Users, Calendar, Mail, User, Phone } from "lucide-react";
 import confetti from "canvas-confetti";
 import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
@@ -15,6 +15,7 @@ type FormData = {
     eventDate: string;
     name: string;
     email: string;
+    phone: string;
 };
 
 const OCCASIONS = [
@@ -45,6 +46,7 @@ function QuizFormContent() {
         eventDate: "",
         name: "",
         email: "",
+        phone: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -102,6 +104,7 @@ function QuizFormContent() {
                 body: JSON.stringify({
                     name: formData.name,
                     email: formData.email,
+                    phone: formData.phone,
                     selectedMenu: null,
                     selectedChef: null,
                     cuisine: formData.occasion,
@@ -152,7 +155,7 @@ function QuizFormContent() {
             if (step === 1 && formData.occasion) nextStep();
             if (step === 2 && formData.guests) nextStep();
             if (step === 3 && formData.eventDate) nextStep();
-            if (step === 4 && formData.name && formData.email) handleSubmit();
+            if (step === 4 && formData.name && formData.email && formData.phone) handleSubmit();
         }
     };
 
@@ -331,6 +334,17 @@ function QuizFormContent() {
                                         className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 pl-12 md:pl-16 text-base md:text-lg text-cream placeholder-gray-500 focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all"
                                     />
                                 </div>
+                                <div className="relative">
+                                    <Phone className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                                    <input
+                                        type="tel"
+                                        placeholder="Phone Number"
+                                        required
+                                        value={formData.phone}
+                                        onChange={(e) => updateData({ phone: e.target.value })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 pl-12 md:pl-16 text-base md:text-lg text-cream placeholder-gray-500 focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all"
+                                    />
+                                </div>
 
                                 <p className="text-sm text-gray-500 py-2">
                                     We respect your privacy. No immediate payment required.
@@ -368,7 +382,7 @@ function QuizFormContent() {
                 ) : (
                     <button
                         onClick={() => handleSubmit()}
-                        disabled={!formData.name || !formData.email || isSubmitting}
+                        disabled={!formData.name || !formData.email || !formData.phone || isSubmitting}
                         className="flex items-center gap-2 bg-[#F27D42] text-white px-6 py-3 md:px-8 md:py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base whitespace-nowrap"
                     >
                         {isSubmitting ? t.submitting || "Submitting..." : t.submitButton || "Submit Request"}

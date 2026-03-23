@@ -70,64 +70,56 @@
 
         /* ── HERO ── */
         #share-a-meal-wrapper .hero {
-            min-height: 90vh !important;
+            height: 90svh !important;
+            max-height: 90svh !important;
             display: flex !important;
             align-items: center !important;
-            padding: 120px 0 80px !important;
+            justify-content: center !important;
+            padding: 0 !important;
             position: relative !important;
             overflow: hidden !important;
+            background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1600&auto=format&fit=crop') !important;
+            background-size: cover !important;
+            background-position: center !important;
         }
 
+        /* Dark gradient overlay */
         #share-a-meal-wrapper .hero::before {
             content: '' !important;
             position: absolute !important;
-            width: 900px !important;
-            height: 900px !important;
-            background: radial-gradient(circle, rgba(242, 125, 66, 0.1) 0%, transparent 70%) !important;
-            top: -200px !important;
-            right: -200px !important;
+            inset: 0 !important;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.40) 50%, rgba(0, 0, 0, 0.80) 100%) !important;
             pointer-events: none !important;
+            z-index: 1 !important;
         }
 
+        /* Fade bottom into page background */
         #share-a-meal-wrapper .hero::after {
             content: '' !important;
             position: absolute !important;
-            width: 600px !important;
-            height: 600px !important;
-            background: radial-gradient(circle, rgba(26, 77, 46, 0.08) 0%, transparent 70%) !important;
-            bottom: -100px !important;
-            left: -100px !important;
+            inset-inline: 0 !important;
+            bottom: 0 !important;
+            height: 8rem !important;
+            background: linear-gradient(to top, var(--warm) 0%, transparent 100%) !important;
             pointer-events: none !important;
+            z-index: 2 !important;
         }
 
         #share-a-meal-wrapper .hero-grid {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr !important;
-            gap: 4rem !important;
+            display: flex !important;
+            flex-direction: column !important;
             align-items: center !important;
+            text-align: center !important;
+            position: relative !important;
+            z-index: 3 !important;
         }
 
         #share-a-meal-wrapper .hero-inner {
-            animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+            max-width: 800px !important;
         }
 
         #share-a-meal-wrapper .hero-image-wrapper {
-            position: relative !important;
-            border-radius: 2rem !important;
-            overflow: hidden !important;
-            box-shadow: 0 30px 60px rgba(45, 36, 32, 0.15) !important;
-            height: 600px !important;
-            transform: rotate(2deg) !important;
-            animation: fadeUp 1s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both !important;
-            background-color: transparent !important;
-        }
-
-        #share-a-meal-wrapper .hero-image-wrapper img {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            display: block !important;
-            max-width: none !important;
+            display: none !important;
         }
 
         @keyframes fadeUp {
@@ -146,9 +138,9 @@
             display: inline-flex !important;
             align-items: center !important;
             gap: 0.5rem !important;
-            background: var(--green-lt) !important;
-            border: 1px solid rgba(26, 77, 46, 0.25) !important;
-            color: var(--green) !important;
+            background: rgba(255, 255, 255, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.35) !important;
+            color: white !important;
             padding: 0.45rem 1.1rem !important;
             border-radius: 50px !important;
             font-size: 0.8rem !important;
@@ -156,6 +148,7 @@
             letter-spacing: 0.08em !important;
             text-transform: uppercase !important;
             margin-bottom: 2rem !important;
+            backdrop-filter: blur(10px) !important;
         }
 
         #share-a-meal-wrapper .hero-pill span {
@@ -166,10 +159,11 @@
             font-family: 'NewSpirit', serif !important;
             font-size: clamp(3rem, 6vw, 5.5rem) !important;
             line-height: 0.95 !important;
-            color: var(--navy) !important;
+            color: white !important;
             margin-bottom: 1.5rem !important;
             letter-spacing: -0.01em !important;
             font-weight: bold !important;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
         }
 
         #share-a-meal-wrapper .hero h1 .accent {
@@ -187,20 +181,22 @@
             height: 4px !important;
             background: var(--orange) !important;
             border-radius: 2px !important;
-            opacity: 0.4 !important;
+            opacity: 0.6 !important;
         }
 
         #share-a-meal-wrapper .hero-sub {
             font-size: clamp(1.05rem, 2vw, 1.25rem) !important;
-            color: var(--muted) !important;
+            color: rgba(255, 255, 255, 0.9) !important;
             line-height: 1.7 !important;
-            max-width: 500px !important;
-            margin-bottom: 2.5rem !important;
+            max-width: 560px !important;
+            margin: 0 auto 2.5rem !important;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         }
 
         #share-a-meal-wrapper .hero-cta-wrap {
             display: flex !important;
             align-items: center !important;
+            justify-content: center !important;
             gap: 1rem !important;
             flex-wrap: wrap !important;
             margin: 0 !important;
@@ -224,6 +220,10 @@
             border: none !important;
             height: auto !important;
             line-height: 1.5 !important;
+            cursor: pointer !important;
+            pointer-events: auto !important;
+            z-index: 100 !important;
+            position: relative !important;
         }
 
         #share-a-meal-wrapper .btn-main svg {
@@ -576,25 +576,6 @@
 
         /* ── RESPONSIVE ── */
         @media (max-width: 960px) {
-            #share-a-meal-wrapper .hero-grid {
-                grid-template-columns: 1fr !important;
-                text-align: center !important;
-                gap: 2rem !important;
-            }
-
-            #share-a-meal-wrapper .hero-inner {
-                max-width: 600px !important;
-                margin: 0 auto !important;
-            }
-
-            #share-a-meal-wrapper .hero-cta-wrap {
-                justify-content: center !important;
-            }
-
-            #share-a-meal-wrapper .hero-image-wrapper {
-                display: none !important;
-            }
-
             #share-a-meal-wrapper .how-grid {
                 grid-template-columns: 1fr !important;
             }
@@ -623,10 +604,6 @@
         }
 
         @media (max-width: 600px) {
-            #share-a-meal-wrapper .hero {
-                padding: 100px 0 60px !important;
-            }
-
             #share-a-meal-wrapper .hero h1 {
                 font-size: 3rem !important;
             }
@@ -721,6 +698,7 @@
             color: var(--navy) !important;
             padding: 0 1rem !important;
             outline: none !important;
+            appearance: none !important;
             -moz-appearance: textfield !important;
         }
 
@@ -891,12 +869,15 @@
             background: rgba(255, 255, 255, 0.1) !important;
             border: 1px solid rgba(255, 255, 255, 0.2) !important;
             padding: 0.4rem 1rem !important;
-            border-radius: 50px !important;
-            font-size: 0.8rem !important;
+            border-radius: 12px !important;
+            font-size: 0.75rem !important;
             font-weight: 700 !important;
-            letter-spacing: 0.1em !important;
+            letter-spacing: 0.06em !important;
             text-transform: uppercase !important;
             backdrop-filter: blur(10px) !important;
+            white-space: normal !important;
+            text-align: center !important;
+            line-height: 1.3 !important;
         }
 
         #share-a-meal-wrapper .nft-body {
@@ -911,20 +892,29 @@
         #share-a-meal-wrapper .nft-meal-viz {
             display: flex !important;
             flex-wrap: wrap !important;
-            gap: 6px !important;
+            gap: 8px !important;
             justify-content: center !important;
             margin-bottom: 2rem !important;
-            max-height: 120px !important;
+            max-height: 160px !important;
             overflow: hidden !important;
         }
 
         #share-a-meal-wrapper .viz-dot {
-            width: 12px !important;
-            height: 12px !important;
-            background: var(--orange) !important;
-            border-radius: 50% !important;
-            box-shadow: 0 0 10px rgba(242, 125, 66, 0.6) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 1.8rem !important;
+            height: 1.8rem !important;
             animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both !important;
+            user-select: none !important;
+        }
+
+        #share-a-meal-wrapper .viz-dot::before {
+            /* 🍜 steaming bowl — CSS hex escape, zero encoding issues */
+            content: "\1F35C" !important;
+            font-size: 1.3rem !important;
+            line-height: 1 !important;
+            filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35)) !important;
         }
 
         @keyframes popIn {
@@ -985,7 +975,7 @@
         @media (max-width: 960px) {
             #share-a-meal-wrapper .donation-grid {
                 grid-template-columns: 1fr !important;
-                gap: 4rem !important;
+                gap: 1.5rem !important;
                 padding: 3rem 2rem !important;
             }
         }
@@ -1012,13 +1002,13 @@
                             Not for profit, just for people. Because good food shouldn't go to waste.
                         </p>
                         <div class="hero-cta-wrap">
-                            <a href="#donate-section" class="btn-main">
+                            <a href="https://zol4dc90rf4.typeform.com/to/hMRxkYkq" target="_blank" class="btn-main">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path
                                         d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                                 </svg>
-                                Donate a meal
+                                Join as Ambassador
                             </a>
                             <a href="https://zol4dc90rf4.typeform.com/to/HdWoEkfx" target="_blank" class="btn-main"
                                 style="background: white; color: var(--navy); box-shadow: 0 8px 28px rgba(0,0,0,0.08);">
@@ -1041,34 +1031,36 @@
                     <span class="eyebrow">How can we help?</span>
                     <h2 class="section-h">Choose your path today.</h2>
                 </div>
-
                 <div class="why-grid" style="gap: 3rem;">
                     <!-- Option 1: Share/Donate -->
                     <div class="how-card" style="text-align: center; padding: 4rem 3rem;">
                         <div class="how-icon-wrapper"
                             style="margin: 0 auto 2rem; width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 4px solid var(--orange);">
-                            <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=300&auto=format&fit=crop"
-                                style="width: 100%; height: 100%; object-fit: cover;" alt="Sharing a meal">
+                            <img style="width: 100%; height: 100%; object-fit: cover;"
+                                src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&amp;w=300&amp;auto=format&amp;fit=crop"
+                                alt="Sharing a meal">
                         </div>
                         <h3 style="font-size: 2rem;">I want to share</h3>
-                        <p style="margin-bottom: 2.5rem; font-size: 1.1rem;">Buy a wholesome, home-cooked meal for
-                            someone in your local community who needs it.</p>
-                        <a href="#donate-section" class="btn-main" style="width: 100%;">Donate a Meal</a>
+                        <p style="margin-bottom: 2.5rem; font-size: 1.1rem;">Buy a wholesome, home-cooked meal for someone in
+                            your local community who needs it.</p>
+                        <a class="btn-main" style="width: 100%;"
+                            href="https://zol4dc90rf4.typeform.com/to/hMRxkYkq"
+                            target="_blank">Join as Ambassador</a>
                     </div>
-
                     <!-- Option 2: Receive -->
                     <div class="how-card" style="text-align: center; padding: 4rem 3rem;">
                         <div class="how-icon-wrapper"
                             style="margin: 0 auto 2rem; width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 4px solid var(--green);">
-                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=300&auto=format&fit=crop"
-                                style="width: 100%; height: 100%; object-fit: cover;" alt="Receiving a meal">
+                            <img style="width: 100%; height: 100%; object-fit: cover;"
+                                src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&amp;w=300&amp;auto=format&amp;fit=crop"
+                                alt="Receiving a meal">
                         </div>
                         <h3 style="font-size: 2rem;">I need a meal</h3>
-                        <p style="margin-bottom: 2.5rem; font-size: 1.1rem;">Times are tough, and we're here to help.
-                            Request a nutritious, home-cooked meal, no questions asked.</p>
-                        <a href="https://zol4dc90rf4.typeform.com/to/HdWoEkfx" target="_blank" class="btn-main"
-                            style="width: 100%; background: var(--green); box-shadow: 0 8px 28px rgba(26, 77, 46, 0.35);">Request
-                            a Meal</a>
+                        <p style="margin-bottom: 2.5rem; font-size: 1.1rem;">Times are tough, and we're here to help. Request a
+                            nutritious, home-cooked meal, no questions asked.</p>
+                        <a class="btn-main"
+                            style="width: 100%; background: var(--green); box-shadow: 0 8px 28px rgba(26, 77, 46, 0.35);"
+                            href="https://zol4dc90rf4.typeform.com/to/HdWoEkfx" target="_blank">Request a Meal</a>
                     </div>
                 </div>
             </div>
@@ -1307,7 +1299,7 @@
                 <p>Join a growing community committed to eliminating waste and ensuring that everyone gets a seat at the
                     table. Fill out our form to get involved.</p>
                 <div class="hero-cta-wrap">
-                    <a href="#donate-section" class="btn-main">
+                    <a href="https://sharethemeal.org/challenges/b468e743-8f39-4881-a556-bef436166573?adjust_t=siep6tcd&hl=en-US" target="_blank" class="btn-main">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path
@@ -1320,85 +1312,87 @@
         </section>
     </div>
     <script>
-        const COST_PER_MEAL = 0.70;
-        // Payment base URL — update with your Stripe Payment Link
-        // Amount is appended as ?prefilled_amount=<cents> so Stripe pre-fills it.
-        // Replace the URL below with your actual Stripe payment link.
-        var PAYMENT_BASE_URL = "https://donate.stripe.com/00w3cv7lg7Vj8lO9e84800b";
-        function initDonation() {
-            var input = document.getElementById("meal-input");
-            var slider = document.getElementById("meal-slider");
-            var sliderFill = document.getElementById("slider-fill");
-            var sliderThumb = document.getElementById("slider-thumb");
-            var btnMinus = document.getElementById("btn-minus");
-            var btnPlus = document.getElementById("btn-plus");
-            var countDisplay = document.getElementById("nft-count");
-            var priceDisplay = document.getElementById("nft-price");
-            var vizContainer = document.getElementById("nft-meal-viz");
-            var presetBtns = document.querySelectorAll(".preset-btn");
+    (function() {
+        var COST_PER_MEAL = 0.70;
+        var PAYMENT_BASE_URL = "https://sharethemeal.org/challenges/b468e743-8f39-4881-a556-bef436166573?adjust_t=siep6tcd&hl=en-US";
 
-            if (!input || !slider) return; // not in DOM yet
-
-            function updateUI(val) {
-                var numeric = parseInt(val, 10);
-                if (isNaN(numeric) || numeric < 1) numeric = 1;
-                if (numeric > 500) numeric = 500;
-
-                input.value = numeric;
-
-                var percent = Math.min(numeric, 100);
-                slider.value = percent;
-                sliderFill.style.width = percent + "%";
-                sliderThumb.style.left = percent + "%";
-
-                countDisplay.textContent = numeric;
-                priceDisplay.textContent = "\u20ac" + (numeric * COST_PER_MEAL).toFixed(2);
-
-                var vizCount = Math.min(numeric, 100);
-                var html = "";
-                for (var i = 0; i < vizCount; i++) html += '<div class="viz-dot"></div>';
-                vizContainer.innerHTML = html;
-
-                // Update preset buttons active state
-                presetBtns.forEach(function (btn) {
-                    if (parseInt(btn.getAttribute("data-val"), 10) === numeric) {
-                        btn.classList.add("active");
-                    } else {
-                        btn.classList.remove("active");
-                    }
-                });
-            }
-
-            input.addEventListener("input", function () { updateUI(input.value); });
-            slider.addEventListener("input", function () { updateUI(slider.value); });
-            btnMinus.addEventListener("click", function () { updateUI(parseInt(input.value || 1) - 1); });
-            btnPlus.addEventListener("click", function () { updateUI(parseInt(input.value || 1) + 1); });
-
-            presetBtns.forEach(function (btn) {
-                btn.addEventListener("click", function () {
-                    updateUI(btn.getAttribute("data-val"));
-                });
-            });
-
-            updateUI(10);
-        }
-
-        // Works whether DOM is ready or not
-        function donateNow() {
+        function getMeals() {
             var input = document.getElementById("meal-input");
             var meals = parseInt(input ? input.value : 10, 10);
-            if (isNaN(meals) || meals < 1) meals = 1;
-            var totalCents = Math.round(meals * COST_PER_MEAL * 100);
-            // Stripe Payment Links accept ?prefilled_amount=<cents> to pre-fill the amount
-            var url = PAYMENT_BASE_URL + "?prefilled_amount=" + totalCents;
-            window.open(url, "_blank");
+            return (isNaN(meals) || meals < 1) ? 1 : Math.min(meals, 500);
         }
 
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", initDonation);
-        } else {
-            initDonation();
+        function updateUI(n) {
+            var input  = document.getElementById("meal-input");
+            var fill   = document.getElementById("slider-fill");
+            var thumb  = document.getElementById("slider-thumb");
+            var slider = document.getElementById("meal-slider");
+            var count  = document.getElementById("nft-count");
+            var price  = document.getElementById("nft-price");
+            var viz    = document.getElementById("nft-meal-viz");
+            
+            // Sync both inputs
+            n = parseInt(n, 10);
+            if (isNaN(n) || n < 1) n = 1;
+            if (n > 500) n = 500;
+
+            if (input) input.value = n;
+            
+            var pct = Math.min(n, 100);
+            if (slider) slider.value = pct;
+            if (fill)   fill.style.width = pct + "%";
+            if (thumb)  thumb.style.left = pct + "%";
+            if (count)  count.textContent = n;
+            if (price)  price.textContent = "\u20ac" + (n * COST_PER_MEAL).toFixed(2);
+            if (viz) {
+                var html = "";
+                for (var i = 0; i < Math.min(n, 100); i++) html += '<div class="viz-dot"></div>';
+                viz.innerHTML = html;
+            }
+
+            // Presets
+            var presetBtns = document.querySelectorAll(".preset-btn");
+            presetBtns.forEach(function (btn) {
+                if (parseInt(btn.getAttribute("data-val"), 10) === n) {
+                    btn.classList.add("active");
+                } else {
+                    btn.classList.remove("active");
+                }
+            });
         }
+
+        // Targeted click handling for interactive slider elements
+        document.addEventListener("click", function(e) {
+            var t = e.target.closest ? e.target.closest("#btn-minus, #btn-plus, [data-val], #donate-btn") : null;
+            if (!t) return;
+            
+            var id = t.id;
+            var val = t.getAttribute("data-val");
+            
+            if (id === "btn-minus") { e.preventDefault(); updateUI(getMeals() - 1); }
+            else if (id === "btn-plus")  { e.preventDefault(); updateUI(getMeals() + 1); }
+            else if (val) { e.preventDefault(); updateUI(val); }
+            else if (id === "donate-btn") {
+                e.preventDefault();
+                var cents = Math.round(getMeals() * COST_PER_MEAL * 100);
+                window.open(PAYMENT_BASE_URL + "&prefilled_amount=" + cents, "_blank");
+            }
+        }, false);
+
+        document.addEventListener("input", function(e) {
+            if (e.target.id === "meal-input")  updateUI(e.target.value);
+            if (e.target.id === "meal-slider") updateUI(e.target.value);
+        }, true);
+
+        var initialized = false;
+        function tryInit() {
+            if (initialized || !document.getElementById("meal-input")) return;
+            initialized = true;
+            updateUI(10);
+        }
+        new MutationObserver(tryInit).observe(document.documentElement, { childList: true, subtree: true });
+        tryInit();
+    })();
     </script>
 </body>
 

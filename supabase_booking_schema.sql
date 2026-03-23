@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS booking_submissions (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
   email TEXT NOT NULL,
+  phone TEXT,
   selected_menu TEXT,
   selected_chef TEXT,
   cuisine TEXT,

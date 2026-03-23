@@ -25,7 +25,8 @@ export async function POST(request: NextRequest) {
       cuisine,
       eventDate,
       guests,
-      message
+      message,
+      phone
     } = body
 
     // Validate required fields
@@ -58,6 +59,7 @@ export async function POST(request: NextRequest) {
           event_date: eventDate || null,
           guests: guests || null,
           message: message || null,
+          phone: phone || null,
         },
       ])
       .select()
@@ -119,6 +121,10 @@ export async function POST(request: NextRequest) {
       <div class="detail-row">
         <span class="detail-label">Email:</span>
         <span class="detail-value"><a href="mailto:${email}" style="color: ${COLORS.orange};">${email}</a></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Phone:</span>
+        <span class="detail-value"><a href="tel:${phone}" style="color: ${COLORS.orange};">${phone}</a></span>
       </div>
       
       <h2 style="color: ${COLORS.dark}; margin-top: 30px;">Event Details</h2>
@@ -227,6 +233,7 @@ export async function POST(request: NextRequest) {
         ${cuisine ? `<div class="detail-item"><span class="detail-label">Cuisine:</span> <span class="detail-value">${cuisine}</span></div>` : ''}
         ${eventDate ? `<div class="detail-item"><span class="detail-label">Event Date:</span> <span class="detail-value">${eventDate}</span></div>` : ''}
         ${guests ? `<div class="detail-item"><span class="detail-label">Guests:</span> <span class="detail-value">${guests}</span></div>` : ''}
+        ${phone ? `<div class="detail-item"><span class="detail-label">Phone:</span> <span class="detail-value">${phone}</span></div>` : ''}
       </div>
 
       <div class="divider"></div>
