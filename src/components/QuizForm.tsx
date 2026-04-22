@@ -134,6 +134,24 @@ function QuizFormContent() {
                 guests: formData.guests,
             });
 
+            // Meta Pixel Lead Tracking
+            if (typeof (window as any).fbq === 'function') {
+                (window as any).fbq('track', 'Lead', {
+                    value: 1.00,
+                    currency: 'EUR',
+                    content_name: 'Quiz Form',
+                });
+            }
+
+            // TikTok Pixel Lead Tracking
+            if (typeof (window as any).ttq === 'object' && (window as any).ttq.track) {
+                (window as any).ttq.track('CompleteRegistration', {
+                    value: 1.00,
+                    currency: 'EUR',
+                    content_name: 'Quiz Form'
+                });
+            }
+
             if (typeof (window as any).lintrk === 'function') {
                 (window as any).lintrk('track', { conversion_id: 26646249 });
             }

@@ -169,7 +169,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
+              window.gtag = function(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-D5HCSXTSW6');
             `,
