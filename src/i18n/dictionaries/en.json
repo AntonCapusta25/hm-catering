@@ -8,10 +8,10 @@
         "blog": "Blog"
     },
     "hero": {
-        "titlePart1": "Exceptional Catering",
+        "titlePart1": "Exceptional Private Chefs",
         "titlePart2": "for Every",
-        "titleHighlight": "Occasion",
-        "animatedTitleStatic": "Home Chefs. At Your Office. Delivering in ",
+        "titleHighlight": "Moment",
+        "animatedTitleStatic": "Private Chef Experience. At Your Venue. Delivering in ",
         "animatedRotatingWords": [
             "Amsterdam",
             "Rotterdam",
@@ -19,7 +19,7 @@
             "Haarlem",
             "Enschede"
         ],
-        "subtitle": "From intimate gatherings to grand celebrations, we bring restaurant-quality cuisine to your event.",
+        "subtitle": "From intimate home dinners to grand celebrations, we bring a premium private chef experience to your chosen location.",
         "cta": "Request Quote"
     },
     "partners": {
@@ -28,7 +28,7 @@
     "problemSolution": {
         "title1": "Why overpay at crowded restaurants",
         "title2": "when you can enjoy an exclusive private chef experience?",
-        "solutionTitle": "Private chef team dinners at 40% less cost",
+        "solutionTitle": "Exclusive private chef experiences at 40% less cost",
         "solutionDesc": "Skip the overpriced restaurants. Get exceptional food, real connections, and significant savings.",
         "benefit1Title": "Better food than restaurants",
         "benefit1Desc": "Chef-prepared meals with premium ingredients, tailored to your preferences",
@@ -40,7 +40,7 @@
     "howItWorks": {
         "title": "How it Works",
         "step1Title": "Choose Your Menu",
-        "step1Desc": "Browse our curated catering packages or request custom options.",
+        "step1Desc": "Browse our curated private chef menus or request custom options.",
         "step2Title": "Confirm Details",
         "step2Desc": "Select your date, guest count, and delivery preferences.",
         "step3Title": "We Deliver Excellence",
@@ -84,30 +84,42 @@
         "title": "Occasions",
         "exploreMenu": "Explore Menu",
         "items": {
-            "kerst": {
-                "title": "Holiday Events",
-                "subtitle": "Seasonal"
+            "romantic": {
+                "title": "Private Dining",
+                "subtitle": "Intimate"
             },
-            "shared": {
-                "title": "Family-Style Dining",
-                "subtitle": "Social"
+            "wedding": {
+                "title": "Weddings & Galas",
+                "subtitle": "Elegant"
+            },
+            "home-dining": {
+                "title": "Fine Dining at Home",
+                "subtitle": "Personal"
             },
             "newyear": {
                 "title": "Celebrations & Parties",
                 "subtitle": "Celebration"
             },
-            "corporate": {
-                "title": "Corporate Events",
+            "shared": {
+                "title": "Family-Style Dining",
+                "subtitle": "Social"
+            },
+            "business": {
+                "title": "Business Events",
                 "subtitle": "Professional"
             },
-            "romantic": {
-                "title": "Private Dining",
-                "subtitle": "Intimate"
+            "teambuilding": {
+                "title": "Team Building",
+                "subtitle": "Interactive"
+            },
+            "executive": {
+                "title": "Executive Dining",
+                "subtitle": "Prestigious"
             }
         }
     },
     "packageTiers": {
-        "title": "Team Dinner Packages",
+        "title": "Private Chef Packages for Every Setting",
         "subtitle": "Transparent pricing, exceptional value. All packages include professional service and cleanup.",
         "badgePopular": "Most Popular",
         "groupLabel": "Group:",
@@ -188,7 +200,7 @@
             },
             {
                 "company": "Special Occasion",
-                "eventType": "Italian Dessert Catering",
+                "eventType": "Italian Dessert Chef",
                 "quote": "This is by far one of the best Tiramisu I have tasted! It somehow melts inside the mouth! Super Good!!"
             },
             {
@@ -202,8 +214,8 @@
                 "quote": "I ordered from Bottega da Dome a few times and they have hands down the best tiramisu! Will keep ordering from them again :)"
             },
             {
-                "company": "Catering",
-                "eventType": "Event Catering",
+                "company": "Private Chef",
+                "eventType": "Event Chef Service",
                 "quote": "Delicious tiramisu! We all loved it. Very well made and Domenico is a very friendly chef. Will order again!"
             },
             {
@@ -215,13 +227,13 @@
     },
     "faq": {
         "title": "Frequently Asked Questions",
-        "subtitle": "Everything you need to know about our catering services. Can't find your answer? Contact us directly.",
+        "subtitle": "Everything you need to know about our private chef services. Can't find your answer? Contact us directly.",
         "stillQuestions": "Still have questions?",
         "contactTeam": "Contact Our Team",
         "items": [
             {
                 "question": "What's included in your service?",
-                "answer": "Our service includes a professional chef, all premium ingredients, table setup, and complete cleanup after the event. We ensure a seamless dining experience."
+                "answer": "Our private chef service includes a professional chef, all premium ingredients, table setup, and complete cleanup after the event. We ensure a seamless dining experience."
             },
             {
                 "question": "Can we customize the menu?",
@@ -281,11 +293,11 @@
     },
     "bookingForm": {
         "successTitle": "You're Booked!",
-        "successMessage": "Thank you for your request. Our catering team will contact you shortly to finalize your event details!",
+        "successMessage": "Thank you for your request. Our chef coordination team will contact you shortly to finalize your event details!",
         "bookAnother": "Book Another",
         "title1": "Reserve Your",
-        "title2": "Catering Service",
-        "subtitle": "From corporate events to celebrations, we deliver exceptional catering experiences tailored to your needs.",
+        "title2": "Private Chef Service",
+        "subtitle": "From corporate events to celebrations, we deliver exceptional private chef experiences tailored to your needs.",
         "feature1": "5-Star Rated Chefs",
         "feature2": "Custom Curated Menus",
         "selectMenuLabel": "Select Menu",
@@ -312,22 +324,78 @@
         "stepProgress": "Step {current} of {total}",
         "backButton": "Back",
         "nextButton": "Next",
-        "submitButton": "Submit Booking Request",
+        "submitButton": "Request a Chef",
+        "serviceTypeTitle": "What are you looking for?",
+        "serviceTypeSubtitle": "Select the type of service you need.",
+        "cuisineTitle": "Preferred Cuisine?",
+        "cuisineSubtitle": "Which culinary style do you prefer?",
+        "guestsTitle": "How many guests?",
+        "guestsSubtitle": "Rough estimates are fine.",
         "occasionTitle": "What's the occasion?",
         "occasionSubtitle": "Select the type of event you're planning.",
-        "guestsTitle": "How many guests?",
-        "guestsSubtitle": "Rough estimates are fine. Minimum 5 guests.",
+        "serviceLevelTitle": "Service Level?",
+        "serviceLevelSubtitle": "Delivery only or full-service private chef?",
+        "extrasTitle": "Extra Wishes?",
+        "extrasSubtitle": "Select any additional services you might need.",
         "dateTitle": "When is the event?",
-        "dateSubtitle": "Select your preferred date.",
+        "dateSubtitle": "Select one or more available dates.",
         "contactTitle": "Your Details",
         "contactSubtitle": "Where should we send the quote?",
         "submitting": "Submitting...",
-        "successTitle": "You're Booked!",
-        "successMessage": "Thank you for your request. Our catering team will contact you shortly to finalize your event details!",
-        "backHome": "Back to Home"
+        "successTitle": "Request Received!",
+        "successMessage": "Thank you for your request. Our coordination team will contact you shortly with a personalized quote!",
+        "backHome": "Back to Home",
+        "options": {
+            "serviceTypes": {
+                "buffet": "Buffet",
+                "hapjes": "Appetizers / Fingerfood",
+                "bbq": "Barbecue",
+                "diner": "Dinner",
+                "lunch": "Lunch",
+                "other": "Other",
+                "breakfast": "Breakfast / Brunch"
+            },
+            "cuisines": {
+                "dutch": "Dutch",
+                "mediterranean": "Mediterranean",
+                "asian": "Asian",
+                "bbq": "BBQ / Grill",
+                "international": "International",
+                "other": "Other"
+            },
+            "guests": {
+                "less10": "Less than 10 people",
+                "10_25": "10-25 people",
+                "25_75": "25-75 people",
+                "more75": "More than 75 people"
+            },
+            "occasions": {
+                "wedding": "Wedding",
+                "corporate": "Corporate Event",
+                "birthday": "Birthday",
+                "anniversary": "Anniversary",
+                "garden": "Garden Party",
+                "festival": "Festival or Public Event",
+                "staff": "Staff Party",
+                "conference": "Exhibition or Congress"
+            },
+            "serviceLevels": {
+                "delivery": "Delivery only",
+                "full": "Full service / Private Chef"
+            },
+            "extras": {
+                "food": "Food preparation & delivery",
+                "consult": "Discuss possibilities",
+                "drinks": "Drinks",
+                "dishes": "Dishes & Cutlery",
+                "staff": "Service & Staff",
+                "decor": "Decoration (tables, chairs, styling)",
+                "tent": "Party tent"
+            }
+        }
     },
     "menuGrid": {
-        "title": "Catering Restaurants",
+        "title": "Private Chef Menus",
         "subtitle": "Explore our diverse restaurant options. Each restaurant can be customized to your needs.",
         "detectingLocation": "Detecting your location...",
         "selectCity": "📍 Select City",
@@ -403,9 +471,9 @@
     },
     "cateringCalculator": {
         "badge": "💰 Savings Calculator",
-        "title1": "See how much your team",
+        "title1": "See how much you",
         "title2": "could save",
-        "subtitle": "Compare the cost of restaurant catering vs. Homemade catering. Adjust the sliders to match your setup.",
+        "subtitle": "Compare the cost of restaurant dining vs. Homemade private chefs. Adjust the sliders to match your setup.",
         "configTitle": "Configure your event",
         "eventTypeLabel": "Event type",
         "guestsLabel": "Number of guests",
@@ -414,19 +482,19 @@
         "eventsLabel": "Events per year",
         "eventsMin": "1x",
         "eventsMax": "24x / year",
-        "noteRef": "💡 Based on average Amsterdam restaurant catering rates vs. Homemade's transparent pricing. Actual savings may vary.",
+        "noteRef": "💡 Based on average Amsterdam restaurant dining rates vs. Homemade's private chef pricing. Actual savings may vary.",
         "saveText": "You could save",
         "perYearText": "per year",
         "lessThanText": "less than restaurants",
         "perEventSave": "Per event saving",
         "over5Years": "Over 5 years",
         "costBreakdown": "Annual cost breakdown",
-        "restaurantCatering": "Restaurant catering",
-        "homemadeCatering": "Homemade catering",
+        "restaurantCatering": "Restaurant dining",
+        "homemadeCatering": "Private Chef service",
         "bookBtn": "Book your first event →",
         "mealLabels": {
-            "lunch": "Team Lunch",
-            "dinner": "Team Dinner",
+            "lunch": "Lunch Experience",
+            "dinner": "Dinner Experience",
             "drinks": "Drinks & Snacks",
             "breakfast": "Breakfast Meeting"
         }

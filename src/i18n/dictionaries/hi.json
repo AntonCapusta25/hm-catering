@@ -76,25 +76,37 @@
         "title": "अवसर",
         "exploreMenu": "मेनू देखें",
         "items": {
-            "kerst": {
-                "title": "छुट्टियों के कार्यक्रम",
-                "subtitle": "मौसमी"
+            "romantic": {
+                "title": "निजी भोजन",
+                "subtitle": "अंतरंग"
             },
-            "shared": {
-                "title": "पारिवारिक भोजन",
-                "subtitle": "सामाजिक"
+            "wedding": {
+                "title": "शादी और पर्व",
+                "subtitle": "शानदार"
+            },
+            "home-dining": {
+                "title": "घर पर शानदार भोजन",
+                "subtitle": "व्यक्तिगत"
             },
             "newyear": {
                 "title": "समारोह और पार्टियां",
                 "subtitle": "समारोह"
             },
-            "corporate": {
-                "title": "कॉर्पोरेट कार्यक्रम",
+            "shared": {
+                "title": "पारिवारिक भोजन",
+                "subtitle": "सामाजिक"
+            },
+            "business": {
+                "title": "व्यावसायिक कार्यक्रम",
                 "subtitle": "पेशेवर"
             },
-            "romantic": {
-                "title": "निजी भोजन",
-                "subtitle": "अंतरंग"
+            "teambuilding": {
+                "title": "टीम बिल्डिंग",
+                "subtitle": "संवादात्मक"
+            },
+            "executive": {
+                "title": "कार्यकारी भोजन",
+                "subtitle": "प्रतिष्ठित"
             }
         }
     },
@@ -382,5 +394,79 @@
     "metadata": {
         "homeTitle": "घर का बना खाना डिलीवरी | एम्स्टर्डम और नीदरलैंड में निजी शेफ | Homemade",
         "homeDescription": "अपने आस-पास के प्रमाणित निजी शेफ से ताज़ा, घर का बना खाना ऑर्डर करें। किफायती, स्वादिष्ट और हमेशा ताज़ा तैयार किया गया।"
+    },
+    "quizForm": {
+        "stepProgress": "चरण {current} का {total}",
+        "backButton": "पीछे",
+        "nextButton": "आगे",
+        "submitButton": "शेफ का अनुरोध करें",
+        "serviceTypeTitle": "आप क्या खोज रहे हैं?",
+        "serviceTypeSubtitle": "उस सेवा के प्रकार का चयन करें जिसकी आपको आवश्यकता है।",
+        "cuisineTitle": "पसंदीदा व्यंजन?",
+        "cuisineSubtitle": "आप किस पाक शैली को पसंद करते हैं?",
+        "guestsTitle": "कितने मेहमान?",
+        "guestsSubtitle": "अनुमानित संख्या ठीक है।",
+        "occasionTitle": "अवसर क्या है?",
+        "occasionSubtitle": "उस ईवेंट प्रकार का चयन करें जिसे आप प्लान कर रहे हैं।",
+        "serviceLevelTitle": "सेवा का स्तर?",
+        "serviceLevelSubtitle": "केवल डिलीवरी या पूर्ण निजी शेफ सेवा?",
+        "extrasTitle": "अतिरिक्त इच्छाएं?",
+        "extrasSubtitle": "किसी भी अतिरिक्त सेवा का चयन करें जिसकी आपको आवश्यकता हो सकती है।",
+        "dateTitle": "ईवेंट कब है?",
+        "dateSubtitle": "एक या अधिक उपलब्ध तिथियां चुनें।",
+        "contactTitle": "आपका संपर्क विवरण",
+        "contactSubtitle": "हमें कोटेशन कहां भेजना चाहिए?",
+        "submitting": "भेज रहा है...",
+        "successTitle": "अनुरोध प्राप्त हुआ!",
+        "successMessage": "आपके अनुरोध के लिए धन्यवाद। हमारी समन्वय टीम जल्द ही एक व्यक्तिगत कोटेशन के साथ आपसे संपर्क करेगी!",
+        "backHome": "होम पर वापस जाएं",
+        "options": {
+            "serviceTypes": {
+                "buffet": "बुफे",
+                "hapjes": "ऐपेटाइज़र / फिंगर फूड",
+                "bbq": "बारबेक्यू",
+                "diner": "डिनर",
+                "lunch": "लंच",
+                "other": "अन्य",
+                "breakfast": "नाश्ता / ब्रंच"
+            },
+            "cuisines": {
+                "dutch": "डच",
+                "mediterranean": "भूमध्यसागरीय",
+                "asian": "एशियाई",
+                "bbq": "बीबीक्यू / ग्रिल",
+                "international": "अंतर्राष्ट्रीय",
+                "other": "अन्य"
+            },
+            "guests": {
+                "less10": "10 से कम लोग",
+                "10_25": "10-25 लोग",
+                "25_75": "25-75 लोग",
+                "more75": "75 से अधिक लोग"
+            },
+            "occasions": {
+                "wedding": "शादी",
+                "corporate": "कॉर्पोरेट ईवेंट",
+                "birthday": "जन्मदिन",
+                "anniversary": "वर्षगांठ",
+                "garden": "गार्डन पार्टी",
+                "festival": "त्योहार या सार्वजनिक ईवेंट",
+                "staff": "स्टाफ पार्टी",
+                "conference": "प्रदर्शनी या सम्मेलन"
+            },
+            "serviceLevels": {
+                "delivery": "केवल डिलीवरी",
+                "full": "पूर्ण सेवा / निजी शेफ"
+            },
+            "extras": {
+                "food": "भोजन की तैयारी और वितरण",
+                "consult": "संभावनाओं पर चर्चा करें",
+                "drinks": "पेय",
+                "dishes": "बर्तन और कटलरी",
+                "staff": "सेवा और कर्मचारी",
+                "decor": "सजावट (मेज, कुर्सियां, स्टाइलिंग)",
+                "tent": "पार्टी टेंट"
+            }
+        }
     }
 }

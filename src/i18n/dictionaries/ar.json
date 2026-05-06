@@ -76,25 +76,37 @@
         "title": "المناسبات",
         "exploreMenu": "اكتشف القائمة",
         "items": {
-            "kerst": {
-                "title": "أحداث الأعياد",
-                "subtitle": "موسمي"
+            "romantic": {
+                "title": "عشاء خاص",
+                "subtitle": "حميم"
             },
-            "shared": {
-                "title": "تناول طعام عائلي",
-                "subtitle": "اجتماعي"
+            "wedding": {
+                "title": "أعراس وحفلات",
+                "subtitle": "أنيق"
+            },
+            "home-dining": {
+                "title": "عشاء فاخر في المنزل",
+                "subtitle": "شخصي"
             },
             "newyear": {
                 "title": "احتفالات وحفلات",
                 "subtitle": "احتفال"
             },
-            "corporate": {
-                "title": "أحداث الشركات",
+            "shared": {
+                "title": "تناول طعام عائلي",
+                "subtitle": "اجتماعي"
+            },
+            "business": {
+                "title": "فعاليات الأعمال",
                 "subtitle": "مهني"
             },
-            "romantic": {
-                "title": "عشاء خاص",
-                "subtitle": "حميم"
+            "teambuilding": {
+                "title": "بناء الفريق",
+                "subtitle": "تفاعلي"
+            },
+            "executive": {
+                "title": "عشاء تنفيذي",
+                "subtitle": "مرموق"
             }
         }
     },
@@ -382,5 +394,79 @@
     "metadata": {
         "homeTitle": "توصيل وجبات منزلية الصنع | طاهٍ خاص في أمستردام وهولندا | Homemade",
         "homeDescription": "اطلب وجبات طازجة منزلية الصنع من طهاة خاصين معتمدين بالقرب منك. بأسعار معقولة ولذيذة ومحضرة دائمًا طازجة."
+    },
+    "quizForm": {
+        "stepProgress": "الخطوة {current} من {total}",
+        "backButton": "رجوع",
+        "nextButton": "التالي",
+        "submitButton": "اطلب طاهياً",
+        "serviceTypeTitle": "ماذا تبحث عنه؟",
+        "serviceTypeSubtitle": "اختر نوع الخدمة التي تحتاجها.",
+        "cuisineTitle": "المطبخ المفضل؟",
+        "cuisineSubtitle": "ما هو أسلوب الطهي الذي تفضله؟",
+        "guestsTitle": "كم عدد الضيوف؟",
+        "guestsSubtitle": "التقديرات التقريبية مقبولة.",
+        "occasionTitle": "ما هي المناسبة؟",
+        "occasionSubtitle": "اختر نوع الحدث الذي تخطط له.",
+        "serviceLevelTitle": "مستوى الخدمة؟",
+        "serviceLevelSubtitle": "توصيل فقط أم طاهٍ خاص كامل؟",
+        "extrasTitle": "رغبات إضافية؟",
+        "extrasSubtitle": "اختر أي خدمة إضافية قد تحتاجها.",
+        "dateTitle": "متى موعد الحدث؟",
+        "dateSubtitle": "اختر تاريخاً واحداً أو أكثر من التواريخ المتاحة.",
+        "contactTitle": "تفاصيل الاتصال الخاصة بك",
+        "contactSubtitle": "أين يجب أن نرسل عرض السعر؟",
+        "submitting": "جاري الإرسال...",
+        "successTitle": "تم استلام الطلب!",
+        "successMessage": "شكراً لطلبك. سيتصل بك فريق التنسيق لدينا قريباً مع عرض سعر مخصص!",
+        "backHome": "العودة إلى الصفحة الرئيسية",
+        "options": {
+            "serviceTypes": {
+                "buffet": "بوفيه",
+                "hapjes": "مقبلات / أصابع الطعام",
+                "bbq": "باربيكيو",
+                "diner": "عشاء",
+                "lunch": "غداء",
+                "other": "أخرى",
+                "breakfast": "إفطار / برانش"
+            },
+            "cuisines": {
+                "dutch": "هولندي",
+                "mediterranean": "بحر متوسط",
+                "asian": "آسيوي",
+                "bbq": "مشويات / جريل",
+                "international": "عالمي",
+                "other": "أخرى"
+            },
+            "guests": {
+                "less10": "أقل من 10 أشخاص",
+                "10_25": "10-25 شخصاً",
+                "25_75": "25-75 شخصاً",
+                "more75": "أكثر من 75 شخصاً"
+            },
+            "occasions": {
+                "wedding": "حفل زفاف",
+                "corporate": "حدث شركة",
+                "birthday": "عيد ميلاد",
+                "anniversary": "ذكرى سنوية",
+                "garden": "حفلة حديقة",
+                "festival": "مهرجان أو حدث عام",
+                "staff": "حفلة موظفين",
+                "conference": "معرض أو مؤتمر"
+            },
+            "serviceLevels": {
+                "delivery": "توصيل فقط",
+                "full": "خدمة كاملة / طاهٍ خاص"
+            },
+            "extras": {
+                "food": "تحضير وتوصيل الطعام",
+                "consult": "مناقشة الإمكانيات",
+                "drinks": "مشروبات",
+                "dishes": "أواني وأدوات مائدة",
+                "staff": "خدمة وموظفون",
+                "decor": "ديكور (طاولات، كراسي، تنسيق)",
+                "tent": "خيمة حفلات"
+            }
+        }
     }
 }

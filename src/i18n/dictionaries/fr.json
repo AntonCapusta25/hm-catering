@@ -76,25 +76,37 @@
         "title": "Occasions",
         "exploreMenu": "Explorer le Menu",
         "items": {
-            "kerst": {
-                "title": "Événements de Fêtes",
-                "subtitle": "Saisonnier"
+            "romantic": {
+                "title": "Dîner Privé",
+                "subtitle": "Intime"
             },
-            "shared": {
-                "title": "Repas en Famille",
-                "subtitle": "Social"
+            "wedding": {
+                "title": "Mariages & Galas",
+                "subtitle": "Élégant"
+            },
+            "home-dining": {
+                "title": "Dîner de Luxe à Domicile",
+                "subtitle": "Personnel"
             },
             "newyear": {
                 "title": "Célébrations et Fêtes",
                 "subtitle": "Célébration"
             },
-            "corporate": {
-                "title": "Événements d'Entreprise",
+            "shared": {
+                "title": "Repas en Famille",
+                "subtitle": "Social"
+            },
+            "business": {
+                "title": "Événements Professionnels",
                 "subtitle": "Professionnel"
             },
-            "romantic": {
-                "title": "Dîner Privé",
-                "subtitle": "Intime"
+            "teambuilding": {
+                "title": "Team Building",
+                "subtitle": "Interactif"
+            },
+            "executive": {
+                "title": "Dîner Exécutif",
+                "subtitle": "Prestigieux"
             }
         }
     },
@@ -382,5 +394,79 @@
     "metadata": {
         "homeTitle": "Livraison de Repas Faits Maison | Chef Privé à Amsterdam & Pays-Bas",
         "homeDescription": "Commandez des repas frais et faits maison auprès de chefs privés près de chez vous. Abordable, délicieux et préparé le jour même."
+    },
+    "quizForm": {
+        "stepProgress": "Étape {current} sur {total}",
+        "backButton": "Retour",
+        "nextButton": "Suivant",
+        "submitButton": "Demander un Chef",
+        "serviceTypeTitle": "Que recherchez-vous ?",
+        "serviceTypeSubtitle": "Sélectionnez le type de service dont vous avez besoin.",
+        "cuisineTitle": "Cuisine Préférée ?",
+        "cuisineSubtitle": "Quel style culinaire préférez-vous ?",
+        "guestsTitle": "Combien d'invités ?",
+        "guestsSubtitle": "Les estimations approximatives sont acceptables.",
+        "occasionTitle": "Quelle est l'occasion ?",
+        "occasionSubtitle": "Sélectionnez le type d'événement que vous planifiez.",
+        "serviceLevelTitle": "Niveau de Service ?",
+        "serviceLevelSubtitle": "Livraison uniquement ou chef privé complet ?",
+        "extrasTitle": "Souhaits Supplémentaires ?",
+        "extrasSubtitle": "Sélectionnez tout service supplémentaire dont vous pourriez avoir besoin.",
+        "dateTitle": "Quand aura lieu l'événement ?",
+        "dateSubtitle": "Sélectionnez une ou plusieurs dates disponibles.",
+        "contactTitle": "Vos Coordonnées",
+        "contactSubtitle": "Où devons-nous envoyer le devis ?",
+        "submitting": "Envoi...",
+        "successTitle": "Demande Reçue !",
+        "successMessage": "Merci pour votre demande. Notre équipe de coordination vous contactera sous peu avec un devis personnalisé !",
+        "backHome": "Retour à l'accueil",
+        "options": {
+            "serviceTypes": {
+                "buffet": "Buffet",
+                "hapjes": "Apéritifs / Fingerfood",
+                "bbq": "Barbecue",
+                "diner": "Dîner",
+                "lunch": "Déjeuner",
+                "other": "Autre",
+                "breakfast": "Petit-déjeuner / Brunch"
+            },
+            "cuisines": {
+                "dutch": "Néerlandais",
+                "mediterranean": "Méditerranéen",
+                "asian": "Asiatique",
+                "bbq": "BBQ / Grill",
+                "international": "International",
+                "other": "Autre"
+            },
+            "guests": {
+                "less10": "Moins de 10 personnes",
+                "10_25": "10-25 personnes",
+                "25_75": "25-75 personnes",
+                "more75": "Plus de 75 personnes"
+            },
+            "occasions": {
+                "wedding": "Mariage",
+                "corporate": "Événement d'entreprise",
+                "birthday": "Anniversaire",
+                "anniversary": "Jubilé",
+                "garden": "Fête de jardin",
+                "festival": "Festival ou événement public",
+                "staff": "Fête du personnel",
+                "conference": "Exposition ou congrès"
+            },
+            "serviceLevels": {
+                "delivery": "Livraison uniquement",
+                "full": "Service complet / Chef Privé"
+            },
+            "extras": {
+                "food": "Préparation et livraison de nourriture",
+                "consult": "Discuter des possibilités",
+                "drinks": "Boissons",
+                "dishes": "Vaisselle et couverts",
+                "staff": "Service et personnel",
+                "decor": "Décoration (tables, chaises, styling)",
+                "tent": "Tente de fête"
+            }
+        }
     }
 }

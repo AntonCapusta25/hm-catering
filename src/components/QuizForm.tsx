@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, CheckCircle2, Utensils, Users, Calendar, Mail, User, Phone } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Utensils, Users, Calendar, Mail, User, Phone, Info } from "lucide-react";
 import confetti from "canvas-confetti";
 import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
@@ -10,28 +10,17 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 type FormData = {
-    occasion: string;
+    serviceType: string;
+    cuisine: string;
     guests: string;
-    eventDate: string;
+    occasion: string;
+    serviceLevel: string;
+    extras: string[];
+    eventDates: string[];
     name: string;
     email: string;
     phone: string;
 };
-
-const OCCASIONS = [
-    { id: "lunch", label: "Team Lunch", icon: Utensils },
-    { id: "dinner", label: "Company Dinner", icon: Utensils },
-    { id: "drinks", label: "Drinks & Bites", icon: Utensils },
-    { id: "party", label: "Corporate Party", icon: Utensils },
-    { id: "other", label: "Other", icon: Utensils },
-];
-
-const GUESTS_OPTIONS = [
-    { id: "small", label: "5-20 Guests" },
-    { id: "medium", label: "20-50 Guests" },
-    { id: "large", label: "50-100 Guests" },
-    { id: "xlarge", label: "100+ Guests" },
-];
 
 function QuizFormContent() {
     const { dictionary } = useI18n();
@@ -41,9 +30,13 @@ function QuizFormContent() {
 
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState<FormData>({
-        occasion: "",
+        serviceType: "",
+        cuisine: "",
         guests: "",
-        eventDate: "",
+        occasion: "",
+        serviceLevel: "",
+        extras: [],
+        eventDates: [],
         name: "",
         email: "",
         phone: "",
@@ -51,14 +44,45 @@ function QuizFormContent() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
-    const totalSteps = 4;
+    const totalSteps = 8;
 
     const updateData = (fields: Partial<FormData>) => {
         setFormData(prev => ({ ...prev, ...fields }));
     };
 
+    const toggleExtra = (extra: string) => {
+        setFormData(prev => ({
+            ...prev,
+            extras: prev.extras.includes(extra)
+                ? prev.extras.filter(e => e !== extra)
+                : [...prev.extras, extra]
+        }));
+    };
+
     const nextStep = () => {
-        if (step < totalSteps) setStep(step + 1);
+        if (step < totalSteps) {
+            const next = step + 1;
+            setStep(next);
+            trackEvent('quiz_step_complete', {
+                step: step,
+                step_name: getStepName(step),
+                completed: true
+            });
+        }
+    };
+
+    const getStepName = (s: number) => {
+        switch(s) {
+            case 1: return 'service_type';
+            case 2: return 'cuisine';
+            case 3: return 'guests';
+            case 4: return 'occasion';
+            case 5: return 'service_level';
+            case 6: return 'extras';
+            case 7: return 'dates';
+            case 8: return 'contact';
+            default: return 'unknown';
+        }
     };
 
     const prevStep = () => {
@@ -107,10 +131,10 @@ function QuizFormContent() {
                     phone: formData.phone,
                     selectedMenu: null,
                     selectedChef: null,
-                    cuisine: formData.occasion,
-                    eventDate: formData.eventDate,
+                    cuisine: formData.cuisine,
+                    eventDate: formData.eventDates.join(', '),
                     guests: formData.guests,
-                    message: `Occasion: ${formData.occasion}`,
+                    message: `Service: ${formData.serviceType}\nOccasion: ${formData.occasion}\nService Level: ${formData.serviceLevel}\nExtras: ${formData.extras.join(', ')}`,
                 }),
             });
 
@@ -119,19 +143,25 @@ function QuizFormContent() {
                 throw new Error(data?.error || `Request failed (${res.status})`);
             }
 
+            // --- TRACKING START ---
             trackEvent('form_submit', {
                 event_category: 'engagement',
-                event_label: 'Quiz Form',
+                event_label: 'Quiz Form Success',
                 form_id: 'quiz-form',
+                service_type: formData.serviceType,
+                occasion: formData.occasion,
+                cuisine: formData.cuisine,
+                guests: formData.guests
             });
 
             trackEvent('generate_lead', {
                 event_category: 'conversion',
-                event_label: 'Quiz Form',
+                event_label: 'Quiz Form Lead',
                 value: 1,
                 currency: 'EUR',
                 occasion: formData.occasion,
                 guests: formData.guests,
+                service_type: formData.serviceType
             });
 
             // Meta Pixel Lead Tracking
@@ -139,7 +169,8 @@ function QuizFormContent() {
                 (window as any).fbq('track', 'Lead', {
                     value: 1.00,
                     currency: 'EUR',
-                    content_name: 'Quiz Form',
+                    content_name: 'Quiz Form Submission',
+                    content_category: formData.occasion,
                 });
             }
 
@@ -148,13 +179,15 @@ function QuizFormContent() {
                 (window as any).ttq.track('CompleteRegistration', {
                     value: 1.00,
                     currency: 'EUR',
-                    content_name: 'Quiz Form'
+                    content_name: 'Quiz Form Submission'
                 });
             }
 
+            // LinkedIn Insight Tag
             if (typeof (window as any).lintrk === 'function') {
                 (window as any).lintrk('track', { conversion_id: 26646249 });
             }
+            // --- TRACKING END ---
 
             setIsSubmitting(false);
             setIsSuccess(true);
@@ -162,18 +195,29 @@ function QuizFormContent() {
         } catch (error) {
             console.error(error);
             setIsSubmitting(false);
+            trackEvent('form_error', {
+                event_category: 'error',
+                event_label: 'Quiz Form Submission Error',
+                error_message: error instanceof Error ? error.message : 'Unknown error'
+            });
             alert('Submission failed. Please try again.');
         }
     };
 
-    // Keyboard navigation
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            if (step === 1 && formData.occasion) nextStep();
-            if (step === 2 && formData.guests) nextStep();
-            if (step === 3 && formData.eventDate) nextStep();
-            if (step === 4 && formData.name && formData.email && formData.phone) handleSubmit();
+            if (step < totalSteps && step !== 6 && step !== 7) {
+                const canGoNext = 
+                    (step === 1 && formData.serviceType) ||
+                    (step === 2 && formData.cuisine) ||
+                    (step === 3 && formData.guests) ||
+                    (step === 4 && formData.occasion) ||
+                    (step === 5 && formData.serviceLevel);
+                if (canGoNext) nextStep();
+            } else if (step === totalSteps && formData.name && formData.email && formData.phone) {
+                handleSubmit();
+            }
         }
     };
 
@@ -194,9 +238,9 @@ function QuizFormContent() {
                         <CheckCircle2 size={56} />
                     </motion.div>
 
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-cream mb-6">{t.successTitle || "You're Booked!"}</h2>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-cream mb-6">{t.successTitle || "Request Received!"}</h2>
                     <p className="text-gray-400 text-base md:text-lg mb-8 md:mb-10 max-w-md mx-auto leading-relaxed">
-                        {t.successMessage || "Thank you for your request. Our catering team will contact you shortly to finalize your event details!"}
+                        {t.successMessage || "Thank you for your request. Our coordination team will contact you shortly with a personalized quote!"}
                     </p>
 
                     <Link href={`/${lang}`} className="inline-block px-10 py-4 bg-[#F27D42] text-white rounded-2xl font-bold hover:bg-[#d66a35] transition-colors text-lg">
@@ -206,6 +250,8 @@ function QuizFormContent() {
             </motion.div>
         );
     }
+
+    const opt = t.options || {};
 
     return (
         <div className="w-full max-w-3xl mx-auto">
@@ -226,110 +272,260 @@ function QuizFormContent() {
             </div>
 
             {/* Form Container */}
-            <div className="relative min-h-[320px] md:min-h-[400px]" onKeyDown={handleKeyDown}>
+            <div className="relative min-h-[450px] md:min-h-[550px]" onKeyDown={handleKeyDown}>
                 <AnimatePresence mode="wait">
-                    {/* STEP 1: Occasion */}
+                    {/* STEP 1: Service Type */}
                     {step === 1 && (
                         <motion.div
                             key="step1"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.3 }}
                             className="absolute inset-0"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.occasionTitle || "What's the occasion?"}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.occasionSubtitle || "Select the type of event you're planning."}</p>
- 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
-                                {OCCASIONS.map((occ) => (
+                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.serviceTypeTitle}</h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.serviceTypeSubtitle}</p>
+
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
+                                {Object.entries(opt.serviceTypes || {}).map(([key, label]: [string, any]) => (
                                     <button
-                                        key={occ.id}
-                                        onClick={() => { updateData({ occasion: occ.label }); setTimeout(nextStep, 300); }}
-                                        className={`flex items-center gap-3 md:gap-4 p-3 md:p-6 rounded-2xl border text-left transition-all ${formData.occasion === occ.label
+                                        key={key}
+                                        onClick={() => { 
+                                            updateData({ serviceType: label }); 
+                                            trackEvent('quiz_option_select', { step: 1, field: 'service_type', value: label });
+                                            setTimeout(nextStep, 300); 
+                                        }}
+                                        className={`flex flex-col items-center justify-center gap-2 p-4 md:p-6 rounded-2xl border text-center transition-all ${formData.serviceType === label
                                             ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
                                             : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
                                             }`}
                                     >
-                                        <occ.icon size={18} className={`md:w-6 md:h-6 ${formData.occasion === occ.label ? "text-[#F27D42]" : "text-gray-400"}`} />
-                                        <span className="font-bold text-sm md:text-lg">{occ.label}</span>
+                                        <Utensils size={24} className={formData.serviceType === label ? "text-[#F27D42]" : "text-gray-400"} />
+                                        <span className="font-bold text-xs md:text-sm">{label}</span>
                                     </button>
                                 ))}
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 2: Guests */}
+                    {/* STEP 2: Cuisine */}
                     {step === 2 && (
                         <motion.div
                             key="step2"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.3 }}
                             className="absolute inset-0"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.guestsTitle || "How many guests?"}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.guestsSubtitle || "Rough estimates are fine. Minimum 5 guests."}</p>
- 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
-                                {GUESTS_OPTIONS.map((opt) => (
+                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.cuisineTitle}</h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.cuisineSubtitle}</p>
+
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
+                                {Object.entries(opt.cuisines || {}).map(([key, label]: [string, any]) => (
                                     <button
-                                        key={opt.id}
-                                        onClick={() => { updateData({ guests: opt.label }); setTimeout(nextStep, 300); }}
-                                        className={`flex items-center gap-3 md:gap-4 p-3 md:p-6 rounded-2xl border text-left transition-all ${formData.guests === opt.label
+                                        key={key}
+                                        onClick={() => { 
+                                            updateData({ cuisine: label }); 
+                                            trackEvent('quiz_option_select', { step: 2, field: 'cuisine', value: label });
+                                            setTimeout(nextStep, 300); 
+                                        }}
+                                        className={`flex flex-col items-center justify-center gap-2 p-4 md:p-6 rounded-2xl border text-center transition-all ${formData.cuisine === label
                                             ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
                                             : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
                                             }`}
                                     >
-                                        <Users size={18} className={`md:w-6 md:h-6 ${formData.guests === opt.label ? "text-[#F27D42]" : "text-gray-400"}`} />
-                                        <span className="font-bold text-sm md:text-lg">{opt.label}</span>
+                                        <Utensils size={24} className={formData.cuisine === label ? "text-[#F27D42]" : "text-gray-400"} />
+                                        <span className="font-bold text-xs md:text-sm">{label}</span>
                                     </button>
                                 ))}
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 3: Date */}
+                    {/* STEP 3: Guests */}
                     {step === 3 && (
                         <motion.div
                             key="step3"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.3 }}
                             className="absolute inset-0"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.dateTitle || "When is the event?"}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.dateSubtitle || "Select your preferred date."}</p>
+                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.guestsTitle}</h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.guestsSubtitle}</p>
 
-                            <div className="relative max-w-md">
-                                <Calendar className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={24} />
-                                <input
-                                    type="date"
-                                    value={formData.eventDate}
-                                    onChange={(e) => updateData({ eventDate: e.target.value })}
-                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-6 pl-12 md:pl-16 text-lg md:text-xl text-cream focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all font-sans"
-                                    autoFocus
-                                />
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
+                                {Object.entries(opt.guests || {}).map(([key, label]: [string, any]) => (
+                                    <button
+                                        key={key}
+                                        onClick={() => { 
+                                            updateData({ guests: label }); 
+                                            trackEvent('quiz_option_select', { step: 3, field: 'guests', value: label });
+                                            setTimeout(nextStep, 300); 
+                                        }}
+                                        className={`flex items-center gap-4 p-4 md:p-6 rounded-2xl border text-left transition-all ${formData.guests === label
+                                            ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                            : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                            }`}
+                                    >
+                                        <Users size={24} className={formData.guests === label ? "text-[#F27D42]" : "text-gray-400"} />
+                                        <span className="font-bold text-sm md:text-lg">{label}</span>
+                                    </button>
+                                ))}
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 4: Contact & Submit */}
+                    {/* STEP 4: Occasion */}
                     {step === 4 && (
                         <motion.div
                             key="step4"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.3 }}
                             className="absolute inset-0"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.contactTitle || "Your Details"}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.contactSubtitle || "Where should we send the quote?"}</p>
+                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.occasionTitle}</h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.occasionSubtitle}</p>
 
-                            <form onSubmit={handleSubmit} className="space-y-6 max-w-md">
+                            <div className="grid grid-cols-2 gap-2 md:gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                                {Object.entries(opt.occasions || {}).map(([key, label]: [string, any]) => (
+                                    <button
+                                        key={key}
+                                        onClick={() => { 
+                                            updateData({ occasion: label }); 
+                                            trackEvent('quiz_option_select', { step: 4, field: 'occasion', value: label });
+                                            setTimeout(nextStep, 300); 
+                                        }}
+                                        className={`group relative flex items-center gap-3 p-3 md:p-4 rounded-xl border text-left transition-all ${formData.occasion === label
+                                            ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                            : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                            }`}
+                                    >
+                                        <span className="font-bold text-xs md:text-sm flex-1">{label}</span>
+                                        <Info size={14} className="text-gray-500 group-hover:text-cream transition-colors" />
+                                    </button>
+                                ))}
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {/* STEP 5: Service Level */}
+                    {step === 5 && (
+                        <motion.div
+                            key="step5"
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            className="absolute inset-0"
+                        >
+                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.serviceLevelTitle}</h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.serviceLevelSubtitle}</p>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {Object.entries(opt.serviceLevels || {}).map(([key, label]: [string, any]) => (
+                                    <button
+                                        key={key}
+                                        onClick={() => { 
+                                            updateData({ serviceLevel: label }); 
+                                            trackEvent('quiz_option_select', { step: 5, field: 'service_level', value: label });
+                                            setTimeout(nextStep, 300); 
+                                        }}
+                                        className={`flex flex-col items-center justify-center gap-4 p-8 rounded-3xl border text-center transition-all ${formData.serviceLevel === label
+                                            ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                            : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                            }`}
+                                    >
+                                        {key === 'full' ? <User size={48} /> : <Utensils size={48} />}
+                                        <span className="font-bold text-lg md:text-xl">{label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {/* STEP 6: Extras */}
+                    {step === 6 && (
+                        <motion.div
+                            key="step6"
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            className="absolute inset-0"
+                        >
+                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.extrasTitle}</h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.extrasSubtitle}</p>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+                                {Object.entries(opt.extras || {}).map(([key, label]: [string, any]) => (
+                                    <button
+                                        key={key}
+                                        onClick={() => toggleExtra(label)}
+                                        className={`flex items-center gap-3 p-3 md:p-4 rounded-xl border text-left transition-all ${formData.extras.includes(label)
+                                            ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                            : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                            }`}
+                                    >
+                                        <div className={`w-5 h-5 rounded border flex items-center justify-center ${formData.extras.includes(label) ? "bg-[#F27D42] border-[#F27D42]" : "border-white/20"}`}>
+                                            {formData.extras.includes(label) && <ArrowRight size={14} className="text-white" />}
+                                        </div>
+                                        <span className="font-bold text-xs md:text-sm">{label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {/* STEP 7: Date */}
+                    {step === 7 && (
+                        <motion.div
+                            key="step7"
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            className="absolute inset-0"
+                        >
+                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.dateTitle}</h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.dateSubtitle}</p>
+
+                            <div className="relative max-w-md">
+                                <Calendar className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={24} />
+                                <input
+                                    type="date"
+                                    onChange={(e) => {
+                                        const val = e.target.value;
+                                        if (val && !formData.eventDates.includes(val)) {
+                                            updateData({ eventDates: [...formData.eventDates, val] });
+                                        }
+                                    }}
+                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-6 pl-12 md:pl-16 text-lg md:text-xl text-cream focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all font-sans"
+                                />
+                                
+                                <div className="mt-6 flex flex-wrap gap-2">
+                                    {formData.eventDates.map(date => (
+                                        <span key={date} className="bg-[#F27D42]/20 text-[#F27D42] px-3 py-1 rounded-full text-sm font-bold flex items-center gap-2">
+                                            {date}
+                                            <button onClick={() => updateData({ eventDates: formData.eventDates.filter(d => d !== date) })} className="hover:text-white">×</button>
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {/* STEP 8: Contact */}
+                    {step === 8 && (
+                        <motion.div
+                            key="step8"
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            className="absolute inset-0"
+                        >
+                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.contactTitle}</h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.contactSubtitle}</p>
+
+                            <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
                                 <div className="relative">
                                     <User className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                                     <input
@@ -363,10 +559,6 @@ function QuizFormContent() {
                                         className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 pl-12 md:pl-16 text-base md:text-lg text-cream placeholder-gray-500 focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all"
                                     />
                                 </div>
-
-                                <p className="text-sm text-gray-500 py-2">
-                                    We respect your privacy. No immediate payment required.
-                                </p>
                             </form>
                         </motion.div>
                     )}
@@ -381,20 +573,24 @@ function QuizFormContent() {
                     disabled={step === 1 || isSubmitting}
                 >
                     <ArrowLeft size={20} />
-                    {t.backButton || "Back"}
+                    {t.backButton}
                 </button>
 
                 {step < totalSteps ? (
                     <button
                         onClick={nextStep}
                         disabled={
-                            (step === 1 && !formData.occasion) ||
-                            (step === 2 && !formData.guests) ||
-                            (step === 3 && !formData.eventDate)
+                            (step === 1 && !formData.serviceType) ||
+                            (step === 2 && !formData.cuisine) ||
+                            (step === 3 && !formData.guests) ||
+                            (step === 4 && !formData.occasion) ||
+                            (step === 5 && !formData.serviceLevel) ||
+                            (step === 6 && formData.extras.length === 0) ||
+                            (step === 7 && formData.eventDates.length === 0)
                         }
                         className="flex items-center gap-2 bg-[#F27D42] text-white px-6 py-3 md:px-8 md:py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {t.nextButton || "Next"}
+                        {t.nextButton}
                         <ArrowRight size={20} />
                     </button>
                 ) : (
@@ -403,7 +599,7 @@ function QuizFormContent() {
                         disabled={!formData.name || !formData.email || !formData.phone || isSubmitting}
                         className="flex items-center gap-2 bg-[#F27D42] text-white px-6 py-3 md:px-8 md:py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base whitespace-nowrap"
                     >
-                        {isSubmitting ? t.submitting || "Submitting..." : t.submitButton || "Submit Request"}
+                        {isSubmitting ? t.submitting : t.submitButton}
                         {!isSubmitting && <CheckCircle2 size={20} />}
                     </button>
                 )}

@@ -161,7 +161,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         {/* Google Analytics */}
         <Script
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-D5HCSXTSW6"
+          src="https://www.googletagmanager.com/gtag/js?id=G-GXYRK3H40X"
         />
         <Script
           id="google-analytics"
@@ -171,7 +171,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
               window.dataLayer = window.dataLayer || [];
               window.gtag = function(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-D5HCSXTSW6');
+              gtag('config', 'G-GXYRK3H40X');
             `,
           }}
         />

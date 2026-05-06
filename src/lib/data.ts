@@ -242,20 +242,28 @@ export const menus: Menu[] = [
 
 export const occasions: Occasion[] = [
     {
-        id: "kerst",
-        title: "Holiday Events",
-        subtitle: "Seasonal",
-        image: "/images/generated/occasion-holiday.png",
-        description: "Celebrate the magic of the holidays with our specially curated seasonal menus. From traditional favorites to modern gourmet experiences.",
-        features: ["Festive presentation styling", "Wine pairing options", "Dietary alternatives available"]
+        id: "romantic",
+        title: "Private Dining",
+        subtitle: "Intimate",
+        image: "/images/private-dining-45.png",
+        description: "Create the perfect intimate setting with our private dining service. Exceptional food in the comfort of your chosen venue.",
+        features: ["Elegant setup", "Premium beverage selection", "Discreet service"]
     },
     {
-        id: "shared",
-        title: "Family-Style Dining",
-        subtitle: "Social",
-        image: "/images/family-dining-44.png",
-        description: "Food is best when shared. Enjoy large platters and family-style serving for a warm, communal dining experience at your event.",
-        features: ["Large serving platters", "Interactive courses", "Casual atmosphere"]
+        id: "wedding",
+        title: "Weddings & Galas",
+        subtitle: "Elegant",
+        image: "/images/generated/occasion-wedding.png",
+        description: "Make your most important day extraordinary with a private chef experience tailored to your dream wedding.",
+        features: ["Bespoke wedding menus", "Full service waitstaff", "Elegant table styling"]
+    },
+    {
+        id: "home-dining",
+        title: "Fine Dining at Home",
+        subtitle: "Personal",
+        image: "/images/generated/occasion-home-dining.png",
+        description: "Transform your home into a Michelin-star restaurant for the evening with our personal private chef service.",
+        features: ["Kitchen cleanup included", "Chef's table experience", "Personalized menu design"]
     },
     {
         id: "newyear",
@@ -266,20 +274,36 @@ export const occasions: Occasion[] = [
         features: ["Champagne service available", "Late-night snacks", "Festive dessert finale"]
     },
     {
-        id: "corporate",
-        title: "Corporate Events",
+        id: "shared",
+        title: "Family-Style Dining",
+        subtitle: "Social",
+        image: "/images/family-dining-44.png",
+        description: "Food is best when shared. Enjoy large platters and family-style serving for a warm, communal dining experience at your event.",
+        features: ["Large serving platters", "Interactive courses", "Casual atmosphere"]
+    },
+    {
+        id: "business",
+        title: "Business Events",
         subtitle: "Professional",
         image: "/images/generated/occasion-corporate.png",
-        description: "Impress your colleagues and clients with a high-end culinary experience. Perfect for business meetings, conferences, and corporate gatherings.",
+        description: "Impress your colleagues and clients with a high-end culinary experience. Perfect for meetings, conferences, and networking.",
         features: ["Branded menus available", "Professional service staff", "Dietary requirement handling"]
     },
     {
-        id: "romantic",
-        title: "Private Dining",
-        subtitle: "Intimate",
-        image: "/images/private-dining-45.png",
-        description: "Create the perfect intimate setting with our private dining service. Exceptional food in the comfort of your chosen venue.",
-        features: ["Elegant setup", "Premium beverage selection", "Discreet service"]
+        id: "teambuilding",
+        title: "Team Building",
+        subtitle: "Interactive",
+        image: "/images/generated/occasion-teambuilding.png",
+        description: "Foster collaboration and strengthen team bonds with a private chef-led interactive dining experience.",
+        features: ["Interactive cooking elements", "Group activities", "Collaborative menu planning"]
+    },
+    {
+        id: "executive",
+        title: "Executive Dining",
+        subtitle: "Prestigious",
+        image: "/images/generated/occasion-executive.png",
+        description: "Host high-level board meetings or executive lunches with a private chef catering to your specific requirements.",
+        features: ["Discreet service staff", "High-end wine list", "Bespoke menu creation"]
     }
 ];
 

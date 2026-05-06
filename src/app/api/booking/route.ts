@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Brand colors for Homemade Catering
+    // Brand colors for Homemade Private Chefs
     const COLORS = {
       cream: '#FDFBF7',
       dark: '#2D2420',
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     const adminEmail = {
       to: [process.env.SENDGRID_TO_EMAIL!, 'mahmoudelwakil22@gmail.com'],
       from: process.env.SENDGRID_FROM_EMAIL!,
-      subject: `🎉 New Catering Request: ${name}`,
+      subject: `🎉 New Private Chef Request: ${name}`,
       html: `
 <!DOCTYPE html>
 <html>
@@ -104,8 +104,8 @@ export async function POST(request: NextRequest) {
 <body>
   <div class="container">
     <div class="header">
-      <h1 style="margin: 0; font-size: 28px;">New Catering Request</h1>
-      <p style="margin: 10px 0 0 0; opacity: 0.9;">Homemade Catering</p>
+      <h1 style="margin: 0; font-size: 28px;">New Private Chef Request</h1>
+      <p style="margin: 10px 0 0 0; opacity: 0.9;">Homemade Private Chefs</p>
     </div>
     
     <div class="content">
@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
     </div>
     
     <div class="footer">
-      <p style="margin: 0;">&copy; ${new Date().getFullYear()} Homemade Catering. All rights reserved.</p>
+      <p style="margin: 0;">&copy; ${new Date().getFullYear()} Homemade Private Chefs. All rights reserved.</p>
     </div>
   </div>
 </body>
@@ -176,7 +176,7 @@ export async function POST(request: NextRequest) {
     const clientEmail = {
       to: email,
       from: process.env.SENDGRID_FROM_EMAIL!,
-      subject: "Your Catering Request Received! 🎉",
+      subject: "Your Private Chef Request Received! 🎉",
       html: `
 <!DOCTYPE html>
 <html>
@@ -207,8 +207,8 @@ export async function POST(request: NextRequest) {
     
     <!-- Header -->
     <div class="header">
-      <h1 class="logo-text">Homemade Catering</h1>
-      <p class="tagline">Premium Event Catering</p>
+      <h1 class="logo-text">Homemade</h1>
+      <p class="tagline">Premium Private Chef Service</p>
     </div>
 
     <!-- Main Content -->
@@ -216,12 +216,12 @@ export async function POST(request: NextRequest) {
       <h2 class="greeting">Hi ${name.split(' ')[0]}! 👋</h2>
       
       <p class="text">
-        Thank you for choosing <strong>Homemade Catering</strong> for your upcoming event. 
+        Thank you for choosing <strong>Homemade</strong> for your upcoming event. 
         We're thrilled to have the opportunity to make your celebration truly special!
       </p>
 
       <p class="text">
-        We've received your catering request${selectedMenu ? ` for our <strong>${selectedMenu}</strong> package` : ''}, 
+        We've received your private chef request${selectedMenu ? ` for our <strong>${selectedMenu}</strong> package` : ''}, 
         and our team is already reviewing the details.
       </p>
 
@@ -240,7 +240,7 @@ export async function POST(request: NextRequest) {
 
       <h3 style="color: ${COLORS.dark}; font-size: 18px;">What Happens Next?</h3>
       <p class="text">
-        Our catering specialists will review your requirements and reach out within <strong>24-48 hours</strong> to:
+        Our chef coordination specialists will review your requirements and reach out within <strong>24-48 hours</strong> to:
       </p>
       <ul class="text" style="line-height: 2;">
         <li>Discuss your event vision and preferences</li>
@@ -265,13 +265,13 @@ export async function POST(request: NextRequest) {
 
     <!-- Footer -->
     <div class="footer">
-      <p style="margin: 0 0 10px 0; font-weight: 600; color: #ccc;">Homemade Catering</p>
-      <p style="margin: 5px 0;">Premium Event Catering Services</p>
+      <p style="margin: 0 0 10px 0; font-weight: 600; color: #ccc;">Homemade</p>
+      <p style="margin: 5px 0;">Premium Private Chef Services</p>
       <p style="margin: 15px 0 5px 0;">
         <a href="https://www.homemademeals.net">www.homemademeals.net</a>
       </p>
       <p style="margin: 20px 0 0 0; font-size: 11px; color: #777;">
-        &copy; ${new Date().getFullYear()} Homemade Catering. All rights reserved.
+        &copy; ${new Date().getFullYear()} Homemade. All rights reserved.
       </p>
     </div>
 
@@ -298,7 +298,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { success: true, message: 'Catering request received!' },
+      { success: true, message: 'Private chef request received!' },
       { status: 200 }
     )
   } catch (error) {

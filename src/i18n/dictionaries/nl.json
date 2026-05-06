@@ -8,10 +8,10 @@
         "blog": "Blog"
     },
     "hero": {
-        "titlePart1": "Uitzonderlijke Catering",
+        "titlePart1": "Uitzonderlijke Privékoks",
         "titlePart2": "voor Elke",
-        "titleHighlight": "Gelegenheid",
-        "animatedTitleStatic": "Thuiskoks. Op kantoor. Bezorging in ",
+        "titleHighlight": "Moment",
+        "animatedTitleStatic": "Privékok Ervaring. Op Locatie. Bezorging in ",
         "animatedRotatingWords": [
             "Amsterdam",
             "Rotterdam",
@@ -19,7 +19,7 @@
             "Haarlem",
             "Enschede"
         ],
-        "subtitle": "Van gezelige diners tot grote vieringen, wij brengen culinair genot naar uw evenement.",
+        "subtitle": "Van intieme diners aan huis tot grote evenementen, wij brengen een premium privékok ervaring naar uw gekozen locatie.",
         "cta": "Vraag Offerte Aan"
     },
     "partners": {
@@ -28,7 +28,7 @@
     "problemSolution": {
         "title1": "Waarom te veel betalen bij drukke restaurants,",
         "title2": "als u kunt genieten van een exclusieve privékok-ervaring?",
-        "solutionTitle": "Privékok teamdiners tegen 40% lagere kosten",
+        "solutionTitle": "Exclusieve privékok ervaringen tegen 40% lagere kosten",
         "solutionDesc": "Sla de te dure restaurants over. Krijg uitzonderlijk eten, echte connecties en aanzienlijke besparingen.",
         "benefit1Title": "Beter eten dan in restaurants",
         "benefit1Desc": "Door de chef-kok bereide maaltijden met hoogwaardige ingrediënten, afgestemd op uw voorkeuren",
@@ -40,7 +40,7 @@
     "howItWorks": {
         "title": "Hoe het Werkt",
         "step1Title": "Kies uw Menu",
-        "step1Desc": "Bekijk onze samengestelde cateringpakketten of vraag aangepaste opties aan.",
+        "step1Desc": "Bekijk onze samengestelde privékok menu's of vraag aangepaste opties aan.",
         "step2Title": "Bevestig Details",
         "step2Desc": "Selecteer uw datum, aantal gasten en bezorgvoorkeuren.",
         "step3Title": "Wij Leveren Uitmuntendheid",
@@ -84,30 +84,42 @@
         "title": "Gelegenheden",
         "exploreMenu": "Ontdek Menu",
         "items": {
-            "kerst": {
-                "title": "Feestdagen",
-                "subtitle": "Seizoensgebonden"
+            "romantic": {
+                "title": "Privé Dineren",
+                "subtitle": "Gezelig"
             },
-            "shared": {
-                "title": "Familie Dineren",
-                "subtitle": "Sociaal"
+            "wedding": {
+                "title": "Bruiloften & Gala's",
+                "subtitle": "Elegant"
+            },
+            "home-dining": {
+                "title": "Fine Dining aan Huis",
+                "subtitle": "Persoonlijk"
             },
             "newyear": {
                 "title": "Vieringen & Feesten",
                 "subtitle": "Viering"
             },
-            "corporate": {
+            "shared": {
+                "title": "Familie Dineren",
+                "subtitle": "Sociaal"
+            },
+            "business": {
                 "title": "Zakelijke Evenementen",
                 "subtitle": "Professioneel"
             },
-            "romantic": {
-                "title": "Privé Dineren",
-                "subtitle": "Gezelig"
+            "teambuilding": {
+                "title": "Teambuilding",
+                "subtitle": "Interactief"
+            },
+            "executive": {
+                "title": "Executive Dineren",
+                "subtitle": "Prestigieus"
             }
         }
     },
     "packageTiers": {
-        "title": "Team Diner Pakketten",
+        "title": "Privékok Pakketten voor Elke Setting",
         "subtitle": "Transparante prijzen, uitzonderlijke waarde. Alle pakketten zijn inclusief professionele service en opruiming.",
         "badgePopular": "Meest Populair",
         "groupLabel": "Groep:",
@@ -188,7 +200,7 @@
             },
             {
                 "company": "Speciale Gelegenheid",
-                "eventType": "Italiaanse Desserts Catering",
+                "eventType": "Italiaanse Desserts Chef",
                 "quote": "Dit is veruit een van de beste Tiramisu die ik heb geproefd! Het smelt op de een of andere manier in je mond! Super Goed!!"
             },
             {
@@ -202,8 +214,8 @@
                 "quote": "Ik heb een paar keer bij Bottega da Dome besteld en ze hebben met afstand de beste tiramisu! Zal zeker weer bij hen bestellen :)"
             },
             {
-                "company": "Catering",
-                "eventType": "Evenementen Catering",
+                "company": "Privékok",
+                "eventType": "Privékok Service",
                 "quote": "Heerlijke tiramisu! We vonden het allemaal geweldig. Zeer goed gemaakt en Domenico is een zeer vriendelijke chef. Zal zeker weer bestellen!"
             },
             {
@@ -215,7 +227,7 @@
     },
     "faq": {
         "title": "Veelgestelde Vragen",
-        "subtitle": "Alles wat u moet weten over onze cateringservices. Kunt u uw antwoord niet vinden? Neem direct contact met ons op.",
+        "subtitle": "Alles wat u moet weten over onze privékok services. Kunt u uw antwoord niet vinden? Neem direct contact met ons op.",
         "stillQuestions": "Heeft u nog vragen?",
         "contactTeam": "Neem Contact Op",
         "items": [
@@ -281,11 +293,11 @@
     },
     "bookingForm": {
         "successTitle": "U bent Geboekt!",
-        "successMessage": "Bedankt voor uw aanvraag. Ons cateringteam neemt binnenkort contact met u op om uw evenementdetails af te ronden!",
+        "successMessage": "Bedankt voor uw aanvraag. Ons chef-coördinatieteam neemt binnenkort contact met u op om uw evenementdetails af te ronden!",
         "bookAnother": "Boek Nog Een",
         "title1": "Reserveer Uw",
-        "title2": "Cateringservice",
-        "subtitle": "Van zakelijke evenementen tot feesten, wij leveren uitzonderlijke cateringervaringen die zijn afgestemd op uw behoeften.",
+        "title2": "Privékok Service",
+        "subtitle": "Van zakelijke evenementen tot feesten, wij leveren uitzonderlijke privékok ervaringen die zijn afgestemd op uw behoeften.",
         "feature1": "5-Sterren Chef-koks",
         "feature2": "Op Maat Gemaakte Menu's",
         "selectMenuLabel": "Selecteer Menu",
@@ -312,22 +324,78 @@
         "stepProgress": "Stap {current} van {total}",
         "backButton": "Terug",
         "nextButton": "Volgende",
-        "submitButton": "Aanvraag Verzenden",
+        "submitButton": "Vraag een Chef aan",
+        "serviceTypeTitle": "Ik zoek een cateraar voor",
+        "serviceTypeSubtitle": "Selecteer het type service dat u zoekt.",
+        "cuisineTitle": "Welk soort keuken heeft je voorkeur?",
+        "cuisineSubtitle": "Welke culinaire stijl geniet uw voorkeur?",
+        "guestsTitle": "Voor hoeveel personen?",
+        "guestsSubtitle": "Schattingen zijn prima.",
         "occasionTitle": "Wat is de gelegenheid?",
         "occasionSubtitle": "Selecteer het type evenement dat u plant.",
-        "guestsTitle": "Hoeveel gasten?",
-        "guestsSubtitle": "Een ruwe schatting is prima. Minimaal 5 gasten.",
-        "dateTitle": "Wanneer is het evenement?",
-        "dateSubtitle": "Selecteer de gewenste datum.",
+        "serviceLevelTitle": "Alleen bezorging of complete verzorging?",
+        "serviceLevelSubtitle": "Kies het gewenste niveau van service.",
+        "extrasTitle": "Heb je nog extra wensen?",
+        "extrasSubtitle": "Selecteer extra diensten die u nodig heeft.",
+        "dateTitle": "Wanneer heb je de cateraar nodig?",
+        "dateSubtitle": "Kies één of meerdere dagen.",
         "contactTitle": "Uw Gegevens",
-        "contactSubtitle": "Waar mogen we de offerte naartoe sturen?",
-        "submitting": "Verzenden...",
-        "successTitle": "U bent Geboekt!",
-        "successMessage": "Bedankt voor uw aanvraag. Ons cateringteam neemt binnenkort contact met u op om uw evenementdetails af te ronden!",
-        "backHome": "Terug naar Start"
+        "contactSubtitle": "Waar kunnen we de offerte naartoe sturen?",
+        "submitting": "Versturen...",
+        "successTitle": "Aanvraag Ontvangen!",
+        "successMessage": "Bedankt voor uw aanvraag. Ons team neemt snel contact met u op met een persoonlijke offerte!",
+        "backHome": "Terug naar Home",
+        "options": {
+            "serviceTypes": {
+                "buffet": "Buffet",
+                "hapjes": "Hapjes / Fingerfood",
+                "bbq": "Barbecue",
+                "diner": "Diner",
+                "lunch": "Lunch",
+                "other": "Overige",
+                "breakfast": "Ontbijt / Brunch"
+            },
+            "cuisines": {
+                "dutch": "Nederlands",
+                "mediterranean": "Mediterraans",
+                "asian": "Aziatisch",
+                "bbq": "BBQ / Grill",
+                "international": "Internationaal",
+                "other": "Overige"
+            },
+            "guests": {
+                "less10": "Minder dan 10 personen",
+                "10_25": "10-25 personen",
+                "25_75": "25-75 personen",
+                "more75": "Meer dan 75 personen"
+            },
+            "occasions": {
+                "wedding": "Bruiloft",
+                "corporate": "Bedrijfsfeest",
+                "birthday": "Verjaardag",
+                "anniversary": "Jubileum",
+                "garden": "Tuinfeest",
+                "festival": "Festival of publiek event",
+                "staff": "Personeelsfeest",
+                "conference": "Beurs of congres"
+            },
+            "serviceLevels": {
+                "delivery": "Alleen bezorging",
+                "full": "Complete verzorging"
+            },
+            "extras": {
+                "food": "Bereiding en levering van eten",
+                "consult": "Bespreek de mogelijkheden",
+                "drinks": "Drank",
+                "dishes": "Servies en bestek",
+                "staff": "Service en personeel",
+                "decor": "Decoratie (tafels, stoelen, styling)",
+                "tent": "Partytent"
+            }
+        }
     },
     "menuGrid": {
-        "title": "Catering Restaurants",
+        "title": "Privékok Menu's",
         "subtitle": "Ontdek onze diverse restaurantopties. Elk restaurant kan worden aangepast aan uw behoeften.",
         "detectingLocation": "Uw locatie detecteren...",
         "selectCity": "📍 Selecteer Stad",
@@ -403,9 +471,9 @@
     },
     "cateringCalculator": {
         "badge": "💰 Besparingscalculator",
-        "title1": "Zie hoeveel uw team",
+        "title1": "Zie hoeveel u",
         "title2": "kan besparen",
-        "subtitle": "Vergelijk de kosten van restaurant catering vs. Homemade catering. Gebruik de schuifregelaars.",
+        "subtitle": "Vergelijk de kosten van uit eten vs. Homemade privékoks. Gebruik de schuifregelaars.",
         "configTitle": "Stel uw evenement in",
         "eventTypeLabel": "Type evenement",
         "guestsLabel": "Aantal gasten",
@@ -414,19 +482,19 @@
         "eventsLabel": "Evenementen per jaar",
         "eventsMin": "1x",
         "eventsMax": "24x / jaar",
-        "noteRef": "💡 Gebaseerd op gemiddelde restaurant cateringtarieven vergeleken met Homemade. De werkelijke besparing kan variëren.",
+        "noteRef": "💡 Gebaseerd op gemiddelde prijzen vergeleken met Homemade. De werkelijke besparing kan variëren.",
         "saveText": "U kunt besparen",
         "perYearText": "per jaar",
         "lessThanText": "minder dan restaurants",
         "perEventSave": "Besparing per event",
         "over5Years": "Over 5 jaar",
         "costBreakdown": "Jaarlijks kostenoverzicht",
-        "restaurantCatering": "Restaurant catering",
-        "homemadeCatering": "Homemade catering",
+        "restaurantCatering": "Restaurant dineren",
+        "homemadeCatering": "Privékok service",
         "bookBtn": "Boek uw eerste evenement →",
         "mealLabels": {
-            "lunch": "Team Lunch",
-            "dinner": "Team Diner",
+            "lunch": "Lunch Ervaring",
+            "dinner": "Diner Ervaring",
             "drinks": "Borrel & Snacks",
             "breakfast": "Ontbijt Meeting"
         }

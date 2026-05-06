@@ -128,7 +128,7 @@ export default function CateringSavingsCalculator() {
                         <span className="text-orange">{t.title2 || "could save"}</span>
                     </h2>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        {t.subtitle || "Compare the cost of restaurant catering vs. Homemade catering. Adjust the sliders to match your setup."}
+                        {t.subtitle || "Compare the cost of restaurant dining vs. Homemade private chefs. Adjust the sliders to match your setup."}
                     </p>
                 </div>
 
@@ -203,7 +203,7 @@ export default function CateringSavingsCalculator() {
 
                         <div className="mt-8">
                             <div className="hidden lg:block p-4 rounded-2xl bg-gray-50 border border-gray-100 text-sm text-gray-500 leading-relaxed">
-                                <p>{t.noteRef || "💡 Based on average Amsterdam restaurant catering rates vs. Homemade's transparent pricing. Actual savings may vary."}</p>
+                                <p>{t.noteRef || "💡 Based on average Amsterdam restaurant dining rates vs. Homemade's private chef pricing. Actual savings may vary."}</p>
                             </div>
                             <a
                                 href={`/${lang}/quote`}
@@ -248,7 +248,7 @@ export default function CateringSavingsCalculator() {
                             <div className="space-y-4">
                                 <div>
                                     <div className="flex justify-between items-center mb-1.5">
-                                        <span className="text-sm font-medium text-gray-500">{t.restaurantCatering || "Restaurant catering"}</span>
+                                        <span className="text-sm font-medium text-gray-500">{t.restaurantCatering || "Restaurant dining"}</span>
                                         <span ref={restaurantTotalValRef} className="font-bold text-dark">{formatEur(restaurantTotal)}</span>
                                     </div>
                                     <div className="w-full bg-gray-100 rounded-full h-2.5">
@@ -257,7 +257,7 @@ export default function CateringSavingsCalculator() {
                                 </div>
                                 <div>
                                     <div className="flex justify-between items-center mb-1.5">
-                                        <span className="text-sm font-medium text-gray-500">{t.homemadeCatering || "Homemade catering"}</span>
+                                        <span className="text-sm font-medium text-gray-500">{t.homemadeCatering || "Private Chef service"}</span>
                                         <span ref={homemadeTotalValRef} className="font-bold text-[#F27D42]">{formatEur(homemadeTotal)}</span>
                                     </div>
                                     <div className="w-full bg-gray-100 rounded-full h-2.5">
