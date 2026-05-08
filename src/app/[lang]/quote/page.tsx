@@ -31,7 +31,7 @@ export default async function QuotePage({ params }: Props) {
         <main className="min-h-screen bg-dark flex flex-col font-sans text-cream">
             <Navbar />
 
-            <div className="flex-1 flex items-center justify-center pt-12 md:pt-32 pb-20 px-5">
+            <div className="flex-1 flex items-center justify-center pt-24 md:pt-32 pb-20 px-5">
                 <div className="w-full max-w-4xl mx-auto">
                     <div className="hidden md:block text-center mb-12">
                         <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4">

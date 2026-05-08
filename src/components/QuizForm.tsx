@@ -70,7 +70,6 @@ function QuizFormContent() {
             if (step === 1) {
                 trackEvent('contact_info_provided', {
                     name: formData.name,
-                    city: formData.city,
                     method: 'quiz_step_1'
                 });
             }
@@ -101,6 +100,17 @@ function QuizFormContent() {
     const prevStep = () => {
         if (step > 1) setStep(step - 1);
     };
+
+    const prevMonth = () => {
+        setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
+    };
+
+    const nextMonth = () => {
+        setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
+    };
+
+    const currentYear = currentMonth.getFullYear();
+    const currentMonthNum = currentMonth.getMonth();
 
     const triggerConfetti = () => {
         const duration = 3 * 1000;
@@ -222,7 +232,7 @@ function QuizFormContent() {
             e.preventDefault();
             if (step < totalSteps && step !== 8) {
                 const canGoNext = 
-                    (step === 1 && formData.name && formData.email && formData.phone && formData.city) ||
+                    (step === 1 && formData.name && formData.email && formData.phone) ||
                     (step === 2 && formData.serviceType) ||
                     (step === 3 && formData.cuisine) ||
                     (step === 4 && formData.guests) ||
@@ -286,7 +296,7 @@ function QuizFormContent() {
             </div>
 
             {/* Form Container */}
-            <div className="relative min-h-[340px] md:min-h-[550px]" onKeyDown={handleKeyDown}>
+            <div className="relative min-h-[280px] md:min-h-[550px]" onKeyDown={handleKeyDown}>
                 <AnimatePresence mode="wait">
                     {/* STEP 1: Contact */}
                     {step === 1 && (
@@ -297,11 +307,11 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.contactTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.contactSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.contactTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.contactSubtitle}</p>
 
-                            <form className="space-y-4 md:space-y-6 max-w-xl mx-auto bg-white/5 p-5 md:p-8 rounded-3xl border border-white/10 shadow-xl">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                             <form className="space-y-4 md:space-y-6 max-w-xl mx-auto bg-white/5 p-5 md:p-8 rounded-3xl border border-white/10 shadow-xl">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">Full Name</label>
                                         <div className="relative">
@@ -344,23 +354,6 @@ function QuizFormContent() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">City</label>
-                                        <div className="relative">
-                                            <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
-                                            <input
-                                                type="text"
-                                                placeholder={t.cityPlaceholder || "Amsterdam"}
-                                                required
-                                                value={formData.city}
-                                                onChange={(e) => updateData({ city: e.target.value })}
-                                                className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-3 md:py-4 pl-12 md:pl-16 text-sm md:text-base text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42] focus:bg-black/60 transition-all shadow-inner"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="pt-4 text-center">
-                                    <p className="text-xs text-gray-500 italic">We use this to send you the most relevant quotes from chefs in your area.</p>
                                 </div>
                             </form>
                         </motion.div>
@@ -375,8 +368,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.serviceTypeTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.serviceTypeSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.serviceTypeTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.serviceTypeSubtitle}</p>
 
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
                                 {Object.entries(opt.serviceTypes || {}).map(([key, label]: [string, any]) => {
@@ -425,8 +418,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.cuisineTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.cuisineSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.cuisineTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.cuisineSubtitle}</p>
 
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                                 {Object.entries(opt.cuisines || {}).map(([key, label]: [string, any]) => {
@@ -482,8 +475,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.guestsTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.guestsSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.guestsTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.guestsSubtitle}</p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
                                 {Object.entries(opt.guests || {}).map(([key, label]: [string, any]) => (
@@ -516,8 +509,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.occasionTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.occasionSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.occasionTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.occasionSubtitle}</p>
 
                             <div className="grid grid-cols-2 gap-2 md:gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                                 {Object.entries(opt.occasions || {}).map(([key, label]: [string, any]) => (
@@ -550,8 +543,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.serviceLevelTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.serviceLevelSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.serviceLevelTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.serviceLevelSubtitle}</p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {Object.entries(opt.serviceLevels || {}).map(([key, label]: [string, any]) => (
@@ -584,8 +577,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.extrasTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.extrasSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.extrasTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.extrasSubtitle}</p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                                 {Object.entries(opt.extras || {}).map(([key, label]: [string, any]) => (
@@ -607,7 +600,7 @@ function QuizFormContent() {
                         </motion.div>
                     )}
 
-                    {/* STEP 8: Date */}
+                    {/* STEP 8: Dates */}
                     {step === 8 && (
                         <motion.div
                             key="step8"
@@ -616,44 +609,37 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.dateTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-8">{t.dateSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.datesTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-6">{t.datesSubtitle}</p>
 
-                            <div className="bg-white/5 border border-white/10 rounded-[32px] p-6 md:p-10 shadow-2xl overflow-hidden relative">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-[#F27D42]/10 blur-3xl rounded-full -mr-16 -mt-16" />
-                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#F27D42]/5 blur-3xl rounded-full -ml-16 -mb-16" />
-
-                                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
-                                    {/* Calendar View */}
+                            <div className="bg-white/5 border border-white/10 rounded-3xl p-4 md:p-8 overflow-hidden">
+                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                                    {/* Calendar Component */}
                                     <div className="lg:col-span-7">
                                         <div className="flex items-center justify-between mb-6">
-                                            <h3 className="text-xl font-bold text-cream flex items-center gap-3 capitalize">
-                                                <Calendar className="text-[#F27D42]" size={22} />
-                                                {currentMonth.toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}
-                                            </h3>
+                                            <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                                                {currentMonth.toLocaleDateString(lang, { month: 'long', year: 'numeric' })}
+                                            </h4>
                                             <div className="flex gap-2">
-                                                <button 
-                                                    onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() - 1)))}
-                                                    className="p-2 rounded-full hover:bg-white/10 transition-colors text-gray-500"
-                                                >
+                                                <button onClick={prevMonth} className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400">
                                                     <ChevronLeft size={20} />
                                                 </button>
-                                                <button 
-                                                    onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() + 1)))}
-                                                    className="p-2 rounded-full hover:bg-white/10 transition-colors text-gray-500"
-                                                >
+                                                <button onClick={nextMonth} className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400">
                                                     <ChevronRight size={20} />
                                                 </button>
                                             </div>
                                         </div>
 
-                                        <div className="grid grid-cols-7 gap-2 mb-4">
-                                            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => (
-                                                <div key={d} className="text-center text-[10px] uppercase tracking-widest text-gray-500 font-bold py-2">{d}</div>
+                                        <div className="grid grid-cols-7 gap-1 text-center mb-2">
+                                            {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map(d => (
+                                                <div key={d} className="text-[10px] font-bold text-gray-600 uppercase py-2">{d}</div>
                                             ))}
+                                        </div>
+
+                                        <div className="grid grid-cols-7 gap-1">
                                             {(() => {
-                                                const year = currentMonth.getFullYear();
-                                                const month = currentMonth.getMonth();
+                                                const year = currentYear;
+                                                const month = currentMonthNum;
                                                 const firstDay = new Date(year, month, 1).getDay();
                                                 const daysInMonth = new Date(year, month + 1, 0).getDate();
                                                 const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1; // Adjust for Monday start
@@ -682,10 +668,10 @@ function QuizFormContent() {
                                                             }}
                                                             className={`aspect-square flex items-center justify-center rounded-xl text-sm font-bold transition-all border ${
                                                                 isSelected 
-                                                                    ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105" 
+                                                                    ? "bg-[#F27D42] border-[#F27D42] text-white" 
                                                                     : isPast 
                                                                         ? "bg-transparent border-transparent text-gray-800 cursor-not-allowed"
-                                                                        : "bg-white/5 border-transparent text-cream hover:border-white/20 hover:bg-white/10"
+                                                                        : "bg-white/5 border-transparent text-cream hover:border-white/20"
                                                             } ${isToday && !isSelected ? "border-[#F27D42]/50 text-[#F27D42]" : ""}`}
                                                         >
                                                             {day}
@@ -694,18 +680,16 @@ function QuizFormContent() {
                                                 });
                                             })()}
                                         </div>
-                                        <p className="text-[10px] text-gray-500 italic mt-4">* You can select multiple dates if your event is flexible</p>
                                     </div>
 
                                     {/* Selected Dates List */}
-                                    <div className="lg:col-span-5 flex flex-col">
+                                    <div className="lg:col-span-5 hidden lg:flex flex-col">
                                         <div className="flex items-center justify-between mb-6">
                                             <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest">Selected Dates</h4>
                                             <span className="bg-[#F27D42]/10 text-[#F27D42] px-3 py-1 rounded-full text-[10px] font-bold">
                                                 {formData.eventDates.length} Dates
                                             </span>
                                         </div>
-
                                         <div className="flex-1 space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                                             <AnimatePresence initial={false}>
                                                 {formData.eventDates.length > 0 ? (
@@ -747,6 +731,26 @@ function QuizFormContent() {
                         </motion.div>
                     )}
                 </AnimatePresence>
+
+                {/* Global Mobile Floating Arrow Button */}
+                {step < totalSteps && (
+                    <button
+                        type="button"
+                        onClick={nextStep}
+                        disabled={
+                            (step === 1 && (!formData.name || !formData.email || !formData.phone)) ||
+                            (step === 2 && !formData.serviceType) ||
+                            (step === 3 && !formData.cuisine) ||
+                            (step === 4 && !formData.guests) ||
+                            (step === 5 && !formData.occasion) ||
+                            (step === 6 && !formData.serviceLevel) ||
+                            (step === 7 && formData.extras.length === 0)
+                        }
+                        className="md:hidden absolute -bottom-6 right-0 bg-[#F27D42] text-white p-3 rounded-2xl shadow-xl hover:bg-[#d66a35] transition-all disabled:opacity-50 disabled:grayscale z-50"
+                    >
+                        <ArrowRight size={20} />
+                    </button>
+                )}
             </div>
 
             {/* Navigation Controls */}
@@ -764,7 +768,7 @@ function QuizFormContent() {
                     <button
                         onClick={nextStep}
                         disabled={
-                            (step === 1 && (!formData.name || !formData.email || !formData.phone || !formData.city)) ||
+                            (step === 1 && (!formData.name || !formData.email || !formData.phone)) ||
                             (step === 2 && !formData.serviceType) ||
                             (step === 3 && !formData.cuisine) ||
                             (step === 4 && !formData.guests) ||
@@ -772,7 +776,7 @@ function QuizFormContent() {
                             (step === 6 && !formData.serviceLevel) ||
                             (step === 7 && formData.extras.length === 0)
                         }
-                        className="flex items-center gap-2 bg-[#F27D42] text-white px-6 py-3 md:px-8 md:py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className={`flex items-center gap-2 bg-[#F27D42] text-white px-6 py-3 md:px-8 md:py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-colors disabled:opacity-50 disabled:cursor-not-allowed hidden md:flex`}
                     >
                         {t.nextButton}
                         <ArrowRight size={20} />
