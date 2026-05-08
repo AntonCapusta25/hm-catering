@@ -9,6 +9,7 @@ export default function RestaurantMenuPage() {
     const params = useParams();
     const router = useRouter();
     const restaurantId = params.id as string;
+    const lang = params.lang as string || 'en';
 
     const [menu, setMenu] = useState<MerchantMenu | null>(null);
     const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
