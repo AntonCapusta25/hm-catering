@@ -69,6 +69,10 @@
             "seafood": {
                 "title": "Trésors de l'Océan",
                 "description": "Des prises fraîches préparées pour mettre en valeur leurs délicates saveurs naturelles."
+            },
+            "lebanese": {
+                "title": "Délices Libanais",
+                "description": "Une riche palette de saveurs du Moyen-Orient, avec des herbes fraîches, de l'huile d'olive et des épices vibrantes."
             }
         }
     },
@@ -416,6 +420,7 @@
         "dateSubtitle": "Sélectionnez une ou plusieurs dates disponibles.",
         "contactTitle": "Vos Coordonnées",
         "contactSubtitle": "Où devons-nous envoyer le devis ?",
+        "cityPlaceholder": "Ville",
         "submitting": "Envoi...",
         "successTitle": "Demande Reçue !",
         "successMessage": "Merci pour votre demande. Notre équipe de coordination vous contactera sous peu avec un devis personnalisé !",
@@ -436,6 +441,7 @@
                 "asian": "Asiatique",
                 "bbq": "BBQ / Grill",
                 "international": "International",
+                "lebanese": "Libanais",
                 "other": "Autre"
             },
             "guests": {

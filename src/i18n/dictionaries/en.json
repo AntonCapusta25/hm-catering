@@ -77,6 +77,10 @@
             "seafood": {
                 "title": "Ocean Treasures",
                 "description": "Fresh catches prepared to highlight their natural delicate flavors."
+            },
+            "lebanese": {
+                "title": "Lebanese Delights",
+                "description": "A rich tapestry of Middle Eastern flavors, featuring fresh herbs, olive oil, and vibrant spices."
             }
         }
     },
@@ -341,6 +345,7 @@
         "dateSubtitle": "Select one or more available dates.",
         "contactTitle": "Your Details",
         "contactSubtitle": "Where should we send the quote?",
+        "cityPlaceholder": "City",
         "submitting": "Submitting...",
         "successTitle": "Request Received!",
         "successMessage": "Thank you for your request. Our coordination team will contact you shortly with a personalized quote!",
@@ -361,6 +366,7 @@
                 "asian": "Asian",
                 "bbq": "BBQ / Grill",
                 "international": "International",
+                "lebanese": "Lebanese",
                 "other": "Other"
             },
             "guests": {

@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, CheckCircle2, Utensils, Users, Calendar, Mail, User, Phone, Info } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Utensils, Users, Calendar, Mail, User, Phone, Info, MapPin } from "lucide-react";
 import confetti from "canvas-confetti";
 import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
@@ -20,6 +20,7 @@ type FormData = {
     name: string;
     email: string;
     phone: string;
+    city: string;
 };
 
 function QuizFormContent() {
@@ -40,6 +41,7 @@ function QuizFormContent() {
         name: "",
         email: "",
         phone: "",
+        city: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -134,7 +136,7 @@ function QuizFormContent() {
                     cuisine: formData.cuisine,
                     eventDate: formData.eventDates.join(', '),
                     guests: formData.guests,
-                    message: `Service: ${formData.serviceType}\nOccasion: ${formData.occasion}\nService Level: ${formData.serviceLevel}\nExtras: ${formData.extras.join(', ')}`,
+                    message: `City: ${formData.city}\nService: ${formData.serviceType}\nOccasion: ${formData.occasion}\nService Level: ${formData.serviceLevel}\nExtras: ${formData.extras.join(', ')}`,
                 }),
             });
 
@@ -281,7 +283,7 @@ function QuizFormContent() {
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            className="absolute inset-0"
+                            className="w-full"
                         >
                             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.serviceTypeTitle}</h2>
                             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.serviceTypeSubtitle}</p>
@@ -315,7 +317,7 @@ function QuizFormContent() {
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            className="absolute inset-0"
+                            className="w-full"
                         >
                             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.cuisineTitle}</h2>
                             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.cuisineSubtitle}</p>
@@ -349,7 +351,7 @@ function QuizFormContent() {
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            className="absolute inset-0"
+                            className="w-full"
                         >
                             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.guestsTitle}</h2>
                             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.guestsSubtitle}</p>
@@ -383,7 +385,7 @@ function QuizFormContent() {
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            className="absolute inset-0"
+                            className="w-full"
                         >
                             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.occasionTitle}</h2>
                             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.occasionSubtitle}</p>
@@ -417,7 +419,7 @@ function QuizFormContent() {
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            className="absolute inset-0"
+                            className="w-full"
                         >
                             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.serviceLevelTitle}</h2>
                             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.serviceLevelSubtitle}</p>
@@ -451,7 +453,7 @@ function QuizFormContent() {
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            className="absolute inset-0"
+                            className="w-full"
                         >
                             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.extrasTitle}</h2>
                             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.extrasSubtitle}</p>
@@ -483,7 +485,7 @@ function QuizFormContent() {
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            className="absolute inset-0"
+                            className="w-full"
                         >
                             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.dateTitle}</h2>
                             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.dateSubtitle}</p>
@@ -498,7 +500,8 @@ function QuizFormContent() {
                                             updateData({ eventDates: [...formData.eventDates, val] });
                                         }
                                     }}
-                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-6 pl-12 md:pl-16 text-lg md:text-xl text-cream focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all font-sans"
+                                    className="w-full appearance-none min-h-[60px] md:min-h-[72px] bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-6 pl-12 md:pl-16 text-lg md:text-xl text-cream focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all font-sans relative z-10"
+                                    style={{ colorScheme: 'dark' }}
                                 />
                                 
                                 <div className="mt-6 flex flex-wrap gap-2">
@@ -520,7 +523,7 @@ function QuizFormContent() {
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            className="absolute inset-0"
+                            className="w-full"
                         >
                             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.contactTitle}</h2>
                             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.contactSubtitle}</p>
@@ -556,6 +559,17 @@ function QuizFormContent() {
                                         required
                                         value={formData.phone}
                                         onChange={(e) => updateData({ phone: e.target.value })}
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 pl-12 md:pl-16 text-base md:text-lg text-cream placeholder-gray-500 focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all"
+                                    />
+                                </div>
+                                <div className="relative">
+                                    <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                                    <input
+                                        type="text"
+                                        placeholder={t.cityPlaceholder || "City"}
+                                        required
+                                        value={formData.city}
+                                        onChange={(e) => updateData({ city: e.target.value })}
                                         className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 pl-12 md:pl-16 text-base md:text-lg text-cream placeholder-gray-500 focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all"
                                     />
                                 </div>
@@ -596,7 +610,7 @@ function QuizFormContent() {
                 ) : (
                     <button
                         onClick={() => handleSubmit()}
-                        disabled={!formData.name || !formData.email || !formData.phone || isSubmitting}
+                        disabled={!formData.name || !formData.email || !formData.phone || !formData.city || isSubmitting}
                         className="flex items-center gap-2 bg-[#F27D42] text-white px-6 py-3 md:px-8 md:py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base whitespace-nowrap"
                     >
                         {isSubmitting ? t.submitting : t.submitButton}

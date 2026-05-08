@@ -77,6 +77,10 @@
             "seafood": {
                 "title": "Schatten van de Oceaan",
                 "description": "Verse vangsten bereid om hun natuurlijke delicate smaken te benadrukken."
+            },
+            "lebanese": {
+                "title": "Libanese Heerlijkheden",
+                "description": "Een rijk palet aan smaken uit het Midden-Oosten, met verse kruiden, olijfolie en levendige specerijen."
             }
         }
     },
@@ -341,6 +345,7 @@
         "dateSubtitle": "Kies één of meerdere dagen.",
         "contactTitle": "Uw Gegevens",
         "contactSubtitle": "Waar kunnen we de offerte naartoe sturen?",
+        "cityPlaceholder": "Stad",
         "submitting": "Versturen...",
         "successTitle": "Aanvraag Ontvangen!",
         "successMessage": "Bedankt voor uw aanvraag. Ons team neemt snel contact met u op met een persoonlijke offerte!",
@@ -361,6 +366,7 @@
                 "asian": "Aziatisch",
                 "bbq": "BBQ / Grill",
                 "international": "Internationaal",
+                "lebanese": "Libanees",
                 "other": "Overige"
             },
             "guests": {
