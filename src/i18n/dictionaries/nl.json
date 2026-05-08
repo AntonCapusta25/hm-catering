@@ -11,13 +11,16 @@
         "titlePart1": "Uitzonderlijke Privékoks",
         "titlePart2": "voor Elke",
         "titleHighlight": "Moment",
-        "animatedTitleStatic": "Privékok Ervaring. Op Locatie. Bezorging in ",
-        "animatedRotatingWords": [
-            "Amsterdam",
-            "Rotterdam",
-            "Den Haag",
-            "Haarlem",
-            "Enschede"
+        "animatedTopPhrases": [
+            "Privékok Ervaring. Op Jouw Bruiloft.",
+            "Catering Ervaring. Op Jouw Evenement.",
+            "Thuiskoks Ervaring. Op Jouw Verjaardag.",
+            "Culinaire Experts. Op Jouw Kantoor.",
+            "Gourmet Diner. Bij Jou Thuis."
+        ],
+        "animatedBottomSegments": [
+            { "type": "static", "text": "Bezorging in ", "color": "text-white" },
+            { "type": "rotating", "words": ["Amsterdam", "Rotterdam", "Den Haag", "Haarlem", "Enschede"], "color": "text-[#F27D42]" }
         ],
         "subtitle": "Van intieme diners aan huis tot grote evenementen, wij brengen een premium privékok ervaring naar uw gekozen locatie.",
         "cta": "Vraag Offerte Aan"
@@ -358,16 +361,26 @@
                 "diner": "Diner",
                 "lunch": "Lunch",
                 "other": "Overige",
-                "breakfast": "Ontbijt / Brunch"
+                "breakfast": "Ontbijt / Brunch",
+                "notSure": "Ik weet het nog niet"
             },
             "cuisines": {
                 "dutch": "Nederlands",
                 "mediterranean": "Mediterraans",
+                "italian": "Italiaans",
+                "french": "Frans",
+                "spanish": "Spaans",
                 "asian": "Aziatisch",
+                "japanese": "Japans",
+                "indian": "Indiaas",
+                "mexican": "Mexicaans",
+                "thai": "Thais",
+                "moroccan": "Marokkaans",
+                "lebanese": "Libanees",
                 "bbq": "BBQ / Grill",
                 "international": "Internationaal",
-                "lebanese": "Libanees",
-                "other": "Overige"
+                "other": "Overige",
+                "notSure": "Ik weet het nog niet"
             },
             "guests": {
                 "less10": "Minder dan 10 personen",
@@ -383,11 +396,13 @@
                 "garden": "Tuinfeest",
                 "festival": "Festival of publiek event",
                 "staff": "Personeelsfeest",
-                "conference": "Beurs of congres"
+                "conference": "Beurs of congres",
+                "notSure": "Ik weet het nog niet"
             },
             "serviceLevels": {
                 "delivery": "Alleen bezorging",
-                "full": "Complete verzorging"
+                "full": "Complete verzorging",
+                "notSure": "Ik weet het nog niet"
             },
             "extras": {
                 "food": "Bereiding en levering van eten",
@@ -396,7 +411,8 @@
                 "dishes": "Servies en bestek",
                 "staff": "Service en personeel",
                 "decor": "Decoratie (tafels, stoelen, styling)",
-                "tent": "Partytent"
+                "tent": "Partytent",
+                "notSure": "Ik weet het nog niet"
             }
         }
     },

@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, CheckCircle2, Utensils, Users, Calendar, Mail, User, Phone, Info, MapPin } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Utensils, Users, Calendar, Mail, User, Phone, Info, MapPin, CookingPot, Flame, Coffee, Sandwich, PartyPopper, HelpCircle, ChevronRight, ChevronLeft } from "lucide-react";
 import confetti from "canvas-confetti";
 import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
@@ -30,6 +30,7 @@ function QuizFormContent() {
     const lang = pathname?.split('/')[1] || 'en';
 
     const [step, setStep] = useState(1);
+    const [currentMonth, setCurrentMonth] = useState(new Date());
     const [formData, setFormData] = useState<FormData>({
         serviceType: "",
         cuisine: "",
@@ -75,14 +76,14 @@ function QuizFormContent() {
 
     const getStepName = (s: number) => {
         switch(s) {
-            case 1: return 'service_type';
-            case 2: return 'cuisine';
-            case 3: return 'guests';
-            case 4: return 'occasion';
-            case 5: return 'service_level';
-            case 6: return 'extras';
-            case 7: return 'dates';
-            case 8: return 'contact';
+            case 1: return 'contact';
+            case 2: return 'service_type';
+            case 3: return 'cuisine';
+            case 4: return 'guests';
+            case 5: return 'occasion';
+            case 6: return 'service_level';
+            case 7: return 'extras';
+            case 8: return 'dates';
             default: return 'unknown';
         }
     };
@@ -209,15 +210,16 @@ function QuizFormContent() {
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            if (step < totalSteps && step !== 6 && step !== 7) {
+            if (step < totalSteps && step !== 8) {
                 const canGoNext = 
-                    (step === 1 && formData.serviceType) ||
-                    (step === 2 && formData.cuisine) ||
-                    (step === 3 && formData.guests) ||
-                    (step === 4 && formData.occasion) ||
-                    (step === 5 && formData.serviceLevel);
+                    (step === 1 && formData.name && formData.email && formData.phone && formData.city) ||
+                    (step === 2 && formData.serviceType) ||
+                    (step === 3 && formData.cuisine) ||
+                    (step === 4 && formData.guests) ||
+                    (step === 5 && formData.occasion) ||
+                    (step === 6 && formData.serviceLevel);
                 if (canGoNext) nextStep();
-            } else if (step === totalSteps && formData.name && formData.email && formData.phone) {
+            } else if (step === totalSteps && formData.eventDates.length > 0) {
                 handleSubmit();
             }
         }
@@ -276,10 +278,88 @@ function QuizFormContent() {
             {/* Form Container */}
             <div className="relative min-h-[450px] md:min-h-[550px]" onKeyDown={handleKeyDown}>
                 <AnimatePresence mode="wait">
-                    {/* STEP 1: Service Type */}
+                    {/* STEP 1: Contact */}
                     {step === 1 && (
                         <motion.div
                             key="step1"
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            className="w-full"
+                        >
+                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.contactTitle}</h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.contactSubtitle}</p>
+
+                            <form className="space-y-6 max-w-xl mx-auto bg-white/5 p-8 rounded-3xl border border-white/10 shadow-xl">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">Full Name</label>
+                                        <div className="relative">
+                                            <User className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
+                                            <input
+                                                type="text"
+                                                placeholder="John Doe"
+                                                required
+                                                value={formData.name}
+                                                onChange={(e) => updateData({ name: e.target.value })}
+                                                className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42] focus:bg-black/60 transition-all shadow-inner"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">Email Address</label>
+                                        <div className="relative">
+                                            <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
+                                            <input
+                                                type="email"
+                                                placeholder="john@example.com"
+                                                required
+                                                value={formData.email}
+                                                onChange={(e) => updateData({ email: e.target.value })}
+                                                className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42] focus:bg-black/60 transition-all shadow-inner"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">Phone Number</label>
+                                        <div className="relative">
+                                            <Phone className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
+                                            <input
+                                                type="tel"
+                                                placeholder="+31 6 12345678"
+                                                required
+                                                value={formData.phone}
+                                                onChange={(e) => updateData({ phone: e.target.value })}
+                                                className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42] focus:bg-black/60 transition-all shadow-inner"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">City</label>
+                                        <div className="relative">
+                                            <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
+                                            <input
+                                                type="text"
+                                                placeholder={t.cityPlaceholder || "Amsterdam"}
+                                                required
+                                                value={formData.city}
+                                                onChange={(e) => updateData({ city: e.target.value })}
+                                                className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42] focus:bg-black/60 transition-all shadow-inner"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="pt-4 text-center">
+                                    <p className="text-xs text-gray-500 italic">We use this to send you the most relevant quotes from chefs in your area.</p>
+                                </div>
+                            </form>
+                        </motion.div>
+                    )}
+
+                    {/* STEP 2: Service Type */}
+                    {step === 2 && (
+                        <motion.div
+                            key="step2"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
@@ -289,31 +369,47 @@ function QuizFormContent() {
                             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.serviceTypeSubtitle}</p>
 
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
-                                {Object.entries(opt.serviceTypes || {}).map(([key, label]: [string, any]) => (
-                                    <button
-                                        key={key}
-                                        onClick={() => { 
-                                            updateData({ serviceType: label }); 
-                                            trackEvent('quiz_option_select', { step: 1, field: 'service_type', value: label });
-                                            setTimeout(nextStep, 300); 
-                                        }}
-                                        className={`flex flex-col items-center justify-center gap-2 p-4 md:p-6 rounded-2xl border text-center transition-all ${formData.serviceType === label
-                                            ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
-                                            : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
-                                            }`}
-                                    >
-                                        <Utensils size={24} className={formData.serviceType === label ? "text-[#F27D42]" : "text-gray-400"} />
-                                        <span className="font-bold text-xs md:text-sm">{label}</span>
-                                    </button>
-                                ))}
+                                {Object.entries(opt.serviceTypes || {}).map(([key, label]: [string, any]) => {
+                                    const getIcon = () => {
+                                        switch(key) {
+                                            case 'buffet': return <CookingPot size={24} />;
+                                            case 'hapjes': return <PartyPopper size={24} />;
+                                            case 'bbq': return <Flame size={24} />;
+                                            case 'diner': return <Utensils size={24} />;
+                                            case 'lunch': return <Sandwich size={24} />;
+                                            case 'breakfast': return <Coffee size={24} />;
+                                            case 'notSure': return <HelpCircle size={24} />;
+                                            default: return <Utensils size={24} />;
+                                        }
+                                    };
+                                    return (
+                                        <button
+                                            key={key}
+                                            onClick={() => { 
+                                                updateData({ serviceType: label }); 
+                                                trackEvent('quiz_option_select', { step: 2, field: 'service_type', value: label });
+                                                setTimeout(nextStep, 300); 
+                                            }}
+                                            className={`flex flex-col items-center justify-center gap-2 p-4 md:p-6 rounded-2xl border text-center transition-all ${formData.serviceType === label
+                                                ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                                : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                                }`}
+                                        >
+                                            <div className={formData.serviceType === label ? "text-[#F27D42]" : "text-gray-400"}>
+                                                {getIcon()}
+                                            </div>
+                                            <span className="font-bold text-xs md:text-sm">{label}</span>
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 2: Cuisine */}
-                    {step === 2 && (
+                    {/* STEP 3: Cuisine */}
+                    {step === 3 && (
                         <motion.div
-                            key="step2"
+                            key="step3"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
@@ -322,32 +418,55 @@ function QuizFormContent() {
                             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.cuisineTitle}</h2>
                             <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.cuisineSubtitle}</p>
 
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
-                                {Object.entries(opt.cuisines || {}).map(([key, label]: [string, any]) => (
-                                    <button
-                                        key={key}
-                                        onClick={() => { 
-                                            updateData({ cuisine: label }); 
-                                            trackEvent('quiz_option_select', { step: 2, field: 'cuisine', value: label });
-                                            setTimeout(nextStep, 300); 
-                                        }}
-                                        className={`flex flex-col items-center justify-center gap-2 p-4 md:p-6 rounded-2xl border text-center transition-all ${formData.cuisine === label
-                                            ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
-                                            : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
-                                            }`}
-                                    >
-                                        <Utensils size={24} className={formData.cuisine === label ? "text-[#F27D42]" : "text-gray-400"} />
-                                        <span className="font-bold text-xs md:text-sm">{label}</span>
-                                    </button>
-                                ))}
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                                {Object.entries(opt.cuisines || {}).map(([key, label]: [string, any]) => {
+                                    const getFlag = () => {
+                                        switch(key) {
+                                            case 'dutch': return "🇳🇱";
+                                            case 'mediterranean': return "🍋";
+                                            case 'italian': return "🇮🇹";
+                                            case 'french': return "🇫🇷";
+                                            case 'spanish': return "🇪🇸";
+                                            case 'asian': return "🥢";
+                                            case 'japanese': return "🇯🇵";
+                                            case 'indian': return "🇮🇳";
+                                            case 'mexican': return "🇲🇽";
+                                            case 'thai': return "🇹🇭";
+                                            case 'moroccan': return "🇲🇦";
+                                            case 'lebanese': return "🇱🇧";
+                                            case 'bbq': return "🔥";
+                                            case 'international': return "🌐";
+                                            case 'other': return "✨";
+                                            case 'notSure': return "❓";
+                                            default: return "🍽️";
+                                        }
+                                    };
+                                    return (
+                                        <button
+                                            key={key}
+                                            onClick={() => { 
+                                                updateData({ cuisine: label }); 
+                                                trackEvent('quiz_option_select', { step: 3, field: 'cuisine', value: label });
+                                                setTimeout(nextStep, 300); 
+                                            }}
+                                            className={`flex flex-col items-center justify-center gap-2 p-3 md:p-5 rounded-2xl border text-center transition-all ${formData.cuisine === label
+                                                ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                                : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                                }`}
+                                        >
+                                            <span className="text-2xl md:text-3xl mb-1">{getFlag()}</span>
+                                            <span className="font-bold text-[10px] md:text-xs tracking-tight">{label}</span>
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 3: Guests */}
-                    {step === 3 && (
+                    {/* STEP 4: Guests */}
+                    {step === 4 && (
                         <motion.div
-                            key="step3"
+                            key="step4"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
@@ -362,7 +481,7 @@ function QuizFormContent() {
                                         key={key}
                                         onClick={() => { 
                                             updateData({ guests: label }); 
-                                            trackEvent('quiz_option_select', { step: 3, field: 'guests', value: label });
+                                            trackEvent('quiz_option_select', { step: 4, field: 'guests', value: label });
                                             setTimeout(nextStep, 300); 
                                         }}
                                         className={`flex items-center gap-4 p-4 md:p-6 rounded-2xl border text-left transition-all ${formData.guests === label
@@ -378,10 +497,10 @@ function QuizFormContent() {
                         </motion.div>
                     )}
 
-                    {/* STEP 4: Occasion */}
-                    {step === 4 && (
+                    {/* STEP 5: Occasion */}
+                    {step === 5 && (
                         <motion.div
-                            key="step4"
+                            key="step5"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
@@ -396,7 +515,7 @@ function QuizFormContent() {
                                         key={key}
                                         onClick={() => { 
                                             updateData({ occasion: label }); 
-                                            trackEvent('quiz_option_select', { step: 4, field: 'occasion', value: label });
+                                            trackEvent('quiz_option_select', { step: 5, field: 'occasion', value: label });
                                             setTimeout(nextStep, 300); 
                                         }}
                                         className={`group relative flex items-center gap-3 p-3 md:p-4 rounded-xl border text-left transition-all ${formData.occasion === label
@@ -412,10 +531,10 @@ function QuizFormContent() {
                         </motion.div>
                     )}
 
-                    {/* STEP 5: Service Level */}
-                    {step === 5 && (
+                    {/* STEP 6: Service Level */}
+                    {step === 6 && (
                         <motion.div
-                            key="step5"
+                            key="step6"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
@@ -430,7 +549,7 @@ function QuizFormContent() {
                                         key={key}
                                         onClick={() => { 
                                             updateData({ serviceLevel: label }); 
-                                            trackEvent('quiz_option_select', { step: 5, field: 'service_level', value: label });
+                                            trackEvent('quiz_option_select', { step: 6, field: 'service_level', value: label });
                                             setTimeout(nextStep, 300); 
                                         }}
                                         className={`flex flex-col items-center justify-center gap-4 p-8 rounded-3xl border text-center transition-all ${formData.serviceLevel === label
@@ -446,10 +565,10 @@ function QuizFormContent() {
                         </motion.div>
                     )}
 
-                    {/* STEP 6: Extras */}
-                    {step === 6 && (
+                    {/* STEP 7: Extras */}
+                    {step === 7 && (
                         <motion.div
-                            key="step6"
+                            key="step7"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
@@ -478,45 +597,7 @@ function QuizFormContent() {
                         </motion.div>
                     )}
 
-                    {/* STEP 7: Date */}
-                    {step === 7 && (
-                        <motion.div
-                            key="step7"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            className="w-full"
-                        >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.dateTitle}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.dateSubtitle}</p>
-
-                            <div className="relative max-w-md">
-                                <Calendar className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={24} />
-                                <input
-                                    type="date"
-                                    onChange={(e) => {
-                                        const val = e.target.value;
-                                        if (val && !formData.eventDates.includes(val)) {
-                                            updateData({ eventDates: [...formData.eventDates, val] });
-                                        }
-                                    }}
-                                    className="w-full appearance-none min-h-[60px] md:min-h-[72px] bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-6 pl-12 md:pl-16 text-lg md:text-xl text-cream focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all font-sans relative z-10"
-                                    style={{ colorScheme: 'dark' }}
-                                />
-                                
-                                <div className="mt-6 flex flex-wrap gap-2">
-                                    {formData.eventDates.map(date => (
-                                        <span key={date} className="bg-[#F27D42]/20 text-[#F27D42] px-3 py-1 rounded-full text-sm font-bold flex items-center gap-2">
-                                            {date}
-                                            <button onClick={() => updateData({ eventDates: formData.eventDates.filter(d => d !== date) })} className="hover:text-white">×</button>
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-
-                    {/* STEP 8: Contact */}
+                    {/* STEP 8: Date */}
                     {step === 8 && (
                         <motion.div
                             key="step8"
@@ -525,55 +606,134 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.contactTitle}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.contactSubtitle}</p>
+                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.dateTitle}</h2>
+                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.dateSubtitle}</p>
 
-                            <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-                                <div className="relative">
-                                    <User className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-                                    <input
-                                        type="text"
-                                        placeholder="Full Name"
-                                        required
-                                        value={formData.name}
-                                        onChange={(e) => updateData({ name: e.target.value })}
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 pl-12 md:pl-16 text-base md:text-lg text-cream placeholder-gray-500 focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all"
-                                    />
+                            <div className="bg-white/5 border border-white/10 rounded-[32px] p-6 md:p-10 shadow-2xl overflow-hidden relative">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-[#F27D42]/10 blur-3xl rounded-full -mr-16 -mt-16" />
+                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#F27D42]/5 blur-3xl rounded-full -ml-16 -mb-16" />
+
+                                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
+                                    {/* Calendar View */}
+                                    <div className="lg:col-span-7">
+                                        <div className="flex items-center justify-between mb-6">
+                                            <h3 className="text-xl font-bold text-cream flex items-center gap-3 capitalize">
+                                                <Calendar className="text-[#F27D42]" size={22} />
+                                                {currentMonth.toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}
+                                            </h3>
+                                            <div className="flex gap-2">
+                                                <button 
+                                                    onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() - 1)))}
+                                                    className="p-2 rounded-full hover:bg-white/10 transition-colors text-gray-500"
+                                                >
+                                                    <ChevronLeft size={20} />
+                                                </button>
+                                                <button 
+                                                    onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() + 1)))}
+                                                    className="p-2 rounded-full hover:bg-white/10 transition-colors text-gray-500"
+                                                >
+                                                    <ChevronRight size={20} />
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-7 gap-2 mb-4">
+                                            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => (
+                                                <div key={d} className="text-center text-[10px] uppercase tracking-widest text-gray-500 font-bold py-2">{d}</div>
+                                            ))}
+                                            {(() => {
+                                                const year = currentMonth.getFullYear();
+                                                const month = currentMonth.getMonth();
+                                                const firstDay = new Date(year, month, 1).getDay();
+                                                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                                                const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1; // Adjust for Monday start
+                                                
+                                                return [
+                                                    ...Array(adjustedFirstDay).fill(null),
+                                                    ...Array.from({ length: daysInMonth }, (_, i) => i + 1)
+                                                ].map((day, i) => {
+                                                    if (day === null) return <div key={`empty-${i}`} />;
+                                                    
+                                                    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                                                    const isSelected = formData.eventDates.includes(dateStr);
+                                                    const isToday = day === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear();
+                                                    const isPast = new Date(year, month, day) < new Date(new Date().setHours(0,0,0,0));
+
+                                                    return (
+                                                        <button
+                                                            key={i}
+                                                            disabled={isPast}
+                                                            onClick={() => {
+                                                                if (isSelected) {
+                                                                    updateData({ eventDates: formData.eventDates.filter(d => d !== dateStr) });
+                                                                } else {
+                                                                    updateData({ eventDates: [...formData.eventDates, dateStr] });
+                                                                }
+                                                            }}
+                                                            className={`aspect-square flex items-center justify-center rounded-xl text-sm font-bold transition-all border ${
+                                                                isSelected 
+                                                                    ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105" 
+                                                                    : isPast 
+                                                                        ? "bg-transparent border-transparent text-gray-800 cursor-not-allowed"
+                                                                        : "bg-white/5 border-transparent text-cream hover:border-white/20 hover:bg-white/10"
+                                                            } ${isToday && !isSelected ? "border-[#F27D42]/50 text-[#F27D42]" : ""}`}
+                                                        >
+                                                            {day}
+                                                        </button>
+                                                    );
+                                                });
+                                            })()}
+                                        </div>
+                                        <p className="text-[10px] text-gray-500 italic mt-4">* You can select multiple dates if your event is flexible</p>
+                                    </div>
+
+                                    {/* Selected Dates List */}
+                                    <div className="lg:col-span-5 flex flex-col">
+                                        <div className="flex items-center justify-between mb-6">
+                                            <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest">Selected Dates</h4>
+                                            <span className="bg-[#F27D42]/10 text-[#F27D42] px-3 py-1 rounded-full text-[10px] font-bold">
+                                                {formData.eventDates.length} Dates
+                                            </span>
+                                        </div>
+
+                                        <div className="flex-1 space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                                            <AnimatePresence initial={false}>
+                                                {formData.eventDates.length > 0 ? (
+                                                    formData.eventDates.map(date => (
+                                                        <motion.div
+                                                            key={date}
+                                                            initial={{ opacity: 0, y: 10 }}
+                                                            animate={{ opacity: 1, y: 0 }}
+                                                            exit={{ opacity: 0, scale: 0.95 }}
+                                                            className="flex items-center justify-between bg-white/5 border border-white/10 p-4 rounded-2xl group hover:border-[#F27D42]/30 transition-colors"
+                                                        >
+                                                            <div className="flex flex-col">
+                                                                <span className="text-xs text-gray-500 font-medium">
+                                                                    {new Date(date).toLocaleDateString(undefined, { weekday: 'long' })}
+                                                                </span>
+                                                                <span className="text-cream font-bold">
+                                                                    {new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                                </span>
+                                                            </div>
+                                                            <button 
+                                                                onClick={() => updateData({ eventDates: formData.eventDates.filter(d => d !== date) })}
+                                                                className="text-gray-600 hover:text-red-400 transition-colors p-2 bg-white/5 rounded-full"
+                                                            >
+                                                                <ArrowLeft size={14} className="rotate-45" /> {/* Simple X cross */}
+                                                            </button>
+                                                        </motion.div>
+                                                    ))
+                                                ) : (
+                                                    <div className="h-full min-h-[150px] flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-[24px] p-6 text-center">
+                                                        <Calendar className="text-gray-700 mb-3" size={32} />
+                                                        <p className="text-gray-500 text-sm">Please select event dates from the calendar</p>
+                                                    </div>
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="relative">
-                                    <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-                                    <input
-                                        type="email"
-                                        placeholder="Email Address"
-                                        required
-                                        value={formData.email}
-                                        onChange={(e) => updateData({ email: e.target.value })}
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 pl-12 md:pl-16 text-base md:text-lg text-cream placeholder-gray-500 focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all"
-                                    />
-                                </div>
-                                <div className="relative">
-                                    <Phone className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-                                    <input
-                                        type="tel"
-                                        placeholder="Phone Number"
-                                        required
-                                        value={formData.phone}
-                                        onChange={(e) => updateData({ phone: e.target.value })}
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 pl-12 md:pl-16 text-base md:text-lg text-cream placeholder-gray-500 focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all"
-                                    />
-                                </div>
-                                <div className="relative">
-                                    <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-                                    <input
-                                        type="text"
-                                        placeholder={t.cityPlaceholder || "City"}
-                                        required
-                                        value={formData.city}
-                                        onChange={(e) => updateData({ city: e.target.value })}
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 pl-12 md:pl-16 text-base md:text-lg text-cream placeholder-gray-500 focus:outline-none focus:border-[#F27D42] focus:bg-white/10 transition-all"
-                                    />
-                                </div>
-                            </form>
+                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -594,13 +754,13 @@ function QuizFormContent() {
                     <button
                         onClick={nextStep}
                         disabled={
-                            (step === 1 && !formData.serviceType) ||
-                            (step === 2 && !formData.cuisine) ||
-                            (step === 3 && !formData.guests) ||
-                            (step === 4 && !formData.occasion) ||
-                            (step === 5 && !formData.serviceLevel) ||
-                            (step === 6 && formData.extras.length === 0) ||
-                            (step === 7 && formData.eventDates.length === 0)
+                            (step === 1 && (!formData.name || !formData.email || !formData.phone || !formData.city)) ||
+                            (step === 2 && !formData.serviceType) ||
+                            (step === 3 && !formData.cuisine) ||
+                            (step === 4 && !formData.guests) ||
+                            (step === 5 && !formData.occasion) ||
+                            (step === 6 && !formData.serviceLevel) ||
+                            (step === 7 && formData.extras.length === 0)
                         }
                         className="flex items-center gap-2 bg-[#F27D42] text-white px-6 py-3 md:px-8 md:py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
@@ -610,7 +770,7 @@ function QuizFormContent() {
                 ) : (
                     <button
                         onClick={() => handleSubmit()}
-                        disabled={!formData.name || !formData.email || !formData.phone || !formData.city || isSubmitting}
+                        disabled={formData.eventDates.length === 0 || isSubmitting}
                         className="flex items-center gap-2 bg-[#F27D42] text-white px-6 py-3 md:px-8 md:py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base whitespace-nowrap"
                     >
                         {isSubmitting ? t.submitting : t.submitButton}

@@ -11,6 +11,17 @@
         "titlePart1": "Un Service Traiteur Exceptionnel",
         "titlePart2": "pour Chaque",
         "titleHighlight": "Occasion",
+        "animatedTopPhrases": [
+            "Expérience de Chef Privé. Pour votre Mariage.",
+            "Service Traiteur. Pour votre Événement.",
+            "Chefs à Domicile. Pour votre Anniversaire.",
+            "Experts Culinaires. Pour vos Bureaux.",
+            "Dîner de Gourmet. À votre Domicile."
+        ],
+        "animatedBottomSegments": [
+            { "type": "static", "text": "Livraison à ", "color": "text-white" },
+            { "type": "rotating", "words": ["Amsterdam", "Rotterdam", "La Haye", "Haarlem", "Enschede"], "color": "text-[#F27D42]" }
+        ],
         "subtitle": "Des dîners intimes aux grandes célébrations, nous apportons une cuisine de qualité restaurant à votre événement.",
         "cta": "Demander un Devis"
     },
@@ -433,16 +444,26 @@
                 "diner": "Dîner",
                 "lunch": "Déjeuner",
                 "other": "Autre",
-                "breakfast": "Petit-déjeuner / Brunch"
+                "breakfast": "Petit-déjeuner / Brunch",
+                "notSure": "Je ne sais pas encore"
             },
             "cuisines": {
                 "dutch": "Néerlandais",
                 "mediterranean": "Méditerranéen",
+                "italian": "Italien",
+                "french": "Français",
+                "spanish": "Espagnol",
                 "asian": "Asiatique",
+                "japanese": "Japonais",
+                "indian": "Indien",
+                "mexican": "Mexicain",
+                "thai": "Thaï",
+                "moroccan": "Marocain",
+                "lebanese": "Libanais",
                 "bbq": "BBQ / Grill",
                 "international": "International",
-                "lebanese": "Libanais",
-                "other": "Autre"
+                "other": "Autre",
+                "notSure": "Je ne sais pas encore"
             },
             "guests": {
                 "less10": "Moins de 10 personnes",
@@ -458,11 +479,13 @@
                 "garden": "Fête de jardin",
                 "festival": "Festival ou événement public",
                 "staff": "Fête du personnel",
-                "conference": "Exposition ou congrès"
+                "conference": "Exposition ou congrès",
+                "notSure": "Je ne sais pas encore"
             },
             "serviceLevels": {
                 "delivery": "Livraison uniquement",
-                "full": "Service complet / Chef Privé"
+                "full": "Service complet / Chef Privé",
+                "notSure": "Je ne sais pas encore"
             },
             "extras": {
                 "food": "Préparation et livraison de nourriture",
@@ -471,7 +494,8 @@
                 "dishes": "Vaisselle et couverts",
                 "staff": "Service et personnel",
                 "decor": "Décoration (tables, chaises, styling)",
-                "tent": "Tente de fête"
+                "tent": "Tente de fête",
+                "notSure": "Je ne sais pas encore"
             }
         }
     }

@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Metadata } from "next";
 import { LocalBusinessSchema } from "@/components/SEO/Schemas";
+import Link from "next/link";
 
 export async function generateMetadata({
     params,
@@ -52,12 +53,12 @@ export default async function ZakelijkeCateringPage({
                 </p>
 
                 <div className="mb-16">
-                    <a
-                        href="#booking-section"
+                    <Link
+                        href={`/${lang}/quote`}
                         className="inline-block bg-orange hover:bg-orange/90 text-white px-8 py-3.5 rounded-full font-semibold text-sm uppercase tracking-wide shadow-md hover:-translate-y-0.5 transition-all duration-300"
                     >
                         {lang === "nl" ? "Vraag nu gratis offerte aan" : "Request a free quote now"}
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

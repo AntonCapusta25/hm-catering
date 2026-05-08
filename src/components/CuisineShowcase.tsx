@@ -80,7 +80,7 @@ export default function CuisineShowcase() {
                 {/* Bottom CTA */}
                 <div className="text-center">
                     <Link
-                        href="/#booking"
+                        href={`/${lang}/quote`}
                         onClick={() => trackCTAClick("Plan Your Menu Now", "cuisine_section")}
                         className="inline-block bg-orange text-white text-lg font-bold uppercase tracking-wider py-4 px-10 rounded-full hover:bg-dark transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
                     >

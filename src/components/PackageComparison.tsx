@@ -115,7 +115,7 @@ export default function PackageComparison() {
                                 <td className="p-6"></td>
                                 <td className="p-6 text-center">
                                     <Link
-                                        href="#booking"
+                                        href={`/${lang}/quote`}
                                         className="inline-block px-6 py-3 bg-dark text-white rounded-xl font-bold hover:bg-dark/90 transition-colors"
                                     >
                                         {t.select || "Select"}
@@ -123,7 +123,7 @@ export default function PackageComparison() {
                                 </td>
                                 <td className="p-6 text-center bg-[#F27D42]/5">
                                     <Link
-                                        href="#booking"
+                                        href={`/${lang}/quote`}
                                         className="inline-block px-6 py-3 bg-[#F27D42] text-white rounded-xl font-bold hover:bg-[#d66a35] transition-colors shadow-lg"
                                     >
                                         {t.select || "Select"}
@@ -131,7 +131,7 @@ export default function PackageComparison() {
                                 </td>
                                 <td className="p-6 text-center">
                                     <Link
-                                        href="#booking"
+                                        href={`/${lang}/quote`}
                                         className="inline-block px-6 py-3 bg-dark text-white rounded-xl font-bold hover:bg-dark/90 transition-colors"
                                     >
                                         {t.select || "Select"}
@@ -180,7 +180,7 @@ export default function PackageComparison() {
                                         })}
                                     </div>
                                     <Link
-                                        href="#booking"
+                                        href={`/${lang}/quote`}
                                         className={`block w-full text-center py-4 rounded-xl font-bold mt-6 transition-colors ${isGrowth
                                             ? 'bg-[#F27D42] text-white hover:bg-[#d66a35]'
                                             : 'bg-dark text-white hover:bg-dark/90'

@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { trackCTAClick } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
 import AnimatedHeroHeadline from "./AnimatedHeroHeadline";
+import TypewriterHeadline from "./TypewriterHeadline";
 import { usePathname } from 'next/navigation';
 
 const HERO_IMAGES = [
@@ -113,10 +114,26 @@ export default function Hero({ city }: HeroProps) {
 
             <div className="relative z-10 w-full h-full flex flex-col justify-start md:justify-center items-center pt-36 md:pt-0 py-12 md:py-20 px-5">
                 <div className="text-center max-w-4xl w-full flex flex-col items-center">
-                    <AnimatedHeroHeadline
-                        staticText={t.animatedTitleStatic || "Home Chefs. At Your Office. Delivering in "}
-                        words={t.animatedRotatingWords || ["Amsterdam", "Rotterdam", "Den Haag", "Haarlem", "Enschede"]}
-                    />
+                    <div className="flex flex-col items-center gap-6 md:gap-4">
+                        <TypewriterHeadline
+                            phrases={t.animatedTopPhrases || [
+                                "Private Chef Experience. At Your Weddings.",
+                                "Catering Experience. At Your Events.",
+                                "Home Chefs Experience. At Your Birthdays.",
+                                "Culinary Experts. At Your Offices."
+                            ]}
+                            interval={5000}
+                            className="text-6xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight"
+                        />
+                        <AnimatedHeroHeadline
+                            segments={t.animatedBottomSegments || [
+                                { type: 'static', text: "Delivering in ", color: "text-white" },
+                                { type: 'rotating', words: ["Amsterdam", "Rotterdam", "Den Haag", "Haarlem", "Enschede"], color: "text-[#F27D42]" }
+                            ]}
+                            intervalDuration={2900}
+                            className="text-3xl md:text-3xl lg:text-4xl leading-tight"
+                        />
+                    </div>
 
                     <motion.p
                         initial={{ opacity: 0, y: 30 }}

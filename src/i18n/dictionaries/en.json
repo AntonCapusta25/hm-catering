@@ -11,13 +11,16 @@
         "titlePart1": "Exceptional Private Chefs",
         "titlePart2": "for Every",
         "titleHighlight": "Moment",
-        "animatedTitleStatic": "Private Chef Experience. At Your Venue. Delivering in ",
-        "animatedRotatingWords": [
-            "Amsterdam",
-            "Rotterdam",
-            "Den Haag",
-            "Haarlem",
-            "Enschede"
+        "animatedTopPhrases": [
+            "Private Chef Experience. At Your Weddings.",
+            "Catering Experience. At Your Events.",
+            "Home Chefs Experience. At Your Birthdays.",
+            "Culinary Experts. At Your Offices.",
+            "Gourmet Dining. At Your Homes."
+        ],
+        "animatedBottomSegments": [
+            { "type": "static", "text": "Delivering in ", "color": "text-white" },
+            { "type": "rotating", "words": ["Amsterdam", "Rotterdam", "Den Haag", "Haarlem", "Enschede"], "color": "text-[#F27D42]" }
         ],
         "subtitle": "From intimate home dinners to grand celebrations, we bring a premium private chef experience to your chosen location.",
         "cta": "Request Quote"
@@ -358,16 +361,26 @@
                 "diner": "Dinner",
                 "lunch": "Lunch",
                 "other": "Other",
-                "breakfast": "Breakfast / Brunch"
+                "breakfast": "Breakfast / Brunch",
+                "notSure": "I don't know yet"
             },
             "cuisines": {
                 "dutch": "Dutch",
                 "mediterranean": "Mediterranean",
+                "italian": "Italian",
+                "french": "French",
+                "spanish": "Spanish",
                 "asian": "Asian",
+                "japanese": "Japanese",
+                "indian": "Indian",
+                "mexican": "Mexican",
+                "thai": "Thai",
+                "moroccan": "Moroccan",
+                "lebanese": "Lebanese",
                 "bbq": "BBQ / Grill",
                 "international": "International",
-                "lebanese": "Lebanese",
-                "other": "Other"
+                "other": "Other",
+                "notSure": "I don't know yet"
             },
             "guests": {
                 "less10": "Less than 10 people",
@@ -383,11 +396,13 @@
                 "garden": "Garden Party",
                 "festival": "Festival or Public Event",
                 "staff": "Staff Party",
-                "conference": "Exhibition or Congress"
+                "conference": "Exhibition or Congress",
+                "notSure": "I don't know yet"
             },
             "serviceLevels": {
                 "delivery": "Delivery only",
-                "full": "Full service / Private Chef"
+                "full": "Full service / Private Chef",
+                "notSure": "I don't know yet"
             },
             "extras": {
                 "food": "Food preparation & delivery",
@@ -396,7 +411,8 @@
                 "dishes": "Dishes & Cutlery",
                 "staff": "Service & Staff",
                 "decor": "Decoration (tables, chairs, styling)",
-                "tent": "Party tent"
+                "tent": "Party tent",
+                "notSure": "I don't know yet"
             }
         }
     },

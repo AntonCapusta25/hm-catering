@@ -71,12 +71,12 @@ export default async function ThuiskokInhurenPage({
                 </div>
 
                 <div className="mt-12 mb-8 text-center md:text-left">
-                    <a
-                        href="#booking-section"
+                    <Link
+                        href={`/${lang}/quote`}
                         className="inline-block bg-orange hover:bg-orange/90 text-white px-8 py-3.5 rounded-full font-semibold text-sm uppercase tracking-wide shadow-md hover:-translate-y-0.5 transition-all duration-300"
                     >
                         Prive Chef Inhuren
-                    </a>
+                    </Link>
                 </div>
             </section>
 
