@@ -4,11 +4,26 @@
 export const trackEvent = (eventName: string, eventParams?: Record<string, any>) => {
     console.log('[Analytics] trackEvent called:', eventName, eventParams);
 
+    // Google Analytics
     if (typeof window !== "undefined" && (window as any).gtag) {
-        console.log('[Analytics] gtag available, sending event');
         (window as any).gtag("event", eventName, eventParams);
-    } else {
-        console.warn('[Analytics] gtag not available. Window:', typeof window, 'gtag:', typeof (window as any)?.gtag);
+    }
+
+    // Meta Pixel
+    if (typeof window !== "undefined" && (window as any).fbq) {
+        // Map common events to Meta standard events if applicable
+        if (eventName === 'generate_lead' || eventName === 'form_submit') {
+            (window as any).fbq('track', 'Lead', {
+                content_name: eventParams?.event_label || eventName,
+                value: eventParams?.value || 1.00,
+                currency: eventParams?.currency || 'EUR'
+            });
+        } else if (eventName === 'contact_info_provided') {
+            (window as any).fbq('track', 'Contact');
+        } else {
+            // Track as custom event
+            (window as any).fbq('trackCustom', eventName, eventParams);
+        }
     }
 };
 

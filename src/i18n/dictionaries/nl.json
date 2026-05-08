@@ -61,6 +61,10 @@
                 "title": "Surinaams Soul Food",
                 "description": "Een levendige fusie van Creoolse, Hindoestaanse en Javaanse smaken."
             },
+            "lebanese": {
+                "title": "Libanese Heerlijkheden",
+                "description": "Een rijk palet aan smaken uit het Midden-Oosten, met verse kruiden, olijfolie en levendige specerijen."
+            },
             "asian": {
                 "title": "Aziatische Fusie",
                 "description": "Een gedurfde mix van oosterse smaken met moderne culinaire technieken."
@@ -80,10 +84,6 @@
             "seafood": {
                 "title": "Schatten van de Oceaan",
                 "description": "Verse vangsten bereid om hun natuurlijke delicate smaken te benadrukken."
-            },
-            "lebanese": {
-                "title": "Libanese Heerlijkheden",
-                "description": "Een rijk palet aan smaken uit het Midden-Oosten, met verse kruiden, olijfolie en levendige specerijen."
             }
         }
     },
@@ -366,6 +366,7 @@
             },
             "cuisines": {
                 "dutch": "Nederlands",
+                "lebanese": "Libanees",
                 "mediterranean": "Mediterraans",
                 "italian": "Italiaans",
                 "french": "Frans",
@@ -376,7 +377,6 @@
                 "mexican": "Mexicaans",
                 "thai": "Thais",
                 "moroccan": "Marokkaans",
-                "lebanese": "Libanees",
                 "bbq": "BBQ / Grill",
                 "international": "Internationaal",
                 "other": "Overige",

@@ -61,6 +61,10 @@
                 "title": "Suriname Soul Food",
                 "description": "A vibrant fusion of Creole, Hindustani, and Javanese flavors."
             },
+            "lebanese": {
+                "title": "Lebanese Delights",
+                "description": "A rich tapestry of Middle Eastern flavors, featuring fresh herbs, olive oil, and vibrant spices."
+            },
             "asian": {
                 "title": "Asian Fusion",
                 "description": "A bold mix of Eastern flavors with modern culinary techniques."
@@ -80,10 +84,6 @@
             "seafood": {
                 "title": "Ocean Treasures",
                 "description": "Fresh catches prepared to highlight their natural delicate flavors."
-            },
-            "lebanese": {
-                "title": "Lebanese Delights",
-                "description": "A rich tapestry of Middle Eastern flavors, featuring fresh herbs, olive oil, and vibrant spices."
             }
         }
     },
@@ -366,6 +366,7 @@
             },
             "cuisines": {
                 "dutch": "Dutch",
+                "lebanese": "Lebanese",
                 "mediterranean": "Mediterranean",
                 "italian": "Italian",
                 "french": "French",
@@ -376,7 +377,6 @@
                 "mexican": "Mexican",
                 "thai": "Thai",
                 "moroccan": "Moroccan",
-                "lebanese": "Lebanese",
                 "bbq": "BBQ / Grill",
                 "international": "International",
                 "other": "Other",

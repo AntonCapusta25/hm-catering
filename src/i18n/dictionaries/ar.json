@@ -449,6 +449,7 @@
             },
             "cuisines": {
                 "dutch": "هولندي",
+                "lebanese": "لبناني",
                 "mediterranean": "بحر متوسط",
                 "italian": "إيطالي",
                 "french": "فرنسي",
@@ -459,7 +460,6 @@
                 "mexican": "مكسيكي",
                 "thai": "تايلاندي",
                 "moroccan": "مغربي",
-                "lebanese": "لبناني",
                 "bbq": "مشويات / جريل",
                 "international": "عالمي",
                 "other": "أخرى",

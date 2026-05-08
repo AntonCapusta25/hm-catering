@@ -80,10 +80,16 @@ export default function Hero({ city }: HeroProps) {
         return () => clearInterval(interval);
     }, [images]); // Re-run when image set changes
 
-    // Reset index if it exceeds new array length
     useEffect(() => {
         setCurrentImageIndex(0);
     }, [isMobile]);
+
+    const [prefixIndex, setPrefixIndex] = useState(0);
+    const prefixes = [
+        "Private Chef Experience.",
+        "Catering Experience."
+    ];
+    const words = ["Weddings.", "Events.", "Birthdays.", "Anniversaries.", "Offices."];
 
     return (
         <header className="relative w-full overflow-hidden text-white bg-black" style={{ height: '100svh', maxHeight: '100svh' }}>
@@ -99,10 +105,10 @@ export default function Hero({ city }: HeroProps) {
                 >
                     <Image
                         src={images[currentImageIndex]}
-                        alt={`Hero Background ${currentImageIndex + 1}`}
+                        alt="Hero background"
                         fill
-                        priority={currentImageIndex === 0}
                         className="object-cover object-[center_30%]"
+                        priority={currentImageIndex === 0}
                         sizes="100vw"
                     />
                 </motion.div>
@@ -112,18 +118,16 @@ export default function Hero({ city }: HeroProps) {
             <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
             <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-cream to-transparent z-0" />
 
-            <div className="relative z-10 w-full h-full flex flex-col justify-start md:justify-center items-center pt-36 md:pt-0 py-12 md:py-20 px-5">
-                <div className="text-center max-w-4xl w-full flex flex-col items-center">
-                    <div className="flex flex-col items-center gap-6 md:gap-4">
+            <div className="relative z-10 w-full h-full flex flex-col justify-start md:justify-center items-center pt-36 md:pt-0 py-12 md:py-20 px-4">
+                <div className="text-center max-w-[95vw] md:max-w-6xl w-full flex flex-col items-center">
+                    <div className="flex flex-col items-center gap-2 md:gap-4">
                         <TypewriterHeadline
-                            phrases={t.animatedTopPhrases || [
-                                "Private Chef Experience. At Your Weddings.",
-                                "Catering Experience. At Your Events.",
-                                "Home Chefs Experience. At Your Birthdays.",
-                                "Culinary Experts. At Your Offices."
-                            ]}
-                            interval={5000}
-                            className="text-6xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight"
+                            prefix={prefixes[prefixIndex]}
+                            subPrefix="At Your "
+                            phrases={words}
+                            onCycleComplete={() => setPrefixIndex((prev) => (prev + 1) % prefixes.length)}
+                            interval={4000}
+                            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight"
                         />
                         <AnimatedHeroHeadline
                             segments={t.animatedBottomSegments || [
@@ -131,7 +135,7 @@ export default function Hero({ city }: HeroProps) {
                                 { type: 'rotating', words: ["Amsterdam", "Rotterdam", "Den Haag", "Haarlem", "Enschede"], color: "text-[#F27D42]" }
                             ]}
                             intervalDuration={2900}
-                            className="text-3xl md:text-3xl lg:text-4xl leading-tight"
+                            className="text-2xl md:text-3xl lg:text-5xl leading-tight mt-6"
                         />
                     </div>
 

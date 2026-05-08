@@ -37,6 +37,12 @@ export const cuisines: Cuisine[] = [
         description: "A vibrant fusion of Creole, Hindustani, and Javanese flavors."
     },
     {
+        id: "lebanese",
+        title: "Lebanese Delights",
+        image: "/images/generated/cuisine-lebanese.png",
+        description: "A rich tapestry of Middle Eastern flavors, featuring fresh herbs, olive oil, and vibrant spices."
+    },
+    {
         id: "asian",
         title: "Asian Fusion",
         image: "/images/cuisine-asian.jpg",
@@ -65,12 +71,6 @@ export const cuisines: Cuisine[] = [
         title: "Ocean Treasures",
         image: "/images/ocean-treasures-43.png",
         description: "Fresh catches prepared to highlight their natural delicate flavors."
-    },
-    {
-        id: "lebanese",
-        title: "Lebanese Delights",
-        image: "/images/generated/cuisine-lebanese.png",
-        description: "A rich tapestry of Middle Eastern flavors, featuring fresh herbs, olive oil, and vibrant spices."
     }
 ];
 

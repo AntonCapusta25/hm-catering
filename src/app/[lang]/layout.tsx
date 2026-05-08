@@ -41,6 +41,9 @@ export async function generateMetadata(
   };
 }
 
+import AnalyticsTracker from "@/components/AnalyticsTracker";
+import { Suspense } from "react";
+
 export default async function RootLayout(props: {
   children: React.ReactNode;
   params: Promise<{ lang: string }>;
@@ -65,6 +68,9 @@ export default async function RootLayout(props: {
       <body
         className={`${fraunces.variable} ${inter.variable} antialiased bg-cream text-dark`}
       >
+        <Suspense>
+          <AnalyticsTracker />
+        </Suspense>
         {/* Meta Pixel Code */}
         <Script
           id="meta-pixel"

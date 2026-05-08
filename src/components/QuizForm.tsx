@@ -65,6 +65,16 @@ function QuizFormContent() {
     const nextStep = () => {
         if (step < totalSteps) {
             const next = step + 1;
+            
+            // Special tracking for contact info (Step 1)
+            if (step === 1) {
+                trackEvent('contact_info_provided', {
+                    name: formData.name,
+                    city: formData.city,
+                    method: 'quiz_step_1'
+                });
+            }
+
             setStep(next);
             trackEvent('quiz_step_complete', {
                 step: step,
@@ -260,12 +270,12 @@ function QuizFormContent() {
     return (
         <div className="w-full max-w-3xl mx-auto">
             {/* Progress Bar */}
-            <div className="mb-6 md:mb-12">
-                <div className="flex justify-between text-[10px] md:text-sm font-medium text-gray-500 mb-2 md:mb-4 tracking-widest uppercase">
+            <div className="mb-4 md:mb-12">
+                <div className="flex justify-between text-[10px] md:text-sm font-medium text-gray-500 mb-1 md:mb-4 tracking-widest uppercase">
                     <span>{t.stepProgress?.replace('{current}', step.toString()).replace('{total}', totalSteps.toString()) || `Step ${step} of ${totalSteps}`}</span>
                     <span>{Math.round((step / totalSteps) * 100)}%</span>
                 </div>
-                <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-white/5 rounded-full h-1.5 md:h-2 overflow-hidden">
                     <motion.div
                         className="bg-[#F27D42] h-full"
                         initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}
@@ -276,7 +286,7 @@ function QuizFormContent() {
             </div>
 
             {/* Form Container */}
-            <div className="relative min-h-[450px] md:min-h-[550px]" onKeyDown={handleKeyDown}>
+            <div className="relative min-h-[340px] md:min-h-[550px]" onKeyDown={handleKeyDown}>
                 <AnimatePresence mode="wait">
                     {/* STEP 1: Contact */}
                     {step === 1 && (
@@ -287,11 +297,11 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.contactTitle}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.contactSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.contactTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.contactSubtitle}</p>
 
-                            <form className="space-y-6 max-w-xl mx-auto bg-white/5 p-8 rounded-3xl border border-white/10 shadow-xl">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <form className="space-y-4 md:space-y-6 max-w-xl mx-auto bg-white/5 p-5 md:p-8 rounded-3xl border border-white/10 shadow-xl">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">Full Name</label>
                                         <div className="relative">
@@ -344,7 +354,7 @@ function QuizFormContent() {
                                                 required
                                                 value={formData.city}
                                                 onChange={(e) => updateData({ city: e.target.value })}
-                                                className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42] focus:bg-black/60 transition-all shadow-inner"
+                                                className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-3 md:py-4 pl-12 md:pl-16 text-sm md:text-base text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42] focus:bg-black/60 transition-all shadow-inner"
                                             />
                                         </div>
                                     </div>
@@ -365,8 +375,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.serviceTypeTitle}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.serviceTypeSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.serviceTypeTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.serviceTypeSubtitle}</p>
 
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
                                 {Object.entries(opt.serviceTypes || {}).map(([key, label]: [string, any]) => {
@@ -415,8 +425,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.cuisineTitle}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.cuisineSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.cuisineTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.cuisineSubtitle}</p>
 
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                                 {Object.entries(opt.cuisines || {}).map(([key, label]: [string, any]) => {
@@ -472,8 +482,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.guestsTitle}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.guestsSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.guestsTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.guestsSubtitle}</p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
                                 {Object.entries(opt.guests || {}).map(([key, label]: [string, any]) => (
@@ -506,8 +516,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.occasionTitle}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.occasionSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.occasionTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.occasionSubtitle}</p>
 
                             <div className="grid grid-cols-2 gap-2 md:gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                                 {Object.entries(opt.occasions || {}).map(([key, label]: [string, any]) => (
@@ -540,8 +550,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.serviceLevelTitle}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.serviceLevelSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.serviceLevelTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.serviceLevelSubtitle}</p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {Object.entries(opt.serviceLevels || {}).map(([key, label]: [string, any]) => (
@@ -574,8 +584,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.extrasTitle}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.extrasSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.extrasTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-10">{t.extrasSubtitle}</p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                                 {Object.entries(opt.extras || {}).map(([key, label]: [string, any]) => (
@@ -606,8 +616,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-2 md:mb-4">{t.dateTitle}</h2>
-                            <p className="text-gray-400 text-base md:text-lg mb-6 md:mb-10">{t.dateSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.dateTitle}</h2>
+                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-8">{t.dateSubtitle}</p>
 
                             <div className="bg-white/5 border border-white/10 rounded-[32px] p-6 md:p-10 shadow-2xl overflow-hidden relative">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#F27D42]/10 blur-3xl rounded-full -mr-16 -mt-16" />
@@ -740,7 +750,7 @@ function QuizFormContent() {
             </div>
 
             {/* Navigation Controls */}
-            <div className="mt-8 md:mt-16 flex items-center justify-between border-t border-white/10 pt-4 md:pt-8">
+            <div className="mt-4 md:mt-16 flex items-center justify-between border-t border-white/10 pt-4 md:pt-8">
                 <button
                     onClick={prevStep}
                     className={`flex items-center gap-2 font-bold transition-colors ${step === 1 ? 'text-gray-600 cursor-not-allowed' : 'text-gray-400 hover:text-white'}`}

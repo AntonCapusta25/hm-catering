@@ -80,10 +80,6 @@
             "seafood": {
                 "title": "Trésors de l'Océan",
                 "description": "Des prises fraîches préparées pour mettre en valeur leurs délicates saveurs naturelles."
-            },
-            "lebanese": {
-                "title": "Délices Libanais",
-                "description": "Une riche palette de saveurs du Moyen-Orient, avec des herbes fraîches, de l'huile d'olive et des épices vibrantes."
             }
         }
     },
@@ -449,6 +445,7 @@
             },
             "cuisines": {
                 "dutch": "Néerlandais",
+                "lebanese": "Libanais",
                 "mediterranean": "Méditerranéen",
                 "italian": "Italien",
                 "french": "Français",
@@ -459,7 +456,6 @@
                 "mexican": "Mexicain",
                 "thai": "Thaï",
                 "moroccan": "Marocain",
-                "lebanese": "Libanais",
                 "bbq": "BBQ / Grill",
                 "international": "International",
                 "other": "Autre",
