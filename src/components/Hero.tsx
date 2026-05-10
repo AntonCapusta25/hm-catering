@@ -126,7 +126,7 @@ export default function Hero({ city }: HeroProps) {
                             subPrefix="At Your "
                             phrases={words}
                             onCycleComplete={() => setPrefixIndex((prev) => (prev + 1) % prefixes.length)}
-                            interval={4000}
+                            interval={2000}
                             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight"
                         />
                         <AnimatedHeroHeadline

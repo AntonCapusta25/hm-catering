@@ -34,7 +34,7 @@ export default function TypewriterHeadline({
         if (isDeleting) {
             timeout = setTimeout(() => {
                 setCurrentText(prev => prev.slice(0, -1));
-            }, speed * 1200);
+            }, speed * 600);
 
             if (currentText === "") {
                 setIsDeleting(false);
@@ -46,7 +46,7 @@ export default function TypewriterHeadline({
         } else {
             timeout = setTimeout(() => {
                 setCurrentText(currentPhrase.slice(0, currentText.length + 1));
-            }, speed * 2500);
+            }, speed * 1200);
 
             if (currentText === currentPhrase) {
                 timeout = setTimeout(() => {
