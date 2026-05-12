@@ -31,8 +31,17 @@ export default async function QuotePage({ params }: Props) {
         <main className="min-h-screen bg-dark flex flex-col font-sans text-cream">
             <Navbar />
 
-            <div className="flex-1 flex items-center justify-center pt-24 md:pt-32 pb-20 px-5">
+            <div className="flex-1 flex flex-col items-center justify-center pt-24 md:pt-32 pb-20 px-5">
                 <div className="w-full max-w-4xl mx-auto">
+                    <div className="flex justify-center mb-8">
+                        <a 
+                            href={`/${lang}`}
+                            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-6 py-3 rounded-full border border-white/10"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                            {lang === 'nl' ? 'Terug naar website' : 'Back to website'}
+                        </a>
+                    </div>
                     <div className="hidden md:block text-center mb-12">
                         <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4">
                             {lang === 'nl' ? 'Plan Uw Evenement' : 'Plan Your Event'}

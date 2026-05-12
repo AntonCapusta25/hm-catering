@@ -311,7 +311,7 @@ function QuizFormContent() {
                             <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.contactSubtitle}</p>
 
                              <form className="space-y-4 md:space-y-6 max-w-xl mx-auto bg-white/5 p-5 md:p-8 rounded-3xl border border-white/10 shadow-xl">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                                <div className="grid grid-cols-1 gap-6 md:gap-10">
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">Full Name</label>
                                         <div className="relative">
