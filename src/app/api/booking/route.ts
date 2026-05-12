@@ -80,9 +80,27 @@ export async function POST(request: NextRequest) {
       orangeLight: '#FF9F6D'
     };
 
+    // Lead Distribution Logic
+    const employees = [
+      'khaylanlalla35@gmail.com',
+      'walid_sabihi@outlook.com'
+    ];
+
+    // Get total count of submissions to determine rotation
+    const { count: submissionCount } = await supabaseAdmin
+      .from('booking_submissions')
+      .select('*', { count: 'exact', head: true });
+
+    const assignedEmployee = employees[(submissionCount || 0) % employees.length];
+    const assignedName = assignedEmployee.includes('khaylan') ? 'Khaylan' : 'Walid';
+
     // Send admin notification email
     const adminEmail = {
-      to: [process.env.SENDGRID_TO_EMAIL!, 'mahmoudelwakil22@gmail.com'],
+      to: [
+        process.env.SENDGRID_TO_EMAIL!, 
+        'mahmoudelwakil22@gmail.com',
+        assignedEmployee
+      ],
       from: process.env.SENDGRID_FROM_EMAIL!,
       subject: `🎉 New Private Chef Request: ${name}`,
       html: `
@@ -109,8 +127,14 @@ export async function POST(request: NextRequest) {
     </div>
     
     <div class="content">
-      <div style="margin-bottom: 20px;">
+      <div style="margin-bottom: 20px; display: flex; gap: 10px;">
         <span class="badge">New Booking</span>
+        <span class="badge" style="background-color: ${COLORS.orange};">Assigned to: ${assignedName}</span>
+      </div>
+      
+      <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid ${COLORS.orange}; margin-bottom: 30px;">
+        <h3 style="color: ${COLORS.dark}; margin-top: 0; font-size: 16px;">Lead Assignment</h3>
+        <p style="margin: 0; color: #555;">This lead has been automatically assigned to <strong>${assignedName} (${assignedEmployee})</strong> for follow-up.</p>
       </div>
       
       <h2 style="color: ${COLORS.dark}; margin-top: 0;">Client Information</h2>
