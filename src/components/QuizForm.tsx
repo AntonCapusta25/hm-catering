@@ -46,6 +46,7 @@ function QuizFormContent() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [submissionId, setSubmissionId] = useState<string | null>(null);
 
     const totalSteps = 8;
 
@@ -72,6 +73,11 @@ function QuizFormContent() {
                     name: formData.name,
                     method: 'quiz_step_1'
                 });
+            }
+
+            // Save partial lead after Step 1
+            if (step === 1) {
+                captureLead();
             }
 
             setStep(next);
@@ -140,6 +146,26 @@ function QuizFormContent() {
         }, 250);
     };
 
+    const captureLead = async () => {
+        try {
+            const res = await fetch('/api/booking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    isPartial: true,
+                    id: submissionId
+                }),
+            });
+            const data = await res.json();
+            if (data.id) setSubmissionId(data.id);
+        } catch (error) {
+            console.error('Failed to capture lead:', error);
+        }
+    };
+
     const handleSubmit = async (e?: React.FormEvent) => {
         if (e) e.preventDefault();
         setIsSubmitting(true);
@@ -158,6 +184,7 @@ function QuizFormContent() {
                     eventDate: formData.eventDates.join(', '),
                     guests: formData.guests,
                     message: `City: ${formData.city}\nService: ${formData.serviceType}\nOccasion: ${formData.occasion}\nService Level: ${formData.serviceLevel}\nExtras: ${formData.extras.join(', ')}`,
+                    id: submissionId
                 }),
             });
 

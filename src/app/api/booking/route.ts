@@ -26,7 +26,9 @@ export async function POST(request: NextRequest) {
       eventDate,
       guests,
       message,
-      phone
+      phone,
+      id,
+      isPartial
     } = body
 
     // Validate required fields
@@ -46,23 +48,35 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Store in Supabase - booking_submissions table
-    const { data, error: dbError } = await supabaseAdmin
-      .from('booking_submissions')
-      .insert([
-        {
-          name: name,
-          email: email,
-          selected_menu: selectedMenu || null,
-          selected_chef: selectedChef || null,
-          cuisine: cuisine || null,
-          event_date: eventDate || null,
-          guests: guests || null,
-          message: message || null,
-          phone: phone || null,
-        },
-      ])
-      .select()
+    const submissionData = {
+      name: name,
+      email: email,
+      selected_menu: selectedMenu || null,
+      selected_chef: selectedChef || null,
+      cuisine: cuisine || null,
+      event_date: eventDate || null,
+      guests: guests || null,
+      message: isPartial ? `[PARTIAL LEAD] ${message || ''}`.trim() : message || null,
+      phone: phone || null,
+    };
+
+    let result;
+    if (id) {
+      // Update existing submission
+      result = await supabaseAdmin
+        .from('booking_submissions')
+        .update(submissionData)
+        .eq('id', id)
+        .select()
+    } else {
+      // Create new submission
+      result = await supabaseAdmin
+        .from('booking_submissions')
+        .insert([submissionData])
+        .select()
+    }
+
+    const { data, error: dbError } = result;
 
     if (dbError) {
       console.error('Supabase error:', dbError)
@@ -128,7 +142,7 @@ export async function POST(request: NextRequest) {
     
     <div class="content">
       <div style="margin-bottom: 20px; display: flex; gap: 10px;">
-        <span class="badge">New Booking</span>
+        <span class="badge" style="background-color: ${isPartial ? '#999' : '#4CAF50'};">${isPartial ? 'Partial Lead' : 'New Booking'}</span>
         <span class="badge" style="background-color: ${COLORS.orange};">Assigned to: ${assignedName}</span>
       </div>
       
@@ -306,9 +320,13 @@ export async function POST(request: NextRequest) {
     };
 
     try {
-      // Send both emails
+      // Send admin notification
       await sgMail.send(adminEmail);
-      await sgMail.send(clientEmail);
+      
+      // Only send client confirmation for completed bookings
+      if (!isPartial) {
+        await sgMail.send(clientEmail);
+      }
     } catch (emailError: any) {
       console.error('SendGrid error:', emailError)
       // Don't fail the request if email fails, booking is already saved
@@ -322,7 +340,11 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { success: true, message: 'Private chef request received!' },
+      { 
+        success: true, 
+        message: isPartial ? 'Partial lead saved' : 'Private chef request received!',
+        id: data?.[0]?.id 
+      },
       { status: 200 }
     )
   } catch (error) {
