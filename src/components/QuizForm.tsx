@@ -279,7 +279,7 @@ function QuizFormContent() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="w-full max-w-2xl mx-auto text-center"
             >
-                <div className="bg-[#2D2420]/95 rounded-[32px] p-8 md:p-12 lg:p-20 border border-white/10 shadow-2xl backdrop-blur-xl flex flex-col items-center">
+                <div className="bg-gray-50 rounded-[32px] p-8 md:p-12 lg:p-20 border border-gray-100 shadow-sm flex flex-col items-center">
                     <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
@@ -289,8 +289,8 @@ function QuizFormContent() {
                         <CheckCircle2 size={56} />
                     </motion.div>
 
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-cream mb-6">{t.successTitle || "Request Received!"}</h2>
-                    <p className="text-gray-400 text-base md:text-lg mb-8 md:mb-10 max-w-md mx-auto leading-relaxed">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-6">{t.successTitle || "Request Received!"}</h2>
+                    <p className="text-gray-600 text-base md:text-lg mb-8 md:mb-10 max-w-md mx-auto leading-relaxed">
                         {t.successMessage || "Thank you for your request. Our coordination team will contact you shortly with a personalized quote!"}
                     </p>
 
@@ -312,7 +312,7 @@ function QuizFormContent() {
                     <span>{t.stepProgress?.replace('{current}', step.toString()).replace('{total}', totalSteps.toString()) || `Step ${step} of ${totalSteps}`}</span>
                     <span>{Math.round((step / totalSteps) * 100)}%</span>
                 </div>
-                <div className="w-full bg-white/5 rounded-full h-1.5 md:h-2 overflow-hidden">
+                <div className="w-full bg-gray-100 rounded-full h-1.5 md:h-2 overflow-hidden">
                     <motion.div
                         className="bg-[#F27D42] h-full"
                         initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}
@@ -334,13 +334,13 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.contactTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.contactSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.contactTitle}</h2>
+                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.contactSubtitle}</p>
 
-                             <form className="space-y-4 md:space-y-6 max-w-xl mx-auto bg-white/5 p-5 md:p-8 rounded-3xl border border-white/10 shadow-xl">
+                             <form className="space-y-4 md:space-y-6 max-w-xl mx-auto bg-gray-50 p-5 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
                                 <div className="grid grid-cols-1 gap-6 md:gap-10">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">Full Name</label>
+                                        <label className="text-sm font-medium text-gray-600 ml-1 uppercase tracking-wider">Full Name</label>
                                         <div className="relative">
                                             <User className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
                                             <input
@@ -349,12 +349,12 @@ function QuizFormContent() {
                                                 required
                                                 value={formData.name}
                                                 onChange={(e) => updateData({ name: e.target.value })}
-                                                className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42] focus:bg-black/60 transition-all shadow-inner"
+                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-[#2D2420] placeholder-gray-400 focus:outline-none focus:border-[#F27D42] focus:bg-white transition-all shadow-sm"
                                             />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">Email Address</label>
+                                        <label className="text-sm font-medium text-gray-600 ml-1 uppercase tracking-wider">Email Address</label>
                                         <div className="relative">
                                             <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
                                             <input
@@ -363,12 +363,12 @@ function QuizFormContent() {
                                                 required
                                                 value={formData.email}
                                                 onChange={(e) => updateData({ email: e.target.value })}
-                                                className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42] focus:bg-black/60 transition-all shadow-inner"
+                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-[#2D2420] placeholder-gray-400 focus:outline-none focus:border-[#F27D42] focus:bg-white transition-all shadow-sm"
                                             />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-400 ml-1 uppercase tracking-wider">Phone Number</label>
+                                        <label className="text-sm font-medium text-gray-600 ml-1 uppercase tracking-wider">Phone Number</label>
                                         <div className="relative">
                                             <Phone className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
                                             <input
@@ -377,7 +377,7 @@ function QuizFormContent() {
                                                 required
                                                 value={formData.phone}
                                                 onChange={(e) => updateData({ phone: e.target.value })}
-                                                className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-cream placeholder-gray-600 focus:outline-none focus:border-[#F27D42] focus:bg-black/60 transition-all shadow-inner"
+                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-[#2D2420] placeholder-gray-400 focus:outline-none focus:border-[#F27D42] focus:bg-white transition-all shadow-sm"
                                             />
                                         </div>
                                     </div>
@@ -395,8 +395,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.serviceTypeTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.serviceTypeSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.serviceTypeTitle}</h2>
+                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.serviceTypeSubtitle}</p>
 
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
                                 {Object.entries(opt.serviceTypes || {}).map(([key, label]: [string, any]) => {
@@ -422,10 +422,10 @@ function QuizFormContent() {
                                             }}
                                             className={`flex flex-col items-center justify-center gap-2 p-4 md:p-6 rounded-2xl border text-center transition-all ${formData.serviceType === label
                                                 ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
-                                                : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                                : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                                 }`}
                                         >
-                                            <div className={formData.serviceType === label ? "text-[#F27D42]" : "text-gray-400"}>
+                                            <div className={formData.serviceType === label ? "text-[#F27D42]" : "text-gray-600"}>
                                                 {getIcon()}
                                             </div>
                                             <span className="font-bold text-xs md:text-sm">{label}</span>
@@ -445,8 +445,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.cuisineTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.cuisineSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.cuisineTitle}</h2>
+                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.cuisineSubtitle}</p>
 
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                                 {Object.entries(opt.cuisines || {}).map(([key, label]: [string, any]) => {
@@ -481,7 +481,7 @@ function QuizFormContent() {
                                             }}
                                             className={`flex flex-col items-center justify-center gap-2 p-3 md:p-5 rounded-2xl border text-center transition-all ${formData.cuisine === label
                                                 ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
-                                                : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                                : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                                 }`}
                                         >
                                             <span className="text-2xl md:text-3xl mb-1">{getFlag()}</span>
@@ -502,8 +502,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.guestsTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.guestsSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.guestsTitle}</h2>
+                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.guestsSubtitle}</p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
                                 {Object.entries(opt.guests || {}).map(([key, label]: [string, any]) => (
@@ -516,10 +516,10 @@ function QuizFormContent() {
                                         }}
                                         className={`flex items-center gap-4 p-4 md:p-6 rounded-2xl border text-left transition-all ${formData.guests === label
                                             ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
-                                            : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                            : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                             }`}
                                     >
-                                        <Users size={24} className={formData.guests === label ? "text-[#F27D42]" : "text-gray-400"} />
+                                        <Users size={24} className={formData.guests === label ? "text-[#F27D42]" : "text-gray-600"} />
                                         <span className="font-bold text-sm md:text-lg">{label}</span>
                                     </button>
                                 ))}
@@ -536,8 +536,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.occasionTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.occasionSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.occasionTitle}</h2>
+                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.occasionSubtitle}</p>
 
                             <div className="grid grid-cols-2 gap-2 md:gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                                 {Object.entries(opt.occasions || {}).map(([key, label]: [string, any]) => (
@@ -550,11 +550,11 @@ function QuizFormContent() {
                                         }}
                                         className={`group relative flex items-center gap-3 p-3 md:p-4 rounded-xl border text-left transition-all ${formData.occasion === label
                                             ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
-                                            : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                            : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                             }`}
                                     >
                                         <span className="font-bold text-xs md:text-sm flex-1">{label}</span>
-                                        <Info size={14} className="text-gray-500 group-hover:text-cream transition-colors" />
+                                        <Info size={14} className="text-gray-500 group-hover:text-[#2D2420] transition-colors" />
                                     </button>
                                 ))}
                             </div>
@@ -570,8 +570,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.serviceLevelTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.serviceLevelSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.serviceLevelTitle}</h2>
+                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.serviceLevelSubtitle}</p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {Object.entries(opt.serviceLevels || {}).map(([key, label]: [string, any]) => (
@@ -584,7 +584,7 @@ function QuizFormContent() {
                                         }}
                                         className={`flex flex-col items-center justify-center gap-4 p-8 rounded-3xl border text-center transition-all ${formData.serviceLevel === label
                                             ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
-                                            : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                            : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                             }`}
                                     >
                                         {key === 'full' ? <User size={48} /> : <Utensils size={48} />}
@@ -604,8 +604,8 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-2">{t.extrasTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-2 md:mb-6">{t.extrasSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.extrasTitle}</h2>
+                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.extrasSubtitle}</p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                                 {Object.entries(opt.extras || {}).map(([key, label]: [string, any]) => (
@@ -614,7 +614,7 @@ function QuizFormContent() {
                                         onClick={() => toggleExtra(label)}
                                         className={`flex items-center gap-3 p-3 md:p-4 rounded-xl border text-left transition-all ${formData.extras.includes(label)
                                             ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
-                                            : "bg-white/5 border-white/10 text-cream hover:bg-white/10"
+                                            : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                             }`}
                                     >
                                         <div className={`w-5 h-5 rounded border flex items-center justify-center ${formData.extras.includes(label) ? "bg-[#F27D42] border-[#F27D42]" : "border-white/20"}`}>
@@ -636,22 +636,22 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-cream mb-1 md:mb-4">{t.datesTitle}</h2>
-                            <p className="text-gray-400 text-sm md:text-lg mb-4 md:mb-6">{t.datesSubtitle}</p>
+                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-4">{t.datesTitle}</h2>
+                            <p className="text-gray-600 text-sm md:text-lg mb-4 md:mb-6">{t.datesSubtitle}</p>
 
-                            <div className="bg-white/5 border border-white/10 rounded-3xl p-4 md:p-8 overflow-hidden">
+                            <div className="bg-gray-50 border border-gray-100 rounded-3xl p-4 md:p-8 overflow-hidden">
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                                     {/* Calendar Component */}
                                     <div className="lg:col-span-7">
                                         <div className="flex items-center justify-between mb-6">
-                                            <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+                                            <h4 className="text-sm font-bold text-gray-600 uppercase tracking-widest">
                                                 {currentMonth.toLocaleDateString(lang, { month: 'long', year: 'numeric' })}
                                             </h4>
                                             <div className="flex gap-2">
-                                                <button onClick={prevMonth} className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400">
+                                                <button onClick={prevMonth} className="p-2 hover:bg-gray-200/50 rounded-full transition-colors text-gray-600">
                                                     <ChevronLeft size={20} />
                                                 </button>
-                                                <button onClick={nextMonth} className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400">
+                                                <button onClick={nextMonth} className="p-2 hover:bg-gray-200/50 rounded-full transition-colors text-gray-600">
                                                     <ChevronRight size={20} />
                                                 </button>
                                             </div>
@@ -697,8 +697,8 @@ function QuizFormContent() {
                                                                 isSelected 
                                                                     ? "bg-[#F27D42] border-[#F27D42] text-white" 
                                                                     : isPast 
-                                                                        ? "bg-transparent border-transparent text-gray-800 cursor-not-allowed"
-                                                                        : "bg-white/5 border-transparent text-cream hover:border-white/20"
+                                                                        ? "bg-transparent border-transparent text-gray-400 cursor-not-allowed"
+                                                                        : "bg-gray-50 border-transparent text-[#2D2420] hover:border-gray-200"
                                                             } ${isToday && !isSelected ? "border-[#F27D42]/50 text-[#F27D42]" : ""}`}
                                                         >
                                                             {day}
@@ -712,7 +712,7 @@ function QuizFormContent() {
                                     {/* Selected Dates List */}
                                     <div className="lg:col-span-5 hidden lg:flex flex-col">
                                         <div className="flex items-center justify-between mb-6">
-                                            <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest">Selected Dates</h4>
+                                            <h4 className="text-sm font-bold text-gray-600 uppercase tracking-widest">Selected Dates</h4>
                                             <span className="bg-[#F27D42]/10 text-[#F27D42] px-3 py-1 rounded-full text-[10px] font-bold">
                                                 {formData.eventDates.length} Dates
                                             </span>
@@ -726,26 +726,26 @@ function QuizFormContent() {
                                                             initial={{ opacity: 0, y: 10 }}
                                                             animate={{ opacity: 1, y: 0 }}
                                                             exit={{ opacity: 0, scale: 0.95 }}
-                                                            className="flex items-center justify-between bg-white/5 border border-white/10 p-4 rounded-2xl group hover:border-[#F27D42]/30 transition-colors"
+                                                            className="flex items-center justify-between bg-white border border-gray-100 p-4 rounded-2xl group hover:border-[#F27D42]/30 transition-colors"
                                                         >
                                                             <div className="flex flex-col">
                                                                 <span className="text-xs text-gray-500 font-medium">
                                                                     {new Date(date).toLocaleDateString(undefined, { weekday: 'long' })}
                                                                 </span>
-                                                                <span className="text-cream font-bold">
+                                                                <span className="text-[#2D2420] font-bold">
                                                                     {new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                                                                 </span>
                                                             </div>
                                                             <button 
                                                                 onClick={() => updateData({ eventDates: formData.eventDates.filter(d => d !== date) })}
-                                                                className="text-gray-600 hover:text-red-400 transition-colors p-2 bg-white/5 rounded-full"
+                                                                className="text-gray-400 hover:text-red-400 transition-colors p-2 bg-gray-50 rounded-full"
                                                             >
                                                                 <ArrowLeft size={14} className="rotate-45" /> {/* Simple X cross */}
                                                             </button>
                                                         </motion.div>
                                                     ))
                                                 ) : (
-                                                    <div className="h-full min-h-[150px] flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-[24px] p-6 text-center">
+                                                    <div className="h-full min-h-[150px] flex flex-col items-center justify-center border-2 border-dashed border-gray-100 rounded-[24px] p-6 text-center">
                                                         <Calendar className="text-gray-700 mb-3" size={32} />
                                                         <p className="text-gray-500 text-sm">Please select event dates from the calendar</p>
                                                     </div>
@@ -781,10 +781,10 @@ function QuizFormContent() {
             </div>
 
             {/* Navigation Controls */}
-            <div className="mt-4 md:mt-16 flex items-center justify-between border-t border-white/10 pt-4 md:pt-8">
+            <div className="mt-4 md:mt-16 flex items-center justify-between border-t border-gray-100 pt-4 md:pt-8">
                 <button
                     onClick={prevStep}
-                    className={`flex items-center gap-2 font-bold transition-colors ${step === 1 ? 'text-gray-600 cursor-not-allowed' : 'text-gray-400 hover:text-white'}`}
+                    className={`flex items-center gap-2 font-bold transition-colors ${step === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-500 hover:text-[#2D2420]'}`}
                     disabled={step === 1 || isSubmitting}
                 >
                     <ArrowLeft size={20} />
@@ -825,7 +825,7 @@ function QuizFormContent() {
 
 export default function QuizForm() {
     return (
-        <Suspense fallback={<div className="text-white text-center">Loading...</div>}>
+        <Suspense fallback={<div className="text-gray-400 text-center">Loading...</div>}>
             <QuizFormContent />
         </Suspense>
     );

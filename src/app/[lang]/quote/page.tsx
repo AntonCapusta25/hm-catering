@@ -28,7 +28,7 @@ export default async function QuotePage({ params }: Props) {
     const { lang } = await params;
 
     return (
-        <main className="min-h-screen bg-dark flex flex-col font-sans text-cream">
+        <main className="min-h-screen bg-white flex flex-col font-sans text-[#2D2420]">
             <Navbar />
 
             <div className="flex-1 flex flex-col items-center justify-center pt-24 md:pt-32 pb-20 px-5">
@@ -36,7 +36,7 @@ export default async function QuotePage({ params }: Props) {
                     <div className="flex justify-center mb-8">
                         <a 
                             href={`/${lang}`}
-                            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-6 py-3 rounded-full border border-white/10"
+                            className="inline-flex items-center gap-2 text-gray-500 hover:text-[#2D2420] transition-colors bg-gray-50 hover:bg-gray-100 px-6 py-3 rounded-full border border-gray-200"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
                             {lang === 'nl' ? 'Terug naar website' : 'Back to website'}
@@ -46,14 +46,14 @@ export default async function QuotePage({ params }: Props) {
                         <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4">
                             {lang === 'nl' ? 'Plan Uw Evenement' : 'Plan Your Event'}
                         </h1>
-                        <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto">
+                        <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
                             {lang === 'nl'
                                 ? 'Beantwoord een paar snelle vragen en wij sturen u een gepersonaliseerde offerte met de perfecte chef voor uw gelegenheid.'
                                 : 'Answer a few quick questions and we\'ll send you a customized quote with the perfect chef for your occasion.'}
                         </p>
                     </div>
 
-                    <div className="bg-white/5 border border-white/10 rounded-[32px] p-6 sm:p-8 md:p-12 shadow-2xl backdrop-blur-md">
+                    <div className="bg-white border border-gray-100 rounded-[32px] p-6 sm:p-8 md:p-12 shadow-2xl">
                         <QuizForm />
                     </div>
                 </div>
