@@ -320,13 +320,9 @@ export async function POST(request: NextRequest) {
     };
 
     try {
-      // Send admin notification
+      // Send both admin and client notifications immediately
       await sgMail.send(adminEmail);
-      
-      // Only send client confirmation for completed bookings
-      if (!isPartial) {
-        await sgMail.send(clientEmail);
-      }
+      await sgMail.send(clientEmail);
     } catch (emailError: any) {
       console.error('SendGrid error:', emailError)
       // Don't fail the request if email fails, booking is already saved
