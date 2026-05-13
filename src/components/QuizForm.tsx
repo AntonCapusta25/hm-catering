@@ -7,7 +7,8 @@ import confetti from "canvas-confetti";
 import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { Globe, MessageCircle } from "lucide-react";
 
 type FormData = {
     serviceType: string;
@@ -29,7 +30,16 @@ function QuizFormContent() {
     const { dictionary } = useI18n();
     const t = (dictionary as any)?.quizForm || {};
     const pathname = usePathname();
+    const router = useRouter();
     const lang = pathname?.split('/')[1] || 'en';
+
+    const handleLanguageChange = (newLang: string) => {
+        const parts = pathname.split("/");
+        if (parts.length > 1) {
+            parts[1] = newLang;
+            router.push(parts.join("/"));
+        }
+    };
 
     const [step, setStep] = useState(1);
     const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -282,7 +292,11 @@ function QuizFormContent() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="w-full max-w-2xl mx-auto text-center"
             >
-                <div className="bg-gray-50 rounded-[32px] p-8 md:p-12 lg:p-20 border border-gray-100 shadow-sm flex flex-col items-center">
+                <div className="bg-white border border-gray-100 rounded-[32px] p-8 md:p-12 lg:p-20 shadow-2xl flex flex-col items-center">
+                    <div className="mb-12">
+                        <img src="/images/logo-homemade.png" alt="Homemade" width="80" height="80" className="h-20 w-20 object-contain" />
+                    </div>
+
                     <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
@@ -318,82 +332,145 @@ function QuizFormContent() {
     const opt = t.options || {};
 
     return (
-        <div className="w-full max-w-3xl mx-auto">
-            {/* Progress Header */}
-            <div className="flex items-center justify-between mb-2 md:mb-4 px-2">
-                <div className="flex items-center gap-3">
-                    <span className="bg-[#F27D42]/10 text-[#F27D42] text-[10px] md:text-xs font-bold px-2 py-1 rounded-md">
-                        {step}/{totalSteps}
-                    </span>
-                    <span className="text-sm md:text-base font-bold text-[#2D2420] tracking-tight">
-                        {getStepName(step).charAt(0).toUpperCase() + getStepName(step).slice(1).replace('_', ' ')}
-                    </span>
+        <div className="w-full max-w-4xl mx-auto px-4 py-8">
+            {/* Custom Header */}
+            <div className="flex items-center justify-between mb-8 md:mb-12">
+                <div className="flex items-center gap-4 md:gap-6">
+                    <Link href={`/${lang}`} className="flex items-center gap-3">
+                        <img src="/images/logo-homemade.png" alt="Homemade" width="40" height="40" className="h-10 w-10 object-contain" />
+                    </Link>
+                    
+                    <label className="inline-flex items-center gap-2 text-sm text-gray-500 cursor-pointer">
+                        <Globe className="w-4 h-4" />
+                        <select 
+                            className="bg-transparent font-medium text-[#2D2420] outline-none cursor-pointer"
+                            value={lang}
+                            onChange={(e) => handleLanguageChange(e.target.value)}
+                        >
+                            <option value="en">🇬🇧 EN</option>
+                            <option value="nl">🇳🇱 NL</option>
+                            <option value="ar">🇸🇦 AR</option>
+                        </select>
+                    </label>
                 </div>
-                <span className="text-xs md:text-sm font-medium text-gray-400">
-                    {Math.round((step / totalSteps) * 100)}%
-                </span>
+            </div>
+
+            <div className="fixed top-4 right-4 md:top-6 md:right-6 z-50 flex gap-2">
+                <a 
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white p-3 md:px-5 md:py-3 rounded-full shadow-xl transition-all hover:scale-105 text-sm font-bold"
+                >
+                    <MessageCircle className="w-5 h-5 md:w-4 md:h-4" />
+                    <span className="hidden md:inline">WhatsApp</span>
+                </a>
+                <a 
+                    href="tel:+310640090902"
+                    className="flex items-center gap-2 bg-[#F27D42] hover:bg-[#d66a35] text-white p-3 md:px-5 md:py-3 rounded-full shadow-xl transition-all hover:scale-105 text-sm font-bold"
+                >
+                    <Phone className="w-5 h-5 md:w-4 md:h-4" />
+                    <span className="hidden md:inline">{lang === 'nl' ? 'Bel ons' : 'Call us'}</span>
+                </a>
             </div>
 
             {/* Segmented Progress Bar */}
-            <div className="flex gap-2 mb-8 md:mb-16 px-1">
-                {Array.from({ length: totalSteps }).map((_, i) => (
-                    <div 
-                        key={i} 
-                        className={`h-1.5 md:h-2 flex-1 rounded-full transition-all duration-500 ${
-                            i < step ? 'bg-[#F27D42]' : 'bg-gray-100'
-                        }`}
-                    />
-                ))}
+            <div className="mb-12 animate-fade-in">
+                <div className="w-full space-y-4">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <span className="text-xs font-bold text-[#F27D42] bg-[#F27D42]/10 px-3 py-1 rounded-full">
+                                {step}/5
+                            </span>
+                            <span className="font-bold text-[#2D2420]">
+                                {getStepName(step).charAt(0).toUpperCase() + getStepName(step).slice(1).replace('_', ' ')}
+                            </span>
+                        </div>
+                        <span className="text-sm font-medium text-gray-400">
+                            {Math.round((step / totalSteps) * 100)}%
+                        </span>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                            <div 
+                                key={i} 
+                                className={`flex-1 h-2 rounded-full transition-all duration-500 ${
+                                    i < Math.ceil((step / totalSteps) * 5) ? 'bg-[#F27D42]' : 'bg-gray-100'
+                                }`}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
 
             {/* Form Container */}
-            <div className="relative min-h-[280px] md:min-h-[550px]" onKeyDown={handleKeyDown}>
+            <div className="relative min-h-[400px] md:min-h-[500px]" onKeyDown={handleKeyDown}>
                 <AnimatePresence mode="wait">
                     {/* STEP 1: City */}
                     {step === 1 && (
                         <motion.div
                             key="step1"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            className="w-full"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            className="w-full flex flex-col h-full"
                         >
-                            <div className="text-center mb-8 md:mb-12">
-                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{(t as any).cityTitle || "Where is the event?"}</h2>
-                                <p className="text-gray-500 text-base md:text-xl">{(t as any).citySubtitle || "Tell us in which city the event will take place."}</p>
+                            <div className="text-center mb-10">
+                                <h1 className="text-3xl md:text-5xl font-heading font-bold text-[#2D2420] mb-4">
+                                    {lang === 'nl' ? 'Waar bevindt u zich?' : 'Where are you based?'}
+                                </h1>
+                                <p className="text-gray-500 text-lg md:text-xl max-w-md mx-auto">
+                                    {lang === 'nl' ? 'Selecteer uw stad om aan de slag te gaan' : 'Select your city to get started'}
+                                </p>
                             </div>
 
-                            <form className="max-w-4xl mx-auto space-y-8">
-                                <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-                                    {Object.entries(opt.cities || {}).map(([key, label]: [string, any]) => (
+                            <div className="flex-1">
+                                <div className="max-w-2xl mx-auto">
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                                        {Object.entries(opt.cities || {}).map(([key, label]: [string, any]) => (
+                                            key !== 'other' && (
+                                                <button
+                                                    key={key}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        updateData({ city: label });
+                                                        trackEvent('quiz_option_select', { step: 1, field: 'city', value: label });
+                                                        setTimeout(nextStep, 300);
+                                                    }}
+                                                    className={`h-16 px-6 rounded-2xl border-2 transition-all duration-200 flex items-center justify-center gap-3 font-bold text-sm md:text-base shadow-sm ${
+                                                        formData.city === label
+                                                        ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg"
+                                                        : "bg-white border-gray-100 text-[#2D2420] hover:border-[#F27D42] hover:bg-[#F27D42]/5"
+                                                    }`}
+                                                >
+                                                    <MapPin className="w-4 h-4" />
+                                                    {label}
+                                                </button>
+                                            )
+                                        ))}
                                         <button
-                                            key={key}
                                             type="button"
                                             onClick={() => {
-                                                updateData({ city: label });
-                                                trackEvent('quiz_option_select', { step: 1, field: 'city', value: label });
-                                                if (key !== 'other') {
-                                                    setTimeout(nextStep, 300);
-                                                }
+                                                updateData({ city: (opt.cities as any)?.other || 'Other' });
+                                                trackEvent('quiz_option_select', { step: 1, field: 'city', value: 'Other' });
                                             }}
-                                            className={`flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.city === label || (key === 'other' && formData.city && !Object.values(opt.cities || {}).includes(formData.city))
-                                                ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
-                                                : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
-                                                }`}
+                                            className={`h-16 px-6 rounded-2xl border-2 transition-all duration-200 flex items-center justify-center font-bold text-sm md:text-base col-span-2 md:col-span-3 ${
+                                                formData.city === (opt.cities as any)?.other || (formData.city && !Object.values(opt.cities || {}).includes(formData.city))
+                                                ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg"
+                                                : "bg-white border-gray-100 text-[#2D2420] hover:border-[#F27D42] hover:bg-[#F27D42]/5"
+                                            }`}
                                         >
-                                            <MapPin size={20} className={(formData.city === label || (key === 'other' && formData.city && !Object.values(opt.cities || {}).includes(formData.city))) ? "text-white" : "text-[#F27D42]"} />
-                                            <span>{label}</span>
+                                            {lang === 'nl' ? 'Andere stad' : 'Other city'}
                                         </button>
-                                    ))}
-                                </div>
+                                    </div>
 
-                                {(formData.city === (opt.cities as any)?.other || (formData.city && !Object.values(opt.cities || {}).includes(formData.city))) && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: -10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        className="max-w-md mx-auto"
-                                    >
-                                        <div className="relative">
+                                    {(formData.city === (opt.cities as any)?.other || (formData.city && !Object.values(opt.cities || {}).includes(formData.city))) && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="max-w-md mx-auto"
+                                        >
                                             <input
                                                 type="text"
                                                 placeholder={lang === 'nl' ? "Voer uw stad in..." : "Enter your city..."}
@@ -401,16 +478,12 @@ function QuizFormContent() {
                                                 autoFocus
                                                 value={Object.values(opt.cities || {}).includes(formData.city) ? "" : formData.city}
                                                 onChange={(e) => updateData({ city: e.target.value })}
-                                                className="w-full bg-white border-2 border-[#F27D42]/20 rounded-2xl px-6 py-4 text-base text-[#2D2420] placeholder-gray-400 focus:outline-none focus:border-[#F27D42] transition-all shadow-sm"
+                                                className="w-full bg-white border-2 border-[#F27D42] rounded-2xl px-6 py-4 text-base text-[#2D2420] focus:outline-none shadow-sm"
                                             />
-                                        </div>
-                                    </motion.div>
-                                )}
-                                
-                                <p className="text-center text-sm text-gray-400 mt-4 italic">
-                                    {lang === 'nl' ? "Wij verzorgen catering door heel Nederland!" : "We provide catering across the entire Netherlands!"}
-                                </p>
-                            </form>
+                                        </motion.div>
+                                    )}
+                                </div>
+                            </div>
                         </motion.div>
                     )}
 
@@ -428,10 +501,10 @@ function QuizFormContent() {
                                 <p className="text-gray-500 text-base md:text-xl">{t.contactSubtitle}</p>
                             </div>
 
-                             <form className="space-y-4 md:space-y-6 max-w-xl mx-auto bg-gray-50 p-5 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
-                                <div className="grid grid-cols-1 gap-6 md:gap-10">
+                            <div className="bg-white border border-gray-100 p-6 md:p-10 rounded-3xl shadow-sm max-w-xl mx-auto">
+                                <div className="grid grid-cols-1 gap-6">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-600 ml-1 uppercase tracking-wider">Full Name</label>
+                                        <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Full Name</label>
                                         <div className="relative">
                                             <User className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
                                             <input
@@ -440,12 +513,12 @@ function QuizFormContent() {
                                                 required
                                                 value={formData.name}
                                                 onChange={(e) => updateData({ name: e.target.value })}
-                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-[#2D2420] placeholder-gray-400 focus:outline-none focus:border-[#F27D42] focus:bg-white transition-all shadow-sm"
+                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-[#2D2420] focus:outline-none focus:border-[#F27D42] focus:bg-white transition-all shadow-sm"
                                             />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-600 ml-1 uppercase tracking-wider">Email Address</label>
+                                        <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
                                         <div className="relative">
                                             <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
                                             <input
@@ -454,12 +527,12 @@ function QuizFormContent() {
                                                 required
                                                 value={formData.email}
                                                 onChange={(e) => updateData({ email: e.target.value })}
-                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-[#2D2420] placeholder-gray-400 focus:outline-none focus:border-[#F27D42] focus:bg-white transition-all shadow-sm"
+                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-[#2D2420] focus:outline-none focus:border-[#F27D42] focus:bg-white transition-all shadow-sm"
                                             />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-gray-600 ml-1 uppercase tracking-wider">Phone Number</label>
+                                        <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>
                                         <div className="relative">
                                             <Phone className="absolute left-6 top-1/2 -translate-y-1/2 text-[#F27D42]" size={20} />
                                             <input
@@ -468,30 +541,30 @@ function QuizFormContent() {
                                                 required
                                                 value={formData.phone}
                                                 onChange={(e) => updateData({ phone: e.target.value })}
-                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-[#2D2420] placeholder-gray-400 focus:outline-none focus:border-[#F27D42] focus:bg-white transition-all shadow-sm"
+                                                className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-4 py-4 pl-12 md:pl-16 text-base text-[#2D2420] focus:outline-none focus:border-[#F27D42] focus:bg-white transition-all shadow-sm"
                                             />
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 2: Service Type */}
+                    {/* STEP 3: Service Type */}
                     {step === 3 && (
                         <motion.div
-                            key="step2"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
+                            key="step3"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
                             className="w-full"
                         >
-                            <div className="text-center mb-8 md:mb-12">
-                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.serviceTypeTitle}</h2>
-                                <p className="text-gray-500 text-base md:text-xl">{t.serviceTypeSubtitle}</p>
+                            <div className="text-center mb-10">
+                                <h1 className="text-3xl md:text-5xl font-heading font-bold text-[#2D2420] mb-4">{t.serviceTypeTitle}</h1>
+                                <p className="text-gray-500 text-lg md:text-xl max-w-md mx-auto">{t.serviceTypeSubtitle}</p>
                             </div>
 
-                            <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-4xl mx-auto">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
                                 {Object.entries(opt.serviceTypes || {}).map(([key, label]: [string, any]) => {
                                     const getIcon = () => {
                                         switch(key) {
@@ -508,15 +581,17 @@ function QuizFormContent() {
                                     return (
                                         <button
                                             key={key}
+                                            type="button"
                                             onClick={() => { 
                                                 updateData({ serviceType: label }); 
-                                                trackEvent('quiz_option_select', { step: 2, field: 'service_type', value: label });
+                                                trackEvent('quiz_option_select', { step: 3, field: 'service_type', value: label });
                                                 setTimeout(nextStep, 300); 
                                             }}
-                                            className={`flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.serviceType === label
-                                                ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
-                                                : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
-                                                }`}
+                                            className={`h-20 md:h-24 px-6 rounded-2xl border-2 transition-all duration-200 flex flex-col items-center justify-center gap-2 font-bold text-xs md:text-sm shadow-sm ${
+                                                formData.serviceType === label
+                                                ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg"
+                                                : "bg-white border-gray-100 text-[#2D2420] hover:border-[#F27D42] hover:bg-[#F27D42]/5"
+                                            }`}
                                         >
                                             <span className={formData.serviceType === label ? "text-white" : "text-[#F27D42]"}>
                                                 {getIcon()}
@@ -529,21 +604,21 @@ function QuizFormContent() {
                         </motion.div>
                     )}
 
-                    {/* STEP 3: Cuisine */}
+                    {/* STEP 4: Cuisine */}
                     {step === 4 && (
                         <motion.div
-                            key="step3"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
+                            key="step4"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
                             className="w-full"
                         >
-                            <div className="text-center mb-8 md:mb-12">
-                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.cuisineTitle}</h2>
-                                <p className="text-gray-500 text-base md:text-xl">{t.cuisineSubtitle}</p>
+                            <div className="text-center mb-10">
+                                <h1 className="text-3xl md:text-5xl font-heading font-bold text-[#2D2420] mb-4">{t.cuisineTitle}</h1>
+                                <p className="text-gray-500 text-lg md:text-xl max-w-md mx-auto">{t.cuisineSubtitle}</p>
                             </div>
 
-                            <div className="flex flex-wrap justify-center gap-2 md:gap-3 max-w-5xl mx-auto">
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                                 {Object.entries(opt.cuisines || {}).map(([key, label]: [string, any]) => {
                                     const getFlag = () => {
                                         switch(key) {
@@ -569,18 +644,20 @@ function QuizFormContent() {
                                     return (
                                         <button
                                             key={key}
+                                            type="button"
                                             onClick={() => { 
                                                 updateData({ cuisine: label }); 
-                                                trackEvent('quiz_option_select', { step: 3, field: 'cuisine', value: label });
+                                                trackEvent('quiz_option_select', { step: 4, field: 'cuisine', value: label });
                                                 setTimeout(nextStep, 300); 
                                             }}
-                                            className={`flex items-center gap-2 px-5 py-2.5 md:px-7 md:py-3.5 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.cuisine === label
-                                                ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
-                                                : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
-                                                }`}
+                                            className={`h-16 px-4 rounded-2xl border-2 transition-all duration-200 flex items-center justify-center gap-3 font-bold text-xs md:text-sm shadow-sm ${
+                                                formData.cuisine === label
+                                                ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg"
+                                                : "bg-white border-gray-100 text-[#2D2420] hover:border-[#F27D42] hover:bg-[#F27D42]/5"
+                                            }`}
                                         >
                                             <span className="text-xl">{getFlag()}</span>
-                                            <span>{label}</span>
+                                            {label}
                                         </button>
                                     );
                                 })}
@@ -588,161 +665,172 @@ function QuizFormContent() {
                         </motion.div>
                     )}
 
-                    {/* STEP 4: Guests */}
+                    {/* STEP 5: Guests */}
                     {step === 5 && (
                         <motion.div
-                            key="step4"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
+                            key="step5"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
                             className="w-full"
                         >
-                            <div className="text-center mb-8 md:mb-12">
-                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.guestsTitle}</h2>
-                                <p className="text-gray-500 text-base md:text-xl">{t.guestsSubtitle}</p>
+                            <div className="text-center mb-10">
+                                <h1 className="text-3xl md:text-5xl font-heading font-bold text-[#2D2420] mb-4">{t.guestsTitle}</h1>
+                                <p className="text-gray-500 text-lg md:text-xl max-w-md mx-auto">{t.guestsSubtitle}</p>
                             </div>
 
-                            <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-4xl mx-auto">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
                                 {Object.entries(opt.guests || {}).map(([key, label]: [string, any]) => (
                                     <button
                                         key={key}
+                                        type="button"
                                         onClick={() => { 
                                             updateData({ guests: label }); 
-                                            trackEvent('quiz_option_select', { step: 4, field: 'guests', value: label });
+                                            trackEvent('quiz_option_select', { step: 5, field: 'guests', value: label });
                                             setTimeout(nextStep, 300); 
                                         }}
-                                        className={`flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.guests === label
-                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
-                                            : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
-                                            }`}
+                                        className={`h-16 px-8 rounded-2xl border-2 transition-all duration-200 flex items-center justify-between font-bold text-sm md:text-base shadow-sm ${
+                                            formData.guests === label
+                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg"
+                                            : "bg-white border-gray-100 text-[#2D2420] hover:border-[#F27D42] hover:bg-[#F27D42]/5"
+                                        }`}
                                     >
-                                        <Users size={20} className={formData.guests === label ? "text-white" : "text-[#F27D42]"} />
                                         <span>{label}</span>
+                                        <Users className={formData.guests === label ? "text-white" : "text-[#F27D42]"} size={20} />
                                     </button>
                                 ))}
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 5: Occasion */}
+                    {/* STEP 6: Occasion */}
                     {step === 6 && (
                         <motion.div
-                            key="step5"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
+                            key="step6"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
                             className="w-full"
                         >
-                            <div className="text-center mb-8 md:mb-12">
-                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.occasionTitle}</h2>
-                                <p className="text-gray-500 text-base md:text-xl">{t.occasionSubtitle}</p>
+                            <div className="text-center mb-10">
+                                <h1 className="text-3xl md:text-5xl font-heading font-bold text-[#2D2420] mb-4">{t.occasionTitle}</h1>
+                                <p className="text-gray-500 text-lg md:text-xl max-w-md mx-auto">{t.occasionSubtitle}</p>
                             </div>
 
-                            <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
                                 {Object.entries(opt.occasions || {}).map(([key, label]: [string, any]) => (
                                     <button
                                         key={key}
+                                        type="button"
                                         onClick={() => { 
                                             updateData({ occasion: label }); 
-                                            trackEvent('quiz_option_select', { step: 5, field: 'occasion', value: label });
+                                            trackEvent('quiz_option_select', { step: 6, field: 'occasion', value: label });
                                             setTimeout(nextStep, 300); 
                                         }}
-                                        className={`flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.occasion === label
-                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
-                                            : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
-                                            }`}
+                                        className={`h-16 px-6 rounded-2xl border-2 transition-all duration-200 flex items-center justify-center text-center font-bold text-xs md:text-sm shadow-sm ${
+                                            formData.occasion === label
+                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg"
+                                            : "bg-white border-gray-100 text-[#2D2420] hover:border-[#F27D42] hover:bg-[#F27D42]/5"
+                                        }`}
                                     >
-                                        <span>{label}</span>
+                                        {label}
                                     </button>
                                 ))}
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 6: Service Level */}
+                    {/* STEP 7: Service Level */}
                     {step === 7 && (
                         <motion.div
-                            key="step6"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
+                            key="step7"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
                             className="w-full"
                         >
-                            <div className="text-center mb-8 md:mb-12">
-                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.serviceLevelTitle}</h2>
-                                <p className="text-gray-500 text-base md:text-xl">{t.serviceLevelSubtitle}</p>
+                            <div className="text-center mb-10">
+                                <h1 className="text-3xl md:text-5xl font-heading font-bold text-[#2D2420] mb-4">{t.serviceLevelTitle}</h1>
+                                <p className="text-gray-500 text-lg md:text-xl max-w-md mx-auto">{t.serviceLevelSubtitle}</p>
                             </div>
 
-                            <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-4xl mx-auto">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
                                 {Object.entries(opt.serviceLevels || {}).map(([key, label]: [string, any]) => (
                                     <button
                                         key={key}
+                                        type="button"
                                         onClick={() => { 
                                             updateData({ serviceLevel: label }); 
-                                            trackEvent('quiz_option_select', { step: 6, field: 'service_level', value: label });
-                                            setTimeout(nextStep, 300); 
+                                            trackEvent('quiz_option_select', { step: 7, field: 'service_level', value: label });
+                                            setTimeout(nextStep, 300);
                                         }}
-                                        className={`flex flex-col items-center gap-4 px-10 py-8 md:px-16 md:py-12 rounded-[40px] border transition-all duration-300 font-bold ${formData.serviceLevel === label
-                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
-                                            : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
-                                            }`}
+                                        className={`h-24 px-8 rounded-2xl border-2 transition-all duration-200 flex items-center justify-between font-bold text-sm md:text-base shadow-sm ${
+                                            formData.serviceLevel === label
+                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg"
+                                            : "bg-white border-gray-100 text-[#2D2420] hover:border-[#F27D42] hover:bg-[#F27D42]/5"
+                                        }`}
                                     >
+                                        <span>{label}</span>
                                         <div className={formData.serviceLevel === label ? "text-white" : "text-[#F27D42]"}>
-                                            {key === 'full' ? <User size={48} /> : <Utensils size={48} />}
+                                            {key === 'full' ? <User size={32} /> : <Utensils size={32} />}
                                         </div>
-                                        <span className="text-lg md:text-2xl">{label}</span>
                                     </button>
                                 ))}
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 7: Extras */}
+                    {/* STEP 8: Extras */}
                     {step === 8 && (
                         <motion.div
-                            key="step7"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
+                            key="step8"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
                             className="w-full"
                         >
-                            <div className="text-center mb-8 md:mb-12">
-                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.extrasTitle}</h2>
-                                <p className="text-gray-500 text-base md:text-xl">{t.extrasSubtitle}</p>
+                            <div className="text-center mb-10">
+                                <h1 className="text-3xl md:text-5xl font-heading font-bold text-[#2D2420] mb-4">{t.extrasTitle}</h1>
+                                <p className="text-gray-500 text-lg md:text-xl max-w-md mx-auto">{t.extrasSubtitle}</p>
                             </div>
 
-                            <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
                                 {Object.entries(opt.extras || {}).map(([key, label]: [string, any]) => (
                                     <button
                                         key={key}
-                                        onClick={() => toggleExtra(label)}
-                                        className={`flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.extras.includes(label)
-                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
-                                            : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
-                                            }`}
+                                        type="button"
+                                        onClick={() => {
+                                            toggleExtra(label);
+                                            trackEvent('quiz_option_toggle', { step: 8, field: 'extras', value: label });
+                                        }}
+                                        className={`h-16 px-4 rounded-2xl border-2 transition-all duration-200 flex items-center gap-3 font-bold text-xs md:text-sm shadow-sm ${
+                                            formData.extras.includes(label)
+                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg"
+                                            : "bg-white border-gray-100 text-[#2D2420] hover:border-[#F27D42] hover:bg-[#F27D42]/5"
+                                        }`}
                                     >
                                         <div className={`w-5 h-5 rounded border flex items-center justify-center ${formData.extras.includes(label) ? "bg-white border-white" : "border-gray-300"}`}>
                                             {formData.extras.includes(label) && <Check size={14} className="text-[#F27D42]" />}
                                         </div>
-                                        <span>{label}</span>
+                                        <span className="text-left">{label}</span>
                                     </button>
                                 ))}
                             </div>
                         </motion.div>
                     )}
 
-                    {/* STEP 8: Dates */}
+                    {/* STEP 9: Dates */}
                     {step === 9 && (
                         <motion.div
-                            key="step8"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
+                            key="step9"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
                             className="w-full"
                         >
-                            <div className="text-center mb-8 md:mb-12">
-                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.datesTitle}</h2>
-                                <p className="text-gray-500 text-base md:text-xl">{t.datesSubtitle}</p>
+                            <div className="text-center mb-10">
+                                <h1 className="text-3xl md:text-5xl font-heading font-bold text-[#2D2420] mb-4">{t.datesTitle}</h1>
+                                <p className="text-gray-500 text-lg md:text-xl max-w-md mx-auto">{t.datesSubtitle}</p>
                             </div>
 
                             <div className="bg-gray-50 border border-gray-100 rounded-3xl p-4 md:p-8 overflow-hidden">
@@ -868,56 +956,42 @@ function QuizFormContent() {
 
             </div>
 
-            {/* WhatsApp Support Link */}
-            <div className="mt-8 flex justify-center">
-                <a 
-                    href={WHATSAPP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-gray-50 hover:bg-gray-100 text-gray-500 hover:text-[#25D366] rounded-full border border-gray-200 transition-all text-xs font-bold"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" /></svg>
-                    <span>{lang === 'nl' ? 'Direct contact via WhatsApp' : 'Direct contact via WhatsApp'}</span>
-                </a>
-            </div>
+
 
             {/* Navigation Controls */}
-            <div className="mt-12 md:mt-24 flex items-center justify-between border-t border-gray-100 pt-8 md:pt-12">
+            <div className="mt-auto flex justify-between items-center pt-8 border-t border-gray-100">
                 <button
                     onClick={prevStep}
-                    className={`flex items-center gap-2 font-bold transition-all ${step === 1 ? 'opacity-0 pointer-events-none' : 'text-gray-500 hover:text-[#2D2420] hover:-translate-x-1'}`}
+                    className={`inline-flex items-center justify-center gap-2 rounded-xl text-sm font-bold transition-all duration-200 hover:bg-gray-100 h-12 px-6 ${step === 1 ? 'opacity-0 pointer-events-none' : 'text-gray-500'}`}
                     disabled={step === 1 || isSubmitting}
                 >
-                    <ArrowLeft size={20} />
+                    <ArrowLeft className="w-4 h-4" />
                     {t.backButton}
                 </button>
 
-                {step < totalSteps ? (
+                {step < totalSteps && (step === 2 || step === 8) && (
                     <button
                         onClick={nextStep}
                         disabled={
-                            (step === 1 && !formData.city) ||
                             (step === 2 && (!formData.name || !formData.email || !formData.phone)) ||
-                            (step === 3 && !formData.serviceType) ||
-                            (step === 4 && !formData.cuisine) ||
-                            (step === 5 && !formData.guests) ||
-                            (step === 6 && !formData.occasion) ||
                             (step === 7 && !formData.serviceLevel) ||
                             (step === 8 && formData.extras.length === 0)
                         }
-                        className={`flex items-center gap-3 bg-[#F27D42] text-white px-10 py-4 md:px-14 md:py-5 rounded-[20px] font-bold hover:bg-[#d66a35] transition-all shadow-xl shadow-[#F27D42]/20 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed`}
+                        className={`flex items-center gap-3 bg-[#F27D42] text-white px-10 py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-all shadow-lg hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                         {t.nextButton}
-                        <ArrowRight size={22} />
+                        <ArrowRight className="w-5 h-5" />
                     </button>
-                ) : (
+                )}
+                
+                {step === totalSteps && (
                     <button
                         onClick={() => handleSubmit()}
                         disabled={formData.eventDates.length === 0 || isSubmitting}
-                        className="flex items-center gap-3 bg-[#F27D42] text-white px-10 py-4 md:px-14 md:py-5 rounded-[20px] font-bold hover:bg-[#d66a35] transition-all shadow-xl shadow-[#F27D42]/20 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed text-lg"
+                        className="flex items-center gap-3 bg-[#F27D42] text-white px-10 py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-all shadow-lg hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {isSubmitting ? t.submitting : t.submitButton}
-                        {!isSubmitting && <CheckCircle2 size={22} />}
+                        {!isSubmitting && <CheckCircle2 className="w-5 h-5" />}
                     </button>
                 )}
             </div>
