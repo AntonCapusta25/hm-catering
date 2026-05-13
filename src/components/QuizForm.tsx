@@ -272,13 +272,16 @@ function QuizFormContent() {
             e.preventDefault();
             if (step < totalSteps && step !== 8) {
                 const canGoNext = 
-                    (step === 1 && formData.name && formData.email && formData.phone) ||
-                    (step === 2 && formData.serviceType) ||
-                    (step === 3 && formData.cuisine) ||
-                    (step === 4 && formData.guests) ||
-                    (step === 5 && formData.occasion) ||
-                    (step === 6 && formData.serviceLevel);
+                    (step === 1 && formData.city) ||
+                    (step === 2 && formData.name && formData.email && formData.phone) ||
+                    (step === 3 && formData.serviceType) ||
+                    (step === 4 && formData.cuisine) ||
+                    (step === 5 && formData.guests) ||
+                    (step === 6 && formData.occasion) ||
+                    (step === 7 && formData.serviceLevel);
                 if (canGoNext) nextStep();
+            } else if (step === 8) {
+                if (formData.extras.length > 0) nextStep();
             } else if (step === totalSteps && formData.eventDates.length > 0) {
                 handleSubmit();
             }
@@ -974,7 +977,6 @@ function QuizFormContent() {
                         onClick={nextStep}
                         disabled={
                             (step === 2 && (!formData.name || !formData.email || !formData.phone)) ||
-                            (step === 7 && !formData.serviceLevel) ||
                             (step === 8 && formData.extras.length === 0)
                         }
                         className={`flex items-center gap-3 bg-[#F27D42] text-white px-10 py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-all shadow-lg hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed`}
