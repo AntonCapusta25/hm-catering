@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, CheckCircle2, Utensils, Users, Calendar, Mail, User, Phone, Info, MapPin, CookingPot, Flame, Coffee, Sandwich, PartyPopper, HelpCircle, ChevronRight, ChevronLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Utensils, Users, Calendar, Mail, User, Phone, Info, MapPin, CookingPot, Flame, Coffee, Sandwich, PartyPopper, HelpCircle, ChevronRight, ChevronLeft, Check } from "lucide-react";
 import confetti from "canvas-confetti";
 import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/contexts/I18nContext";
@@ -306,20 +306,31 @@ function QuizFormContent() {
 
     return (
         <div className="w-full max-w-3xl mx-auto">
-            {/* Progress Bar */}
-            <div className="mb-4 md:mb-12">
-                <div className="flex justify-between text-[10px] md:text-sm font-medium text-gray-500 mb-1 md:mb-4 tracking-widest uppercase">
-                    <span>{t.stepProgress?.replace('{current}', step.toString()).replace('{total}', totalSteps.toString()) || `Step ${step} of ${totalSteps}`}</span>
-                    <span>{Math.round((step / totalSteps) * 100)}%</span>
+            {/* Progress Header */}
+            <div className="flex items-center justify-between mb-2 md:mb-4 px-2">
+                <div className="flex items-center gap-3">
+                    <span className="bg-[#F27D42]/10 text-[#F27D42] text-[10px] md:text-xs font-bold px-2 py-1 rounded-md">
+                        {step}/{totalSteps}
+                    </span>
+                    <span className="text-sm md:text-base font-bold text-[#2D2420] tracking-tight">
+                        {getStepName(step).charAt(0).toUpperCase() + getStepName(step).slice(1).replace('_', ' ')}
+                    </span>
                 </div>
-                <div className="w-full bg-gray-100 rounded-full h-1.5 md:h-2 overflow-hidden">
-                    <motion.div
-                        className="bg-[#F27D42] h-full"
-                        initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}
-                        animate={{ width: `${(step / totalSteps) * 100}%` }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                <span className="text-xs md:text-sm font-medium text-gray-400">
+                    {Math.round((step / totalSteps) * 100)}%
+                </span>
+            </div>
+
+            {/* Segmented Progress Bar */}
+            <div className="flex gap-2 mb-8 md:mb-16 px-1">
+                {Array.from({ length: totalSteps }).map((_, i) => (
+                    <div 
+                        key={i} 
+                        className={`h-1.5 md:h-2 flex-1 rounded-full transition-all duration-500 ${
+                            i < step ? 'bg-[#F27D42]' : 'bg-gray-100'
+                        }`}
                     />
-                </div>
+                ))}
             </div>
 
             {/* Form Container */}
@@ -334,8 +345,10 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.contactTitle}</h2>
-                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.contactSubtitle}</p>
+                            <div className="text-center mb-8 md:mb-12">
+                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.contactTitle}</h2>
+                                <p className="text-gray-500 text-base md:text-xl">{t.contactSubtitle}</p>
+                            </div>
 
                              <form className="space-y-4 md:space-y-6 max-w-xl mx-auto bg-gray-50 p-5 md:p-8 rounded-3xl border border-gray-100 shadow-sm">
                                 <div className="grid grid-cols-1 gap-6 md:gap-10">
@@ -395,10 +408,12 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.serviceTypeTitle}</h2>
-                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.serviceTypeSubtitle}</p>
+                            <div className="text-center mb-8 md:mb-12">
+                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.serviceTypeTitle}</h2>
+                                <p className="text-gray-500 text-base md:text-xl">{t.serviceTypeSubtitle}</p>
+                            </div>
 
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
+                            <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-4xl mx-auto">
                                 {Object.entries(opt.serviceTypes || {}).map(([key, label]: [string, any]) => {
                                     const getIcon = () => {
                                         switch(key) {
@@ -420,15 +435,15 @@ function QuizFormContent() {
                                                 trackEvent('quiz_option_select', { step: 2, field: 'service_type', value: label });
                                                 setTimeout(nextStep, 300); 
                                             }}
-                                            className={`flex flex-col items-center justify-center gap-2 p-4 md:p-6 rounded-2xl border text-center transition-all ${formData.serviceType === label
-                                                ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                            className={`flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.serviceType === label
+                                                ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
                                                 : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                                 }`}
                                         >
-                                            <div className={formData.serviceType === label ? "text-[#F27D42]" : "text-gray-600"}>
+                                            <span className={formData.serviceType === label ? "text-white" : "text-[#F27D42]"}>
                                                 {getIcon()}
-                                            </div>
-                                            <span className="font-bold text-xs md:text-sm">{label}</span>
+                                            </span>
+                                            <span>{label}</span>
                                         </button>
                                     );
                                 })}
@@ -445,10 +460,12 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.cuisineTitle}</h2>
-                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.cuisineSubtitle}</p>
+                            <div className="text-center mb-8 md:mb-12">
+                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.cuisineTitle}</h2>
+                                <p className="text-gray-500 text-base md:text-xl">{t.cuisineSubtitle}</p>
+                            </div>
 
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                            <div className="flex flex-wrap justify-center gap-2 md:gap-3 max-w-5xl mx-auto">
                                 {Object.entries(opt.cuisines || {}).map(([key, label]: [string, any]) => {
                                     const getFlag = () => {
                                         switch(key) {
@@ -479,13 +496,13 @@ function QuizFormContent() {
                                                 trackEvent('quiz_option_select', { step: 3, field: 'cuisine', value: label });
                                                 setTimeout(nextStep, 300); 
                                             }}
-                                            className={`flex flex-col items-center justify-center gap-2 p-3 md:p-5 rounded-2xl border text-center transition-all ${formData.cuisine === label
-                                                ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                            className={`flex items-center gap-2 px-5 py-2.5 md:px-7 md:py-3.5 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.cuisine === label
+                                                ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
                                                 : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                                 }`}
                                         >
-                                            <span className="text-2xl md:text-3xl mb-1">{getFlag()}</span>
-                                            <span className="font-bold text-[10px] md:text-xs tracking-tight">{label}</span>
+                                            <span className="text-xl">{getFlag()}</span>
+                                            <span>{label}</span>
                                         </button>
                                     );
                                 })}
@@ -502,10 +519,12 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.guestsTitle}</h2>
-                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.guestsSubtitle}</p>
+                            <div className="text-center mb-8 md:mb-12">
+                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.guestsTitle}</h2>
+                                <p className="text-gray-500 text-base md:text-xl">{t.guestsSubtitle}</p>
+                            </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
+                            <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-4xl mx-auto">
                                 {Object.entries(opt.guests || {}).map(([key, label]: [string, any]) => (
                                     <button
                                         key={key}
@@ -514,13 +533,13 @@ function QuizFormContent() {
                                             trackEvent('quiz_option_select', { step: 4, field: 'guests', value: label });
                                             setTimeout(nextStep, 300); 
                                         }}
-                                        className={`flex items-center gap-4 p-4 md:p-6 rounded-2xl border text-left transition-all ${formData.guests === label
-                                            ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                        className={`flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.guests === label
+                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
                                             : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                             }`}
                                     >
-                                        <Users size={24} className={formData.guests === label ? "text-[#F27D42]" : "text-gray-600"} />
-                                        <span className="font-bold text-sm md:text-lg">{label}</span>
+                                        <Users size={20} className={formData.guests === label ? "text-white" : "text-[#F27D42]"} />
+                                        <span>{label}</span>
                                     </button>
                                 ))}
                             </div>
@@ -536,10 +555,12 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.occasionTitle}</h2>
-                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.occasionSubtitle}</p>
+                            <div className="text-center mb-8 md:mb-12">
+                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.occasionTitle}</h2>
+                                <p className="text-gray-500 text-base md:text-xl">{t.occasionSubtitle}</p>
+                            </div>
 
-                            <div className="grid grid-cols-2 gap-2 md:gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                            <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
                                 {Object.entries(opt.occasions || {}).map(([key, label]: [string, any]) => (
                                     <button
                                         key={key}
@@ -548,13 +569,12 @@ function QuizFormContent() {
                                             trackEvent('quiz_option_select', { step: 5, field: 'occasion', value: label });
                                             setTimeout(nextStep, 300); 
                                         }}
-                                        className={`group relative flex items-center gap-3 p-3 md:p-4 rounded-xl border text-left transition-all ${formData.occasion === label
-                                            ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                        className={`flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.occasion === label
+                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
                                             : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                             }`}
                                     >
-                                        <span className="font-bold text-xs md:text-sm flex-1">{label}</span>
-                                        <Info size={14} className="text-gray-500 group-hover:text-[#2D2420] transition-colors" />
+                                        <span>{label}</span>
                                     </button>
                                 ))}
                             </div>
@@ -570,10 +590,12 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.serviceLevelTitle}</h2>
-                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.serviceLevelSubtitle}</p>
+                            <div className="text-center mb-8 md:mb-12">
+                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.serviceLevelTitle}</h2>
+                                <p className="text-gray-500 text-base md:text-xl">{t.serviceLevelSubtitle}</p>
+                            </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-4xl mx-auto">
                                 {Object.entries(opt.serviceLevels || {}).map(([key, label]: [string, any]) => (
                                     <button
                                         key={key}
@@ -582,13 +604,15 @@ function QuizFormContent() {
                                             trackEvent('quiz_option_select', { step: 6, field: 'service_level', value: label });
                                             setTimeout(nextStep, 300); 
                                         }}
-                                        className={`flex flex-col items-center justify-center gap-4 p-8 rounded-3xl border text-center transition-all ${formData.serviceLevel === label
-                                            ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                        className={`flex flex-col items-center gap-4 px-10 py-8 md:px-16 md:py-12 rounded-[40px] border transition-all duration-300 font-bold ${formData.serviceLevel === label
+                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
                                             : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                             }`}
                                     >
-                                        {key === 'full' ? <User size={48} /> : <Utensils size={48} />}
-                                        <span className="font-bold text-lg md:text-xl">{label}</span>
+                                        <div className={formData.serviceLevel === label ? "text-white" : "text-[#F27D42]"}>
+                                            {key === 'full' ? <User size={48} /> : <Utensils size={48} />}
+                                        </div>
+                                        <span className="text-lg md:text-2xl">{label}</span>
                                     </button>
                                 ))}
                             </div>
@@ -604,23 +628,25 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-2">{t.extrasTitle}</h2>
-                            <p className="text-gray-600 text-sm md:text-lg mb-2 md:mb-6">{t.extrasSubtitle}</p>
+                            <div className="text-center mb-8 md:mb-12">
+                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.extrasTitle}</h2>
+                                <p className="text-gray-500 text-base md:text-xl">{t.extrasSubtitle}</p>
+                            </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+                            <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
                                 {Object.entries(opt.extras || {}).map(([key, label]: [string, any]) => (
                                     <button
                                         key={key}
                                         onClick={() => toggleExtra(label)}
-                                        className={`flex items-center gap-3 p-3 md:p-4 rounded-xl border text-left transition-all ${formData.extras.includes(label)
-                                            ? "bg-[#F27D42]/10 border-[#F27D42] text-[#F27D42]"
+                                        className={`flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.extras.includes(label)
+                                            ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
                                             : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
                                             }`}
                                     >
-                                        <div className={`w-5 h-5 rounded border flex items-center justify-center ${formData.extras.includes(label) ? "bg-[#F27D42] border-[#F27D42]" : "border-white/20"}`}>
-                                            {formData.extras.includes(label) && <ArrowRight size={14} className="text-white" />}
+                                        <div className={`w-5 h-5 rounded border flex items-center justify-center ${formData.extras.includes(label) ? "bg-white border-white" : "border-gray-300"}`}>
+                                            {formData.extras.includes(label) && <Check size={14} className="text-[#F27D42]" />}
                                         </div>
-                                        <span className="font-bold text-xs md:text-sm">{label}</span>
+                                        <span>{label}</span>
                                     </button>
                                 ))}
                             </div>
@@ -636,8 +662,10 @@ function QuizFormContent() {
                             exit={{ opacity: 0, x: -50 }}
                             className="w-full"
                         >
-                            <h2 className="text-xl md:text-3xl lg:text-5xl font-heading font-bold text-[#2D2420] mb-1 md:mb-4">{t.datesTitle}</h2>
-                            <p className="text-gray-600 text-sm md:text-lg mb-4 md:mb-6">{t.datesSubtitle}</p>
+                            <div className="text-center mb-8 md:mb-12">
+                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{t.datesTitle}</h2>
+                                <p className="text-gray-500 text-base md:text-xl">{t.datesSubtitle}</p>
+                            </div>
 
                             <div className="bg-gray-50 border border-gray-100 rounded-3xl p-4 md:p-8 overflow-hidden">
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -781,10 +809,10 @@ function QuizFormContent() {
             </div>
 
             {/* Navigation Controls */}
-            <div className="mt-4 md:mt-16 flex items-center justify-between border-t border-gray-100 pt-4 md:pt-8">
+            <div className="mt-12 md:mt-24 flex items-center justify-between border-t border-gray-100 pt-8 md:pt-12">
                 <button
                     onClick={prevStep}
-                    className={`flex items-center gap-2 font-bold transition-colors ${step === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-500 hover:text-[#2D2420]'}`}
+                    className={`flex items-center gap-2 font-bold transition-all ${step === 1 ? 'opacity-0 pointer-events-none' : 'text-gray-500 hover:text-[#2D2420] hover:-translate-x-1'}`}
                     disabled={step === 1 || isSubmitting}
                 >
                     <ArrowLeft size={20} />
@@ -803,19 +831,19 @@ function QuizFormContent() {
                             (step === 6 && !formData.serviceLevel) ||
                             (step === 7 && formData.extras.length === 0)
                         }
-                        className={`flex items-center gap-2 bg-[#F27D42] text-white px-6 py-3 md:px-8 md:py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-colors disabled:opacity-50 disabled:cursor-not-allowed hidden md:flex`}
+                        className={`flex items-center gap-3 bg-[#F27D42] text-white px-10 py-4 md:px-14 md:py-5 rounded-[20px] font-bold hover:bg-[#d66a35] transition-all shadow-xl shadow-[#F27D42]/20 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                         {t.nextButton}
-                        <ArrowRight size={20} />
+                        <ArrowRight size={22} />
                     </button>
                 ) : (
                     <button
                         onClick={() => handleSubmit()}
                         disabled={formData.eventDates.length === 0 || isSubmitting}
-                        className="flex items-center gap-2 bg-[#F27D42] text-white px-6 py-3 md:px-8 md:py-3 rounded-xl font-bold hover:bg-[#d66a35] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base whitespace-nowrap"
+                        className="flex items-center gap-3 bg-[#F27D42] text-white px-10 py-4 md:px-14 md:py-5 rounded-[20px] font-bold hover:bg-[#d66a35] transition-all shadow-xl shadow-[#F27D42]/20 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed text-lg"
                     >
                         {isSubmitting ? t.submitting : t.submitButton}
-                        {!isSubmitting && <CheckCircle2 size={20} />}
+                        {!isSubmitting && <CheckCircle2 size={22} />}
                     </button>
                 )}
             </div>
