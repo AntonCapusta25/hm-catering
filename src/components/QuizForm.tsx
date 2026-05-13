@@ -48,7 +48,7 @@ function QuizFormContent() {
     const [isSuccess, setIsSuccess] = useState(false);
     const [submissionId, setSubmissionId] = useState<string | null>(null);
 
-    const totalSteps = 8;
+    const totalSteps = 9;
 
     const updateData = (fields: Partial<FormData>) => {
         setFormData(prev => ({ ...prev, ...fields }));
@@ -75,8 +75,8 @@ function QuizFormContent() {
                 });
             }
 
-            // Save partial lead after Step 1
-            if (step === 1) {
+            // Save partial lead after Step 2 (Contact Info)
+            if (step === 2) {
                 captureLead();
             }
 
@@ -91,14 +91,15 @@ function QuizFormContent() {
 
     const getStepName = (s: number) => {
         switch(s) {
-            case 1: return 'contact';
-            case 2: return 'service_type';
-            case 3: return 'cuisine';
-            case 4: return 'guests';
-            case 5: return 'occasion';
-            case 6: return 'service_level';
-            case 7: return 'extras';
-            case 8: return 'dates';
+            case 1: return 'location';
+            case 2: return 'contact';
+            case 3: return 'service_type';
+            case 4: return 'cuisine';
+            case 5: return 'guests';
+            case 6: return 'occasion';
+            case 7: return 'service_level';
+            case 8: return 'extras';
+            case 9: return 'dates';
             default: return 'unknown';
         }
     };
@@ -336,10 +337,75 @@ function QuizFormContent() {
             {/* Form Container */}
             <div className="relative min-h-[280px] md:min-h-[550px]" onKeyDown={handleKeyDown}>
                 <AnimatePresence mode="wait">
-                    {/* STEP 1: Contact */}
+                    {/* STEP 1: City */}
                     {step === 1 && (
                         <motion.div
                             key="step1"
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            className="w-full"
+                        >
+                            <div className="text-center mb-8 md:mb-12">
+                                <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-[#2D2420] mb-4">{(t as any).cityTitle || "Where is the event?"}</h2>
+                                <p className="text-gray-500 text-base md:text-xl">{(t as any).citySubtitle || "Tell us in which city the event will take place."}</p>
+                            </div>
+
+                            <form className="max-w-4xl mx-auto space-y-8">
+                                <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+                                    {Object.entries(opt.cities || {}).map(([key, label]: [string, any]) => (
+                                        <button
+                                            key={key}
+                                            type="button"
+                                            onClick={() => {
+                                                updateData({ city: label });
+                                                trackEvent('quiz_option_select', { step: 1, field: 'city', value: label });
+                                                if (key !== 'other') {
+                                                    setTimeout(nextStep, 300);
+                                                }
+                                            }}
+                                            className={`flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 rounded-full border transition-all duration-300 font-bold text-sm md:text-base ${formData.city === label || (key === 'other' && formData.city && !Object.values(opt.cities || {}).includes(formData.city))
+                                                ? "bg-[#F27D42] border-[#F27D42] text-white shadow-lg shadow-[#F27D42]/20 scale-105"
+                                                : "bg-gray-50 border-gray-100 text-[#2D2420] hover:bg-gray-100/50"
+                                                }`}
+                                        >
+                                            <MapPin size={20} className={(formData.city === label || (key === 'other' && formData.city && !Object.values(opt.cities || {}).includes(formData.city))) ? "text-white" : "text-[#F27D42]"} />
+                                            <span>{label}</span>
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {(formData.city === (opt.cities as any)?.other || (formData.city && !Object.values(opt.cities || {}).includes(formData.city))) && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="max-w-md mx-auto"
+                                    >
+                                        <div className="relative">
+                                            <input
+                                                type="text"
+                                                placeholder={lang === 'nl' ? "Voer uw stad in..." : "Enter your city..."}
+                                                required
+                                                autoFocus
+                                                value={Object.values(opt.cities || {}).includes(formData.city) ? "" : formData.city}
+                                                onChange={(e) => updateData({ city: e.target.value })}
+                                                className="w-full bg-white border-2 border-[#F27D42]/20 rounded-2xl px-6 py-4 text-base text-[#2D2420] placeholder-gray-400 focus:outline-none focus:border-[#F27D42] transition-all shadow-sm"
+                                            />
+                                        </div>
+                                    </motion.div>
+                                )}
+                                
+                                <p className="text-center text-sm text-gray-400 mt-4 italic">
+                                    {lang === 'nl' ? "Wij verzorgen catering door heel Nederland!" : "We provide catering across the entire Netherlands!"}
+                                </p>
+                            </form>
+                        </motion.div>
+                    )}
+
+                    {/* STEP 2: Contact */}
+                    {step === 2 && (
+                        <motion.div
+                            key="step2"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
@@ -400,7 +466,7 @@ function QuizFormContent() {
                     )}
 
                     {/* STEP 2: Service Type */}
-                    {step === 2 && (
+                    {step === 3 && (
                         <motion.div
                             key="step2"
                             initial={{ opacity: 0, x: 50 }}
@@ -452,7 +518,7 @@ function QuizFormContent() {
                     )}
 
                     {/* STEP 3: Cuisine */}
-                    {step === 3 && (
+                    {step === 4 && (
                         <motion.div
                             key="step3"
                             initial={{ opacity: 0, x: 50 }}
@@ -511,7 +577,7 @@ function QuizFormContent() {
                     )}
 
                     {/* STEP 4: Guests */}
-                    {step === 4 && (
+                    {step === 5 && (
                         <motion.div
                             key="step4"
                             initial={{ opacity: 0, x: 50 }}
@@ -547,7 +613,7 @@ function QuizFormContent() {
                     )}
 
                     {/* STEP 5: Occasion */}
-                    {step === 5 && (
+                    {step === 6 && (
                         <motion.div
                             key="step5"
                             initial={{ opacity: 0, x: 50 }}
@@ -582,7 +648,7 @@ function QuizFormContent() {
                     )}
 
                     {/* STEP 6: Service Level */}
-                    {step === 6 && (
+                    {step === 7 && (
                         <motion.div
                             key="step6"
                             initial={{ opacity: 0, x: 50 }}
@@ -620,7 +686,7 @@ function QuizFormContent() {
                     )}
 
                     {/* STEP 7: Extras */}
-                    {step === 7 && (
+                    {step === 8 && (
                         <motion.div
                             key="step7"
                             initial={{ opacity: 0, x: 50 }}
@@ -654,7 +720,7 @@ function QuizFormContent() {
                     )}
 
                     {/* STEP 8: Dates */}
-                    {step === 8 && (
+                    {step === 9 && (
                         <motion.div
                             key="step8"
                             initial={{ opacity: 0, x: 50 }}
@@ -787,25 +853,7 @@ function QuizFormContent() {
                     )}
                 </AnimatePresence>
 
-                {/* Global Mobile Floating Arrow Button */}
-                {step < totalSteps && (
-                    <button
-                        type="button"
-                        onClick={nextStep}
-                        disabled={
-                            (step === 1 && (!formData.name || !formData.email || !formData.phone)) ||
-                            (step === 2 && !formData.serviceType) ||
-                            (step === 3 && !formData.cuisine) ||
-                            (step === 4 && !formData.guests) ||
-                            (step === 5 && !formData.occasion) ||
-                            (step === 6 && !formData.serviceLevel) ||
-                            (step === 7 && formData.extras.length === 0)
-                        }
-                        className="md:hidden absolute -bottom-6 right-0 bg-[#F27D42] text-white p-3 rounded-2xl shadow-xl hover:bg-[#d66a35] transition-all disabled:opacity-50 disabled:grayscale z-50"
-                    >
-                        <ArrowRight size={20} />
-                    </button>
-                )}
+
             </div>
 
             {/* Navigation Controls */}
@@ -823,13 +871,14 @@ function QuizFormContent() {
                     <button
                         onClick={nextStep}
                         disabled={
-                            (step === 1 && (!formData.name || !formData.email || !formData.phone)) ||
-                            (step === 2 && !formData.serviceType) ||
-                            (step === 3 && !formData.cuisine) ||
-                            (step === 4 && !formData.guests) ||
-                            (step === 5 && !formData.occasion) ||
-                            (step === 6 && !formData.serviceLevel) ||
-                            (step === 7 && formData.extras.length === 0)
+                            (step === 1 && !formData.city) ||
+                            (step === 2 && (!formData.name || !formData.email || !formData.phone)) ||
+                            (step === 3 && !formData.serviceType) ||
+                            (step === 4 && !formData.cuisine) ||
+                            (step === 5 && !formData.guests) ||
+                            (step === 6 && !formData.occasion) ||
+                            (step === 7 && !formData.serviceLevel) ||
+                            (step === 8 && formData.extras.length === 0)
                         }
                         className={`flex items-center gap-3 bg-[#F27D42] text-white px-10 py-4 md:px-14 md:py-5 rounded-[20px] font-bold hover:bg-[#d66a35] transition-all shadow-xl shadow-[#F27D42]/20 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed`}
                     >

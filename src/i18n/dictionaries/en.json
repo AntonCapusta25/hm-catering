@@ -332,6 +332,8 @@
         "backButton": "Back",
         "nextButton": "Next",
         "submitButton": "Request a Chef",
+        "cityTitle": "Where is the event?",
+        "citySubtitle": "Tell us in which city the event will take place?",
         "serviceTypeTitle": "What are you looking for?",
         "serviceTypeSubtitle": "Select the type of service you need.",
         "cuisineTitle": "Preferred Cuisine?",
@@ -413,6 +415,13 @@
                 "decor": "Decoration (tables, chairs, styling)",
                 "tent": "Party tent",
                 "notSure": "I don't know yet"
+            },
+            "cities": {
+                "amsterdam": "Amsterdam",
+                "rotterdam": "Rotterdam",
+                "utrecht": "Utrecht",
+                "thehague": "The Hague",
+                "other": "Other"
             }
         }
     },

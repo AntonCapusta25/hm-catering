@@ -332,6 +332,8 @@
         "backButton": "Terug",
         "nextButton": "Volgende",
         "submitButton": "Vraag een Chef aan",
+        "cityTitle": "Waar vindt het evenement plaats?",
+        "citySubtitle": "In welke stad wordt het evenement gehouden?",
         "serviceTypeTitle": "Ik zoek een cateraar voor",
         "serviceTypeSubtitle": "Selecteer het type service dat u zoekt.",
         "cuisineTitle": "Welk soort keuken heeft je voorkeur?",
@@ -413,6 +415,13 @@
                 "decor": "Decoratie (tafels, stoelen, styling)",
                 "tent": "Partytent",
                 "notSure": "Ik weet het nog niet"
+            },
+            "cities": {
+                "amsterdam": "Amsterdam",
+                "rotterdam": "Rotterdam",
+                "utrecht": "Utrecht",
+                "thehague": "Den Haag",
+                "other": "Anders"
             }
         }
     },
