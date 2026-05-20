@@ -24,7 +24,7 @@ type FormData = {
     city: string;
 };
 
-const WHATSAPP_URL = "https://wa.me/310640090902";
+const WHATSAPP_URL = "https://wa.me/3197010208809";
 
 function QuizFormContent() {
     const { dictionary } = useI18n();

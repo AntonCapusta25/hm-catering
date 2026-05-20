@@ -3,8 +3,8 @@
 import { useI18n } from "@/contexts/I18nContext";
 import Image from "next/image";
 
-const PHONE = "+310640090902";
-const PHONE_DISPLAY = "+31 06 4009 0902";
+const PHONE = "+3197010208809";
+const PHONE_DISPLAY = "+31 970 102 08809";
 const EMAIL = "info@homemademeal.net";
 const WHATSAPP_URL = `https://wa.me/${PHONE.replace("+", "")}`;
 
