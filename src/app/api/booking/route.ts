@@ -245,8 +245,10 @@ export async function POST(request: NextRequest) {
     .detail-item { padding: 8px 0; font-size: 14px; }
     .detail-label { font-weight: 600; color: ${COLORS.dark}; }
     .detail-value { color: #666; }
-    .cta-button { display: inline-block; background: linear-gradient(135deg, ${COLORS.orange} 0%, ${COLORS.orangeLight} 100%); color: #ffffff; padding: 16px 40px; text-decoration: none; font-weight: 600; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0; box-shadow: 0 4px 15px rgba(242, 125, 66, 0.3); }
+    .cta-button { display: inline-block; background: linear-gradient(135deg, ${COLORS.orange} 0%, ${COLORS.orangeLight} 100%); color: #ffffff; padding: 16px 30px; text-decoration: none; font-weight: 600; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; margin: 10px; box-shadow: 0 4px 15px rgba(242, 125, 66, 0.3); }
     .cta-button:hover { box-shadow: 0 6px 20px rgba(242, 125, 66, 0.4); }
+    .whatsapp-button { display: inline-block; background-color: #25D366; color: #ffffff; padding: 16px 30px; text-decoration: none; font-weight: 600; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; margin: 10px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
+    .whatsapp-button:hover { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
     .footer { background-color: ${COLORS.dark}; color: #999; padding: 30px; text-align: center; font-size: 13px; }
     .footer a { color: ${COLORS.orange}; text-decoration: none; }
     .divider { height: 1px; background: linear-gradient(to right, transparent, #ddd, transparent); margin: 30px 0; }
@@ -300,12 +302,13 @@ export async function POST(request: NextRequest) {
         </ul>
   
         <p class="text">
-          Want to discuss your event right away? Schedule a call with our team:
+          Want to discuss your event right away? Schedule a call or message our team on WhatsApp:
         </p>
   
-        <!-- CTA Button -->
+        <!-- CTA Buttons -->
         <div style="text-align: center; margin: 35px 0;">
           <a href="https://calendly.com/homemademeals-info/interview-with-homemade" class="cta-button">Schedule a Call</a>
+          <a href="https://wa.me/3197010208809" class="whatsapp-button">Message on WhatsApp</a>
         </div>
         
         <p class="text" style="text-align: center; font-style: italic; color: #888; margin-top: 40px;">
