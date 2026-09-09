@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
-import sgMail from '@sendgrid/mail'
-
-// Initialize SendGrid
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
+import { processPendingBookingEmails } from '@/lib/bookingEmailService'
 
 export async function POST(request: NextRequest) {
   // Debug logging for Vercel
@@ -48,6 +45,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Format message tag:
+    // If isPartial: tag with [PARTIAL LEAD]
+    // If full submission (!isPartial): clean any [PARTIAL LEAD] or [EMAIL_SENT] tag so the 5-minute timer can process the complete submission!
+    let formattedMessage = message || '';
+    if (isPartial) {
+      if (!formattedMessage.includes('[PARTIAL LEAD]')) {
+        formattedMessage = `[PARTIAL LEAD] ${formattedMessage}`.trim();
+      }
+    } else {
+      formattedMessage = formattedMessage
+        .replace(/\[PARTIAL LEAD\]/g, '')
+        .replace(/\[PROCESSING_EMAIL\]/g, '')
+        .replace(/\[EMAIL_SENT\]/g, '')
+        .trim();
+    }
+
     const submissionData = {
       name: name,
       email: email,
@@ -56,8 +69,9 @@ export async function POST(request: NextRequest) {
       cuisine: cuisine || null,
       event_date: eventDate || null,
       guests: guests || null,
-      message: isPartial ? `[PARTIAL LEAD] ${message || ''}`.trim() : message || null,
+      message: formattedMessage || null,
       phone: phone || null,
+      updated_at: new Date().toISOString(),
     };
 
     let result;
@@ -86,256 +100,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Brand colors for Homemade Private Chefs
-    const COLORS = {
-      cream: '#FDFBF7',
-      dark: '#2D2420',
-      orange: '#F27D42',
-      orangeLight: '#FF9F6D'
-    };
+    // Trigger background processing for any pending emails older than 5 minutes
+    processPendingBookingEmails().catch(err => {
+      console.error('Background processPendingBookingEmails error:', err);
+    });
 
-    // Lead Distribution Logic
-    const employees = [
-      'khaylanlalla35@gmail.com',
-      'walid_sabihi@outlook.com'
-    ];
-
-    // Get total count of submissions to determine rotation
-    const { count: submissionCount } = await supabaseAdmin
-      .from('booking_submissions')
-      .select('*', { count: 'exact', head: true });
-
-    const assignedEmployee = employees[(submissionCount || 0) % employees.length];
-    const assignedName = assignedEmployee.includes('khaylan') ? 'Khaylan' : 'Walid';
-
-    // Determine Email Subject based on state
-    let subject = `🎉 New Private Chef Request: ${name}`;
-    if (isPartial) {
-      subject = `⏳ [PARTIAL LEAD] New Catering Prospect: ${name}`;
-    } else if (id) {
-      subject = `🔄 [UPDATE] Private Chef Request: ${name}`;
-    }
-
-    // Send admin notification email
-    const adminEmail = {
-      to: [
-        process.env.SENDGRID_TO_EMAIL!, 
-        'mahmoudelwakil22@gmail.com',
-        assignedEmployee
-      ],
-      from: process.env.SENDGRID_FROM_EMAIL!,
-      subject: subject,
-      html: `
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-  body { font-family: 'Arial', sans-serif; background-color: #f5f5f5; margin: 0; padding: 20px; }
-  .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-  .header { background: linear-gradient(135deg, ${id && !isPartial ? '#3b82f6' : (isPartial ? '#9ca3af' : COLORS.orange)} 0%, ${id && !isPartial ? '#60a5fa' : (isPartial ? '#d1d5db' : COLORS.orangeLight)} 100%); color: #ffffff; padding: 30px; text-align: center; }
-  .content { padding: 30px; }
-  .detail-row { padding: 12px 0; border-bottom: 1px solid #eee; }
-  .detail-label { font-weight: bold; color: ${COLORS.dark}; display: inline-block; width: 140px; }
-  .detail-value { color: #555; }
-  .footer { background-color: ${COLORS.dark}; color: #999; padding: 20px; text-align: center; font-size: 12px; }
-  .badge { display: inline-block; background-color: #4CAF50; color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
-</style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1 style="margin: 0; font-size: 28px;">${isPartial ? 'Partial Lead' : (id ? 'Updated Booking' : 'New Booking')}</h1>
-      <p style="margin: 10px 0 0 0; opacity: 0.9;">Homemade Private Chefs</p>
-    </div>
-    
-    <div class="content">
-      <div style="margin-bottom: 20px; display: flex; gap: 10px;">
-        <span class="badge" style="background-color: ${isPartial ? '#9ca3af' : (id ? '#3b82f6' : '#4CAF50')};">${isPartial ? 'Partial Lead' : (id ? 'Update' : 'Complete Submission')}</span>
-        <span class="badge" style="background-color: ${COLORS.orange};">Assigned to: ${assignedName}</span>
-      </div>
-      
-      <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid ${COLORS.orange}; margin-bottom: 30px;">
-        <h3 style="color: ${COLORS.dark}; margin-top: 0; font-size: 16px;">Lead Assignment</h3>
-        <p style="margin: 0; color: #555;">This lead has been assigned to <strong>${assignedName} (${assignedEmployee})</strong> for follow-up.</p>
-      </div>
-      
-      <h2 style="color: ${COLORS.dark}; margin-top: 0;">Client Information</h2>
-      <div class="detail-row">
-        <span class="detail-label">Name:</span>
-        <span class="detail-value">${name}</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Email:</span>
-        <span class="detail-value"><a href="mailto:${email}" style="color: ${COLORS.orange};">${email}</a></span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Phone:</span>
-        <span class="detail-value"><a href="tel:${phone}" style="color: ${COLORS.orange};">${phone}</a></span>
-      </div>
-      
-      <h2 style="color: ${COLORS.dark}; margin-top: 30px;">Event Details</h2>
-      <div class="detail-row">
-        <span class="detail-label">Package:</span>
-        <span class="detail-value">${selectedMenu || 'Custom Package'}</span>
-      </div>
-      ${selectedChef ? `
-      <div class="detail-row">
-        <span class="detail-label">Preferred Chef:</span>
-        <span class="detail-value">${selectedChef}</span>
-      </div>
-      ` : ''}
-      <div class="detail-row">
-        <span class="detail-label">Cuisine:</span>
-        <span class="detail-value">${cuisine || 'Not specified'}</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Event Date:</span>
-        <span class="detail-value">${eventDate || 'Not specified'}</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Guest Count:</span>
-        <span class="detail-value">${guests || 'Not specified'}</span>
-      </div>
-      
-      ${message ? `
-      <h2 style="color: ${COLORS.dark}; margin-top: 30px;">Details & Special Requests</h2>
-      <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid ${COLORS.orange};">
-        <p style="margin: 0; white-space: pre-wrap; color: #555;">${message}</p>
-      </div>
-      ` : ''}
-      
-      <p style="margin-top: 30px; font-size: 12px; color: #999;">
-        ${id ? 'Last Updated' : 'Submitted'}: ${new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' })}
-      </p>
-    </div>
-    
-    <div class="footer">
-      <p style="margin: 0;">&copy; ${new Date().getFullYear()} Homemade Private Chefs. All rights reserved.</p>
-    </div>
-  </div>
-</body>
-</html>
-      `,
-    };
-
-    // Send admin notification
-    await sgMail.send(adminEmail);
-
-    // Send client confirmation ONLY for full submissions
-    if (!isPartial) {
-      const clientEmail = {
-        to: email,
-        from: process.env.SENDGRID_FROM_EMAIL!,
-        subject: "Your Private Chef Request Received! 🎉",
-        html: `
-  <!DOCTYPE html>
-  <html>
-  <head>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-    body { margin: 0; padding: 0; background-color: ${COLORS.cream}; font-family: 'Inter', sans-serif; }
-    .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
-    .header { background: linear-gradient(135deg, ${COLORS.dark} 0%, #3a3330 100%); color: #ffffff; padding: 50px 30px; text-align: center; }
-    .logo-text { font-size: 36px; font-weight: 700; margin: 0; letter-spacing: -1px; }
-    .tagline { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.8; margin-top: 10px; }
-    .content { padding: 40px 30px; }
-    .greeting { font-size: 24px; font-weight: 600; color: ${COLORS.dark}; margin-top: 0; }
-    .text { line-height: 1.8; color: #555; font-size: 15px; }
-    .details-box { background: linear-gradient(to right, ${COLORS.cream}, #ffffff); padding: 25px; border-radius: 12px; margin: 30px 0; border-left: 4px solid ${COLORS.orange}; }
-    .detail-item { padding: 8px 0; font-size: 14px; }
-    .detail-label { font-weight: 600; color: ${COLORS.dark}; }
-    .detail-value { color: #666; }
-    .cta-button { display: inline-block; background: linear-gradient(135deg, ${COLORS.orange} 0%, ${COLORS.orangeLight} 100%); color: #ffffff; padding: 16px 30px; text-decoration: none; font-weight: 600; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; margin: 10px; box-shadow: 0 4px 15px rgba(242, 125, 66, 0.3); }
-    .cta-button:hover { box-shadow: 0 6px 20px rgba(242, 125, 66, 0.4); }
-    .whatsapp-button { display: inline-block; background-color: #25D366; color: #ffffff; padding: 16px 30px; text-decoration: none; font-weight: 600; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; margin: 10px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
-    .whatsapp-button:hover { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
-    .footer { background-color: ${COLORS.dark}; color: #999; padding: 30px; text-align: center; font-size: 13px; }
-    .footer a { color: ${COLORS.orange}; text-decoration: none; }
-    .divider { height: 1px; background: linear-gradient(to right, transparent, #ddd, transparent); margin: 30px 0; }
-  </style>
-  </head>
-  <body>
-    <div class="container">
-      
-      <!-- Header -->
-      <div class="header">
-        <h1 class="logo-text">Homemade</h1>
-        <p class="tagline">Premium Private Chef Service</p>
-      </div>
-  
-      <!-- Main Content -->
-      <div class="content">
-        <h2 class="greeting">Hi ${name.split(' ')[0]}! 👋</h2>
-        
-        <p class="text">
-          Thank you for choosing <strong>Homemade</strong> for your upcoming event. 
-          We're thrilled to have the opportunity to make your celebration truly special!
-        </p>
-  
-        <p class="text">
-          We've received your private chef request${selectedMenu ? ` for our <strong>${selectedMenu}</strong> package` : ''}, 
-          and our team is already reviewing the details.
-        </p>
-  
-        <!-- Event Details -->
-        <div class="details-box">
-          <h3 style="margin-top: 0; color: ${COLORS.dark}; font-size: 16px;">Your Event Details</h3>
-          ${selectedMenu ? `<div class="detail-item"><span class="detail-label">Package:</span> <span class="detail-value">${selectedMenu}</span></div>` : ''}
-          ${selectedChef ? `<div class="detail-item"><span class="detail-label">Chef:</span> <span class="detail-value">${selectedChef}</span></div>` : ''}
-          ${cuisine ? `<div class="detail-item"><span class="detail-label">Cuisine:</span> <span class="detail-value">${cuisine}</span></div>` : ''}
-          ${eventDate ? `<div class="detail-item"><span class="detail-label">Event Date:</span> <span class="detail-value">${eventDate}</span></div>` : ''}
-          ${guests ? `<div class="detail-item"><span class="detail-label">Guests:</span> <span class="detail-value">${guests}</span></div>` : ''}
-          ${phone ? `<div class="detail-item"><span class="detail-label">Phone:</span> <span class="detail-value">${phone}</span></div>` : ''}
-        </div>
-  
-        <div class="divider"></div>
-  
-        <h3 style="color: ${COLORS.dark}; font-size: 18px;">What Happens Next?</h3>
-        <p class="text">
-          Our chef coordination specialists will review your requirements and reach out within <strong>24-48 hours</strong> to:
-        </p>
-        <ul class="text" style="line-height: 2;">
-          <li>Discuss your event vision and preferences</li>
-          <li>Customize your menu to perfection</li>
-          <li>Provide a detailed quote</li>
-          <li>Answer any questions you may have</li>
-        </ul>
-  
-        <p class="text">
-          Want to discuss your event right away? Schedule a call or message our team on WhatsApp:
-        </p>
-  
-        <!-- CTA Buttons -->
-        <div style="text-align: center; margin: 35px 0;">
-          <a href="https://calendly.com/homemademeals-info/interview-with-homemade" class="cta-button">Schedule a Call</a>
-          <a href="https://wa.me/3197010208809" class="whatsapp-button">Message on WhatsApp</a>
-        </div>
-        
-        <p class="text" style="text-align: center; font-style: italic; color: #888; margin-top: 40px;">
-          We can't wait to bring your event to life! 🎉
-        </p>
-      </div>
-  
-      <!-- Footer -->
-      <div class="footer">
-        <p style="margin: 0 0 10px 0; font-weight: 600; color: #ccc;">Homemade</p>
-        <p style="margin: 5px 0;">Premium Private Chef Services</p>
-        <p style="margin: 15px 0 5px 0;">
-          <a href="https://www.homemademeals.net">www.homemademeals.net</a>
-        </p>
-        <p style="margin: 20px 0 0 0; font-size: 11px; color: #777;">
-          &copy; ${new Date().getFullYear()} Homemade. All rights reserved.
-        </p>
-      </div>
-  
-    </div>
-  </body>
-  </html>
-        `,
-      };
-      await sgMail.send(clientEmail);
-    }
-
+    // Data is preserved immediately in database. Emails are sent ONCE 5 minutes after creation/update.
     return NextResponse.json(
       { 
         success: true, 
